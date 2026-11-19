@@ -1,34 +1,42 @@
 # KHOJ
 
-**Knowledge Hub for Opportunity Journey** — a voice-first learning-to-earning guidance system for rural India.
+**Knowledge Hub for Opportunity Journey** — a voice-first learning-to-earning guide for rural India.
 
-*Not what you studied, what you already do.*
+*Speak your skill. Find your first income.*
 
-Built for the Citi hackathon. KHOJ starts from what a learner already does, maps it to skills and occupations, links it to their school curriculum, and builds a step-by-step ladder to a verified first income. A local teacher or facilitator stays in the loop.
+Built for the Citi hackathon. A student speaks about a skill they care about, in Hindi, Marathi or English, and gets 5 to 10 career paths that end in income. A verified mentor guides each step, reviews the student's practical work, and is paid as milestones are approved. On completion the student sees their top 3 opportunities, with scheme eligibility checked by a cited rules engine, never by the AI.
 
-## Features
+## What it does
 
-- Picture quiz and voice onboarding in the student's language
-- Curriculum-to-Livelihood Bridge
-- Pathway ladders with cited scheme eligibility (Eligible / Not eligible / Check with the office)
-- Teacher Copilot and Local Demand Pulse
-- Khoj Passport: teacher-vouched QR credential that verifies offline
-- Offline-first with sync, and shared-phone profiles
+- Voice intake in Hindi and Marathi, with confirm-back and typed fallback
+- 5 to 10 career paths as five-rung income ladders, each with sources
+- Mentor matching, assignments and rubric-based review
+- Photo-based practical-work review with fraud and safety gates (a person always signs off high-risk work)
+- Simulated payout ledger, top 3 opportunities, and an organisation dashboard (aggregates only)
 
 ## Stack
 
-React + Vite + TypeScript (PWA) · FastAPI + SQLite
+React + Vite + TypeScript (PWA) · FastAPI · MongoDB Atlas · Bhashini (speech and translation) · Ollama and Gemini (LLMs)
 
-## Run
+## Run it
+
+Copy `.env.example` to `.env` and fill in what you have. Everything starts without any of it; the status panel shows what is missing.
 
 ```
-# backend
-cd backend && python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt && python ../scripts/seed.py
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+# backend (Windows Git Bash; on macOS/Linux use: source .venv/bin/activate)
+cd backend
+python -m venv .venv && . .venv/Scripts/activate
+pip install -r requirements.txt
+python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
-# frontend
-cd frontend && npm install && npm run dev -- --host
+# frontend (second terminal)
+cd frontend
+npm install
+npm run dev
 ```
 
-*(Code is not scaffolded yet.)*
+Open `https://localhost:5173`. On a phone on the same Wi-Fi, open the `Network` address Vite prints and accept the certificate warning once. Phones need HTTPS for the microphone, camera and service worker. Allow inbound port 5173 in the firewall if the phone cannot connect.
+
+Tests: `cd backend && python -m pytest` and `cd frontend && npm test`.
+
+
