@@ -35,7 +35,7 @@ npm install
 npm run dev
 ```
 
-Open `https://localhost:5173`. On a phone on the same Wi-Fi, open the `Network` address Vite prints and accept the certificate warning once. Phones need HTTPS for the microphone, camera and service worker. Allow inbound port 5173 in the firewall if the phone cannot connect.
+Open `http://localhost:5173` on the laptop. The browser treats localhost as secure, so the microphone and camera work with no certificate warning. For a phone on the same Wi-Fi, stop that and run `npm run dev:lan` instead. It serves `https://` on the `Network` address Vite prints; accept the certificate warning once on the phone (phones need HTTPS for the microphone, camera and service worker). Allow inbound port 5173 in the firewall if the phone cannot connect.
 
 Tests: `cd backend && python -m pytest` and `cd frontend && npm test`.
 
