@@ -1,0 +1,20 @@
+{
+  "_note": "Links between careers, used to widen a student's paths: if a student matches one career well, closely related careers get a smaller boost. type is progression (one leads on to the other) or adjacent (nearby work). weight is 0 to 1 and is the team's judgement; both directions are used. Skill-to-career links come from careers.json instead.",
+  "edges": [
+    { "from": "tailoring_enterprise", "to": "embroidery_zari", "type": "adjacent", "weight": 0.8 },
+    { "from": "tailoring_enterprise", "to": "digital_marketing_shops", "type": "adjacent", "weight": 0.3 },
+    { "from": "embroidery_zari", "to": "digital_marketing_shops", "type": "adjacent", "weight": 0.3 },
+    { "from": "dairy_poultry", "to": "mushroom_beekeeping", "type": "adjacent", "weight": 0.5 },
+    { "from": "electrician_wiring", "to": "solar_installer", "type": "progression", "weight": 0.7 },
+    { "from": "electrician_wiring", "to": "pump_motor_repair", "type": "adjacent", "weight": 0.7 },
+    { "from": "pump_motor_repair", "to": "solar_installer", "type": "adjacent", "weight": 0.4 },
+    { "from": "mobile_repair", "to": "electrician_wiring", "type": "adjacent", "weight": 0.4 },
+    { "from": "mobile_repair", "to": "csc_operator", "type": "adjacent", "weight": 0.3 },
+    { "from": "shop_accounting_gst", "to": "csc_operator", "type": "adjacent", "weight": 0.6 },
+    { "from": "shop_accounting_gst", "to": "digital_marketing_shops", "type": "adjacent", "weight": 0.3 },
+    { "from": "home_caterer_tiffin", "to": "shop_accounting_gst", "type": "adjacent", "weight": 0.2 },
+    { "from": "digital_marketing_shops", "to": "photography_video", "type": "adjacent", "weight": 0.7 },
+    { "from": "childcare_tuition", "to": "govt_exam_prep", "type": "adjacent", "weight": 0.3 },
+    { "from": "csc_operator", "to": "govt_exam_prep", "type": "adjacent", "weight": 0.2 }
+  ]
+}

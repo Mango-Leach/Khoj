@@ -1,0 +1,56 @@
+{
+  "id": "pm_vishwakarma",
+  "name_i18n": {
+    "en": "PM Vishwakarma (training and loan for artisans)"
+  },
+  "summary_i18n": {
+    "en": "Skill training, a toolkit grant and a low-interest loan up to Rs 3 lakh for artisans in 18 traditional trades, including tailoring."
+  },
+  "level": "central",
+  "source_title": "Salient features and Guidelines of PM Vishwakarma Scheme, Ministry of MSME (Press Information Bureau)",
+  "source_url": "https://www.pib.gov.in/PressReleseDetailm.aspx?PRID=1959098&reg=48&lang=2",
+  "apply_url": "https://pmvishwakarma.gov.in",
+  "entered_on": "2026-11-19",
+  "verified_on": null,
+  "verification_status": "awaiting_verification",
+  "valid_until": null,
+  "docs_required": [],
+  "conditions": [
+    {
+      "fact": "age",
+      "op": ">=",
+      "value": 18,
+      "label_i18n": {
+        "en": "Aged 18 or more"
+      }
+    },
+    {
+      "fact": "works_in_listed_trade",
+      "op": "==",
+      "value": true,
+      "label_i18n": {
+        "en": "Works with hands and tools in one of the 18 listed trades (tailor is one)"
+      }
+    },
+    {
+      "fact": "govt_service_in_family",
+      "op": "==",
+      "value": false,
+      "label_i18n": {
+        "en": "Nobody in the family is in government service"
+      }
+    },
+    {
+      "fact": "took_similar_loan_5y",
+      "op": "==",
+      "value": false,
+      "label_i18n": {
+        "en": "No similar government self-employment loan in the last 5 years"
+      }
+    }
+  ],
+  "note_i18n": {
+    "en": "Only one person in a family can register. Register at pmvishwakarma.gov.in or at a Common Service Centre."
+  },
+  "research_note": "NOT read in full: pib.gov.in returned HTTP 403 to my fetcher, so these values come from PIB text quoted in search results (PM Vishwakarma releases of 2023 to 2026). Age 18 or more on registration, working in one of the 18 notified trades (Tailor/Darzi is listed), self-employed in the unorganised sector, no government service in the family, no similar loan in the last five years, one member per family. Loan up to Rs 3 lakh at 5% in two parts. No end date was seen."
+}

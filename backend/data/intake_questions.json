@@ -1,0 +1,106 @@
+{
+  "_note": "Seven intake questions: two answered in words, five by tapping. Hindi and Marathi text are DRAFTS for native-speaker review. Tapped answers set a constraint directly, so the AI never has to guess hours, travel, money, earning history or priority. Only the open answers are read for skills. `example` is shown under an open question.",
+  "questions": [
+    {
+      "id": "q_enjoy",
+      "kind": "open",
+      "text": {
+        "en": "What do you enjoy doing or making?",
+        "hi": "आपको क्या करना या बनाना अच्छा लगता है?",
+        "mr": "तुम्हाला काय करायला किंवा बनवायला आवडतं?"
+      },
+      "example": {
+        "en": "For example: I like stitching clothes, or fixing phones.",
+        "hi": "जैसे: मुझे कपड़े सिलना पसंद है, या फ़ोन ठीक करना।",
+        "mr": "उदा.: मला कपडे शिवायला आवडतं, किंवा फोन दुरुस्त करायला."
+      }
+    },
+    {
+      "id": "q_skill",
+      "kind": "open",
+      "text": {
+        "en": "Tell us about something you made, fixed or helped with in the last few months.",
+        "hi": "पिछले कुछ महीनों में आपने कुछ बनाया, ठीक किया या किसी की मदद की हो, तो उसके बारे में बताइए।",
+        "mr": "गेल्या काही महिन्यांत तुम्ही काही बनवलं, दुरुस्त केलं किंवा कोणाला मदत केली असेल, तर त्याबद्दल सांगा."
+      },
+      "example": {
+        "en": "For example: I fixed our sewing machine and stitched blouses for two neighbours.",
+        "hi": "जैसे: मैंने अपनी सिलाई मशीन ठीक की और दो पड़ोसियों के ब्लाउज़ सिले।",
+        "mr": "उदा.: मी आमचं शिलाई मशीन दुरुस्त केलं आणि दोन शेजाऱ्यांचे ब्लाउज शिवले."
+      }
+    },
+    {
+      "id": "q_work",
+      "kind": "choice",
+      "text": {
+        "en": "Have you earned money from a skill, or helped someone with their work?",
+        "hi": "क्या आपने किसी हुनर से पैसे कमाए हैं, या किसी के काम में मदद की है?",
+        "mr": "तुम्ही एखाद्या कौशल्यातून पैसे कमावले आहेत का, किंवा कोणाच्या कामात मदत केली आहे का?"
+      },
+      "choices": [
+        {"id": "work_earned", "label": {"en": "Yes, I have earned money", "hi": "हाँ, मैंने पैसे कमाए हैं", "mr": "हो, मी पैसे कमावले आहेत"}, "effect": {"earned_before": "earned"}},
+        {"id": "work_helped", "label": {"en": "I have helped, without pay", "hi": "मैंने बिना पैसे के मदद की है", "mr": "मी पैसे न घेता मदत केली आहे"}, "effect": {"earned_before": "helped"}},
+        {"id": "work_no", "label": {"en": "Not yet", "hi": "अभी तक नहीं", "mr": "अजून नाही"}, "effect": {"earned_before": "no"}}
+      ]
+    },
+    {
+      "id": "q_hours",
+      "kind": "choice",
+      "text": {
+        "en": "How many hours a week can you give to learn?",
+        "hi": "सीखने के लिए आप हफ़्ते में कितने घंटे दे सकते हैं?",
+        "mr": "शिकण्यासाठी तुम्ही आठवड्यात किती तास देऊ शकता?"
+      },
+      "choices": [
+        {"id": "hours_lt5", "label": {"en": "Less than 5 hours", "hi": "5 घंटे से कम", "mr": "5 तासांपेक्षा कमी"}, "effect": {"hours_per_week": 3}},
+        {"id": "hours_5_10", "label": {"en": "5 to 10 hours", "hi": "5 से 10 घंटे", "mr": "5 ते 10 तास"}, "effect": {"hours_per_week": 7}},
+        {"id": "hours_10_20", "label": {"en": "10 to 20 hours", "hi": "10 से 20 घंटे", "mr": "10 ते 20 तास"}, "effect": {"hours_per_week": 15}},
+        {"id": "hours_gt20", "label": {"en": "More than 20 hours", "hi": "20 घंटे से ज़्यादा", "mr": "20 तासांपेक्षा जास्त"}, "effect": {"hours_per_week": 25}}
+      ]
+    },
+    {
+      "id": "q_move",
+      "kind": "choice",
+      "text": {
+        "en": "Can you travel or stay away from home for training or work?",
+        "hi": "क्या आप ट्रेनिंग या काम के लिए सफ़र कर सकते हैं या घर से दूर रह सकते हैं?",
+        "mr": "प्रशिक्षण किंवा कामासाठी तुम्ही प्रवास करू शकता का किंवा घरापासून दूर राहू शकता का?"
+      },
+      "choices": [
+        {"id": "move_yes", "label": {"en": "Yes", "hi": "हाँ", "mr": "हो"}, "effect": {"can_move_away": "yes"}},
+        {"id": "move_no", "label": {"en": "No, I must stay near home", "hi": "नहीं, मुझे घर के पास रहना है", "mr": "नाही, मला घराजवळ राहायचं आहे"}, "effect": {"can_move_away": "no"}},
+        {"id": "move_unsure", "label": {"en": "I am not sure", "hi": "मुझे पक्का नहीं पता", "mr": "मला नक्की माहीत नाही"}, "effect": {"can_move_away": "unknown"}}
+      ]
+    },
+    {
+      "id": "q_budget",
+      "kind": "choice",
+      "text": {
+        "en": "Can you spend some money on tools or classes?",
+        "hi": "क्या आप औज़ारों या कक्षाओं पर कुछ पैसे खर्च कर सकते हैं?",
+        "mr": "साधनांवर किंवा वर्गांवर तुम्ही काही पैसे खर्च करू शकता का?"
+      },
+      "choices": [
+        {"id": "budget_none", "label": {"en": "No, I have no money to spend", "hi": "नहीं, मेरे पास खर्च के लिए पैसे नहीं हैं", "mr": "नाही, माझ्याकडे खर्चासाठी पैसे नाहीत"}, "effect": {"budget": "none"}},
+        {"id": "budget_low", "label": {"en": "A little", "hi": "थोड़े", "mr": "थोडे"}, "effect": {"budget": "low"}},
+        {"id": "budget_medium", "label": {"en": "Some", "hi": "कुछ", "mr": "काही"}, "effect": {"budget": "medium"}}
+      ]
+    },
+    {
+      "id": "q_goal",
+      "kind": "choice",
+      "text": {
+        "en": "What matters most to you in the next year?",
+        "hi": "अगले एक साल में आपके लिए सबसे ज़रूरी क्या है?",
+        "mr": "पुढच्या वर्षात तुमच्यासाठी सर्वात महत्त्वाचं काय आहे?"
+      },
+      "choices": [
+        {"id": "goal_earn_soon", "label": {"en": "To start earning something soon", "hi": "जल्दी कुछ कमाई शुरू करना", "mr": "लवकर काहीतरी कमाई सुरू करणं"}, "effect": {"priority": "earn_soon"}},
+        {"id": "goal_earn_more", "label": {"en": "To build a skill that earns more later", "hi": "ऐसा हुनर बनाना जिससे आगे ज़्यादा कमाई हो", "mr": "पुढे जास्त कमाई देणारं कौशल्य घडवणं"}, "effect": {"priority": "earn_more"}},
+        {"id": "goal_near_home", "label": {"en": "To work near my home", "hi": "अपने घर के पास काम करना", "mr": "माझ्या घराजवळ काम करणं"}, "effect": {"priority": "near_home"}},
+        {"id": "goal_govt", "label": {"en": "A government job", "hi": "सरकारी नौकरी", "mr": "सरकारी नोकरी"}, "effect": {"priority": "govt_job"}},
+        {"id": "goal_business", "label": {"en": "To start my own business", "hi": "अपना खुद का काम शुरू करना", "mr": "स्वतःचा व्यवसाय सुरू करणं"}, "effect": {"priority": "own_business"}}
+      ]
+    }
+  ]
+}

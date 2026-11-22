@@ -1,0 +1,50 @@
+{
+  "id": "pmkvy",
+  "name_i18n": {
+    "en": "PMKVY 4.0 (free skill training)"
+  },
+  "summary_i18n": {
+    "en": "Free short courses and a certificate for school or college dropouts and unemployed youth aged 15 to 45."
+  },
+  "level": "central",
+  "source_title": "Guidelines for Pradhan Mantri Kaushal Vikas Yojana 4.0, Ministry of Skill Development and Entrepreneurship",
+  "source_url": "https://www.msde.gov.in/static/uploads/2024/04/PMKVY-4.0-Guidelines.pdf",
+  "apply_url": "https://www.skillindiadigital.gov.in",
+  "entered_on": "2026-11-19",
+  "verified_on": null,
+  "verification_status": "awaiting_verification",
+  "valid_until": "TODO_VERIFY",
+  "docs_required": [
+    "aadhaar"
+  ],
+  "conditions": [
+    {
+      "fact": "age",
+      "op": ">=",
+      "value": 15,
+      "label_i18n": {
+        "en": "Aged 15 or more"
+      }
+    },
+    {
+      "fact": "age",
+      "op": "<=",
+      "value": 45,
+      "label_i18n": {
+        "en": "Aged 45 or less"
+      }
+    },
+    {
+      "fact": "job_role_entry_rules",
+      "op": "==",
+      "value": "TODO_VERIFY",
+      "label_i18n": {
+        "en": "Meets the entry rules of the job role you pick"
+      }
+    }
+  ],
+  "note_i18n": {
+    "en": "Each course has its own entry rules. Ask a training centre near you."
+  },
+  "research_note": "NOT read in full: the guidelines PDF returned HTTP 403, so these values come from an excerpt quoted in search results. Target group 'school/college dropouts, out-of-education and unemployed youth aged 15 to 45', valid Aadhaar needed, and each job role sets its own eligibility in its course curriculum (so that condition stays TODO_VERIFY). A PIB release says 15 to 59 in another place. The guidelines say the scheme runs FY 2022 to 2026 and no extension was found, so valid_until stays TODO_VERIFY and the scheme shows Check with the office."
+}

@@ -1,0 +1,606 @@
+{
+  "_note": "15 careers across the 8 families; 7 are 'full' depth, 8 are lighter 'card' careers. Written by the build team's assistant on 2026-11-19 from public sources found by web search; NOT yet reviewed by a human or by a domain expert. Every source has verified_on = null until a person opens it and sets the date. first_income_step is a practical suggestion, not a promise of income, and no rupee figures appear anywhere. Hindi and Marathi name/summary/first-income text are DRAFTS for native-speaker review; ladder text in Hindi and Marathi is machine-translated into careers_i18n.json. required_skills use ids from skills.json. startup_cost: none | low | medium (tools or stock the learner must buy). first_income_days is the team's estimate of how soon a first small income is realistic, used only for ranking. safety.under18_theory_only means a learner under 18 follows the learning steps and practises on a training board only, with no live electrical or hazardous work (CLAUDE.md section 11).",
+  "careers": [
+    {
+      "career_id": "tailoring_enterprise",
+      "depth": "full",
+      "family": "textile",
+      "is_stem": false,
+      "name": { "en": "Tailoring enterprise", "hi": "सिलाई का अपना काम", "mr": "शिवणकामाचा स्वतःचा व्यवसाय" },
+      "summary": {
+        "en": "Stitch and alter clothes for people nearby, then grow into a small tailoring business of your own.",
+        "hi": "आसपास के लोगों के कपड़े सिलिए और ठीक कीजिए, फिर उसे अपना छोटा सिलाई का काम बनाइए।",
+        "mr": "आजूबाजूच्या लोकांचे कपडे शिवा आणि दुरुस्त करा, मग त्याचा स्वतःचा छोटा शिवणकामाचा व्यवसाय करा."
+      },
+      "first_income_step": {
+        "en": "Do alteration jobs for three neighbours, then stitch and sell your first few items locally.",
+        "hi": "तीन पड़ोसियों के कपड़ों की अल्टरेशन कीजिए, फिर अपने पहले कुछ कपड़े सिलकर आसपास बेचिए।",
+        "mr": "तीन शेजाऱ्यांचे कपडे दुरुस्त करा, मग तुमचे पहिले काही कपडे शिवून आजूबाजूला विका."
+      },
+      "required_skills": [
+        { "skill": "sewing", "weight": 3 },
+        { "skill": "sewing_machine_care", "weight": 2 },
+        { "skill": "garment_finishing", "weight": 2 },
+        { "skill": "shop_keeping", "weight": 1 }
+      ],
+      "related_skills": ["embroidery", "bookkeeping", "handicraft"],
+      "traits": { "startup_cost": "low", "min_hours_per_week": 6, "needs_travel": false, "self_employment": true, "works_near_home": true, "first_income_days": 30, "growth": "medium" },
+      "safety": { "class": "low", "under18_theory_only": false },
+      "ladder": [
+        { "key": "explore", "title": "Watch and measure", "detail": "This week, watch a local tailor work for an hour and practise taking five body measurements on a family member." },
+        { "key": "learn", "title": "Learn the basics", "detail": "Learn hand stitches, machine stitching, seams and basic cutting from a short course, a video series or a mentor." },
+        { "key": "practise", "title": "Practise on real clothes", "detail": "Stitch a simple blouse or kurta and do alterations for family, with your mentor reviewing photos of your work." },
+        { "key": "certify", "title": "Get recognised", "detail": "Work towards a recognised Tailor qualification, a training place under a government scheme for craftspeople if you are eligible, or an apprenticeship with a master tailor." },
+        { "key": "earn", "title": "Take orders", "detail": "Take stitching and alteration orders from neighbours and local shops, and grow into a small tailoring unit." }
+      ],
+      "opportunity_routes": ["pm_vishwakarma", "apparel_apprenticeship", "rseti"],
+      "learn_links": [
+        { "title": "Find tailoring and sewing courses", "provider": "Skill India Digital Hub", "url": "https://skillindiadigital.gov.in", "language": "multiple" }
+      ],
+      "sources": [
+        { "title": "National Qualifications Register: Tailor (Darzi) qualification file", "url": "https://www.nqr.gov.in/qualification/file/Q%20file-%20Tailor%20%28Darzi%29.pdf", "note": "A recognised Tailor (Darzi) qualification exists. Records for tailor qualifications show different levels, so check the register for the current one.", "entered_on": "2026-11-19", "verified_on": null },
+        { "title": "National Qualifications Register: Tailor (Darzi) Advance", "url": "https://nqr.gov.in/qualification/file/QF-%20Tailor%20%28Darzi%29-%20Advance.pdf", "note": "The next step up from the basic Tailor (Darzi) qualification.", "entered_on": "2026-11-19", "verified_on": null },
+        { "title": "PM Vishwakarma official portal", "url": "https://pmvishwakarma.gov.in", "note": "Government scheme for traditional craftspeople. Tailoring is reported to be one of its trades. Eligibility and benefits must be read on the portal.", "entered_on": "2026-11-19", "verified_on": null }
+      ]
+    },
+    {
+      "career_id": "embroidery_zari",
+      "depth": "card",
+      "family": "textile",
+      "is_stem": false,
+      "name": { "en": "Embroidery and zari work", "hi": "कढ़ाई और ज़री का काम", "mr": "भरतकाम आणि जरीचं काम" },
+      "summary": {
+        "en": "Make decorated fabric by hand, for clothes, bridal wear and home use.",
+        "hi": "कपड़ों, दुल्हन के परिधान और घर के सामान के लिए हाथ से सजावटी कढ़ाई कीजिए।",
+        "mr": "कपडे, वधूचे पोशाख आणि घरगुती वस्तूंसाठी हाताने सजावटी भरतकाम करा."
+      },
+      "first_income_step": {
+        "en": "Embroider a set of handkerchiefs or a blouse border and sell them to people you know.",
+        "hi": "रुमालों का एक सेट या ब्लाउज़ की बॉर्डर पर कढ़ाई करके जान-पहचान के लोगों को बेचिए।",
+        "mr": "रुमालांचा एक संच किंवा ब्लाउजच्या काठावर भरतकाम करून ओळखीच्या लोकांना विका."
+      },
+      "required_skills": [
+        { "skill": "embroidery", "weight": 3 },
+        { "skill": "sewing", "weight": 1 },
+        { "skill": "handicraft", "weight": 1 }
+      ],
+      "related_skills": ["garment_finishing", "social_media"],
+      "traits": { "startup_cost": "low", "min_hours_per_week": 6, "needs_travel": false, "self_employment": true, "works_near_home": true, "first_income_days": 45, "growth": "medium" },
+      "safety": { "class": "low", "under18_theory_only": false },
+      "ladder": [
+        { "key": "explore", "title": "Look and try", "detail": "Look at embroidery on clothes around you and try five basic stitches on a scrap of cloth." },
+        { "key": "learn", "title": "Learn stitches and patterns", "detail": "Learn common hand embroidery stitches and how to transfer a pattern to cloth." },
+        { "key": "practise", "title": "Finish small pieces", "detail": "Complete small pieces such as handkerchiefs or borders and send photos to your mentor." },
+        { "key": "certify", "title": "Get recognised", "detail": "Look at the Traditional Hand Embroiderer qualification, or train with an experienced embroiderer." },
+        { "key": "earn", "title": "Sell your work", "detail": "Sell pieces locally, take orders from tailors and boutiques, and grow from there." }
+      ],
+      "opportunity_routes": ["rseti"],
+      "learn_links": [],
+      "sources": [
+        { "title": "National Qualifications Register: Traditional Hand Embroiderer", "url": "https://www.nqr.gov.in/qualifications/13731", "note": "A recognised hand embroidery qualification from the Handicrafts Sector Skill Council; its electives are reported to include zari-zardozi work.", "entered_on": "2026-11-19", "verified_on": null }
+      ]
+    },
+    {
+      "career_id": "dairy_poultry",
+      "depth": "full",
+      "family": "agriculture",
+      "is_stem": false,
+      "name": { "en": "Dairy and poultry", "hi": "डेयरी और मुर्गीपालन", "mr": "दुग्धव्यवसाय आणि कुक्कुटपालन" },
+      "summary": {
+        "en": "Look after milk animals or poultry well and sell milk, eggs or birds, starting small and growing steadily.",
+        "hi": "दुधारू पशुओं या मुर्गियों की अच्छी देखभाल कीजिए और दूध, अंडे या मुर्गियाँ बेचिए, छोटे से शुरू करके धीरे-धीरे बढ़िए।",
+        "mr": "दुधाळ जनावरे किंवा कोंबड्यांची चांगली काळजी घ्या आणि दूध, अंडी किंवा कोंबड्या विका; लहान सुरुवात करून हळूहळू वाढवा."
+      },
+      "first_income_step": {
+        "en": "Sell milk or eggs from animals or birds you already look after to neighbours or a local collection point.",
+        "hi": "जिन पशुओं या मुर्गियों की आप पहले से देखभाल करते हैं, उनका दूध या अंडे पड़ोसियों या पास के संग्रह केंद्र पर बेचिए।",
+        "mr": "तुम्ही आधीपासून सांभाळत असलेल्या जनावरांचे किंवा कोंबड्यांचे दूध किंवा अंडी शेजाऱ्यांना किंवा जवळच्या संकलन केंद्रावर विका."
+      },
+      "required_skills": [
+        { "skill": "dairy_care", "weight": 3 },
+        { "skill": "poultry_care", "weight": 3 },
+        { "skill": "crop_farming", "weight": 1 }
+      ],
+      "related_skills": ["shop_keeping", "bookkeeping", "mushroom_beekeeping"],
+      "traits": { "startup_cost": "medium", "min_hours_per_week": 14, "needs_travel": false, "self_employment": true, "works_near_home": true, "first_income_days": 30, "growth": "medium" },
+      "safety": { "class": "low", "under18_theory_only": false },
+      "ladder": [
+        { "key": "explore", "title": "Visit and observe", "detail": "Visit a well-run dairy or poultry farm nearby and note how animals are fed, housed and kept clean." },
+        { "key": "learn", "title": "Learn animal care", "detail": "Learn feeding, clean housing, common illnesses to watch for, and basic record keeping, from your mentor or a local training centre." },
+        { "key": "practise", "title": "Care for a small number", "detail": "Look after a small number of animals or birds with records of feed, yield and health that your mentor reviews." },
+        { "key": "certify", "title": "Get recognised", "detail": "Look at the Dairy Farmer Entrepreneur qualification and the poultry qualifications, or training from your nearest agricultural training centre." },
+        { "key": "earn", "title": "Sell and grow", "detail": "Sell milk or eggs regularly, keep simple accounts, and expand only as your records show it pays." }
+      ],
+      "opportunity_routes": ["kvk_training", "rseti", "ddu_gky_agri"],
+      "learn_links": [
+        { "title": "Find animal husbandry courses", "provider": "Skill India Digital Hub", "url": "https://skillindiadigital.gov.in", "language": "multiple" }
+      ],
+      "sources": [
+        { "title": "National Qualifications Register: Dairy Farmer - Entrepreneur", "url": "https://www.nqr.gov.in/qualifications/13349", "note": "A recognised dairy qualification from the Agriculture Skill Council of India, with Dairy Farm Supervisor as a next step.", "entered_on": "2026-11-19", "verified_on": null },
+        { "title": "National Qualifications Register: Poultry Farm Supervisor", "url": "https://www.nqr.gov.in/qualifications/14121", "note": "A recognised poultry qualification; the Agriculture Skill Council also lists smaller-scale poultry packs.", "entered_on": "2026-11-19", "verified_on": null }
+      ]
+    },
+    {
+      "career_id": "mushroom_beekeeping",
+      "depth": "card",
+      "family": "agriculture",
+      "is_stem": false,
+      "name": { "en": "Mushroom and beekeeping", "hi": "मशरूम और मधुमक्खीपालन", "mr": "मशरूम आणि मधमाशीपालन" },
+      "summary": {
+        "en": "Grow mushrooms or keep bees in a small space, with little land needed.",
+        "hi": "थोड़ी सी जगह में मशरूम उगाइए या मधुमक्खियाँ पालिए, ज़्यादा ज़मीन की ज़रूरत नहीं।",
+        "mr": "थोड्या जागेत मशरूम पिकवा किंवा मधमाश्या पाळा; जास्त जमिनीची गरज नाही."
+      },
+      "first_income_step": {
+        "en": "Grow your first batch of mushrooms, or collect your first honey, and sell it locally.",
+        "hi": "मशरूम की अपनी पहली फ़सल उगाइए, या पहला शहद निकालिए, और उसे आसपास बेचिए।",
+        "mr": "मशरूमचं तुमचं पहिलं पीक घ्या किंवा पहिला मध काढा आणि तो आजूबाजूला विका."
+      },
+      "required_skills": [
+        { "skill": "mushroom_beekeeping", "weight": 3 },
+        { "skill": "crop_farming", "weight": 1 }
+      ],
+      "related_skills": ["dairy_care", "shop_keeping"],
+      "traits": { "startup_cost": "low", "min_hours_per_week": 8, "needs_travel": false, "self_employment": true, "works_near_home": true, "first_income_days": 60, "growth": "medium" },
+      "safety": { "class": "low", "under18_theory_only": false },
+      "ladder": [
+        { "key": "explore", "title": "See it done", "detail": "Visit someone who grows mushrooms or keeps bees and ask how a week looks." },
+        { "key": "learn", "title": "Get trained", "detail": "Do a short training on the one you choose, from an agricultural training centre or a government-supported programme." },
+        { "key": "practise", "title": "Start very small", "detail": "Begin with a few mushroom bags or a couple of hives, and send photos and notes to your mentor." },
+        { "key": "certify", "title": "Look for support", "detail": "Ask your nearest agricultural training centre about training and any support available for beekeepers." },
+        { "key": "earn", "title": "Sell the produce", "detail": "Sell fresh mushrooms or honey locally and grow only as demand shows." }
+      ],
+      "opportunity_routes": ["kvk_training"],
+      "learn_links": [],
+      "sources": [
+        { "title": "National Beekeeping and Honey Mission: operational guidelines", "url": "https://www.nitiforstates.gov.in/public-assets/Policy/policy_files/SNC498C000145.pdf", "note": "Official guidelines of the government mission that supports beekeeping. Its current phase must be checked.", "entered_on": "2026-11-19", "verified_on": null },
+        { "title": "National Horticulture Board: mushroom training brochure (ICAR Directorate of Mushroom Research)", "url": "https://www.nhb.gov.in/Training/Brochure/MSH_ICAR_DMRS.pdf", "note": "Older (2019-20) brochure; says the directorate trains growers and rural youth in mushroom cultivation. Current dates and fees must be confirmed.", "entered_on": "2026-11-19", "verified_on": null }
+      ]
+    },
+    {
+      "career_id": "electrician_wiring",
+      "depth": "full",
+      "family": "trades",
+      "is_stem": true,
+      "name": { "en": "Electrician (house wiring)", "hi": "इलेक्ट्रीशियन (घर की वायरिंग)", "mr": "इलेक्ट्रिशियन (घरातील वायरिंग)" },
+      "summary": {
+        "en": "Learn to install and repair wiring, switches and fittings in homes, safely and under supervision.",
+        "hi": "घरों में वायरिंग, स्विच और फिटिंग लगाना और ठीक करना सीखिए, सुरक्षित तरीके से और देखरेख में।",
+        "mr": "घरांमध्ये वायरिंग, स्विच आणि फिटिंग बसवणे आणि दुरुस्त करणे शिका, सुरक्षितपणे आणि देखरेखीखाली."
+      },
+      "first_income_step": {
+        "en": "Help a licensed electrician on supervised jobs. Live electrical work is for adults only.",
+        "hi": "लाइसेंस वाले इलेक्ट्रीशियन की देखरेख में उनके काम में मदद कीजिए। चालू बिजली पर काम सिर्फ़ वयस्कों के लिए है।",
+        "mr": "परवानाधारक इलेक्ट्रिशियनच्या देखरेखीखाली त्यांच्या कामात मदत करा. चालू विजेवरचं काम फक्त प्रौढांसाठी आहे."
+      },
+      "required_skills": [
+        { "skill": "house_wiring", "weight": 3 },
+        { "skill": "repair_general", "weight": 1 }
+      ],
+      "related_skills": ["solar_basics", "motor_repair", "mobile_repair"],
+      "traits": { "startup_cost": "medium", "min_hours_per_week": 10, "needs_travel": true, "self_employment": true, "works_near_home": true, "first_income_days": 75, "growth": "high" },
+      "safety": {
+        "class": "high",
+        "under18_theory_only": true,
+        "disclaimer": "KHOJ does not make anyone a licensed electrician. Only the licensing authority can do that, and an AI or a mentor approving your photos never means a job is safe."
+      },
+      "ladder": [
+        { "key": "explore", "title": "Learn the parts and the dangers", "detail": "Learn the parts of a home circuit (switch, MCB, earth) and why electricity is dangerous. Do not touch live wiring." },
+        { "key": "learn", "title": "Learn safe working", "detail": "Learn tools, wire types, colour codes, isolating and tagging a circuit before any work, and testing with a meter." },
+        { "key": "practise", "title": "Practise on a training board", "detail": "Wire a switch and light on a dead training board, with photos that your mentor reviews. Live circuits are never practised from photos." },
+        { "key": "certify", "title": "Get the right paper", "detail": "Look at the Maharashtra wireman permit route and a government trade course. Working legally on wiring needs the official permit, and your mentor or a qualified assessor must watch your first live work." },
+        { "key": "earn", "title": "Work under a licensed electrician", "detail": "Start as a helper to a licensed electrician or contractor, and grow towards your own permitted work." }
+      ],
+      "opportunity_routes": ["iti_apprenticeship", "ddu_gky_trades", "rseti"],
+      "learn_links": [
+        { "title": "Find electrician courses", "provider": "Skill India Digital Hub", "url": "https://skillindiadigital.gov.in", "language": "multiple" }
+      ],
+      "sources": [
+        { "title": "Maharashtra Chief Electrical Inspector: licensing and wireman permit", "url": "https://www.ceimah.in", "note": "The authority that licenses electrical workers and contractors in Maharashtra. Eligibility, exam dates and fees must be read here.", "entered_on": "2026-11-19", "verified_on": null },
+        { "title": "Directorate General of Training: Electrician trade", "url": "https://dgt.gov.in/sites/default/files/2024-02/Electrician.pdf", "note": "A government trade course for electricians.", "entered_on": "2026-11-19", "verified_on": null },
+        { "title": "MSME Technology Centre: Assistant Electrician (domestic cum industrial) qualification file", "url": "https://msmetcerp.cttc.gov.in/qualification-files/1787546145_6irogJGk.pdf", "note": "An entry-level electrician qualification file.", "entered_on": "2026-11-19", "verified_on": null }
+      ]
+    },
+    {
+      "career_id": "pump_motor_repair",
+      "depth": "full",
+      "family": "trades",
+      "is_stem": true,
+      "name": { "en": "Pump and motor repair", "hi": "पंप और मोटर की मरम्मत", "mr": "पंप आणि मोटारीची दुरुस्ती" },
+      "summary": {
+        "en": "Install, service and repair the water pumps and electric motors that farms and homes depend on.",
+        "hi": "खेतों और घरों में काम आने वाले पानी के पंप और बिजली की मोटर लगाइए, सर्विस कीजिए और ठीक कीजिए।",
+        "mr": "शेतात आणि घरात लागणारे पाण्याचे पंप आणि विजेच्या मोटारी बसवा, सर्व्हिस करा आणि दुरुस्त करा."
+      },
+      "first_income_step": {
+        "en": "Assist a local pump and motor mechanic on supervised service jobs. Live electrical work is for adults only.",
+        "hi": "पास के पंप और मोटर मैकेनिक की देखरेख में सर्विस के कामों में मदद कीजिए। चालू बिजली पर काम सिर्फ़ वयस्कों के लिए है।",
+        "mr": "जवळच्या पंप आणि मोटार मेकॅनिकच्या देखरेखीखाली सर्व्हिसच्या कामात मदत करा. चालू विजेवरचं काम फक्त प्रौढांसाठी आहे."
+      },
+      "required_skills": [
+        { "skill": "pump_repair", "weight": 3 },
+        { "skill": "motor_repair", "weight": 3 },
+        { "skill": "repair_general", "weight": 1 }
+      ],
+      "related_skills": ["house_wiring", "two_wheeler_repair", "plumbing", "crop_farming"],
+      "traits": { "startup_cost": "medium", "min_hours_per_week": 10, "needs_travel": true, "self_employment": true, "works_near_home": true, "first_income_days": 75, "growth": "medium" },
+      "safety": {
+        "class": "high",
+        "under18_theory_only": true,
+        "disclaimer": "KHOJ does not certify anyone to work on electrical equipment. Never run or test a motor on the strength of photos or an AI check."
+      },
+      "ladder": [
+        { "key": "explore", "title": "See how they work", "detail": "Watch a mechanic open a pump or motor, and learn the main parts and the dangers of mains power and moving shafts." },
+        { "key": "learn", "title": "Learn the parts and the checks", "detail": "Learn bearings, seals, windings, switches and starters, and how to isolate power before any work." },
+        { "key": "practise", "title": "Practise on dead equipment", "detail": "Take apart and rebuild an old pump or motor that is disconnected, with photos reviewed by your mentor. Test runs are always supervised in person." },
+        { "key": "certify", "title": "Get recognised", "detail": "Look at the Irrigation Service Technician, Water Pump Operator and Pump Operator cum Mechanic courses, and ask your training centre which fits." },
+        { "key": "earn", "title": "Work as a helper, then on your own", "detail": "Start as a helper with a mechanic, then take small service jobs as you gain experience." }
+      ],
+      "opportunity_routes": ["iti_apprenticeship", "ddu_gky_trades", "rseti"],
+      "learn_links": [
+        { "title": "Find pump and motor repair courses", "provider": "Skill India Digital Hub", "url": "https://skillindiadigital.gov.in", "language": "multiple" }
+      ],
+      "sources": [
+        { "title": "Agriculture Skill Council of India: Irrigation Service Technician (small capacity) qualification pack", "url": "https://asci-india.com/nos-panel/uploadPDF/Irrigation%20Service%20Technician%20%28Small%20Capacity%29b1947884696a4e6219ba368ffa9d2891.pdf", "note": "Covers installing and repairing submersible pumps and rewinding electric motors.", "entered_on": "2026-11-19", "verified_on": null },
+        { "title": "National Qualifications Register: Water Pump Operator", "url": "https://nqr.gov.in/qualification/file/Qfile_Water%20Pump%20Operator_%283.0%29_English.pdf", "note": "Lists Motor Mechanic as a progression step.", "entered_on": "2026-11-19", "verified_on": null },
+        { "title": "Directorate General of Training: Pump Operator cum Mechanic", "url": "https://www.dgt.gov.in/sites/default/files/2025-01/Pump%20Operator%20cum%20Mech_CTS2.0_NSQF-3.5.pdf", "note": "A government trade course.", "entered_on": "2026-11-19", "verified_on": null }
+      ]
+    },
+    {
+      "career_id": "mobile_repair",
+      "depth": "full",
+      "family": "trades",
+      "is_stem": true,
+      "name": { "en": "Mobile phone repair", "hi": "मोबाइल फ़ोन की मरम्मत", "mr": "मोबाईल फोनची दुरुस्ती" },
+      "summary": {
+        "en": "Fix screens, batteries, charging ports and software problems on phones.",
+        "hi": "फ़ोन की स्क्रीन, बैटरी, चार्जिंग पोर्ट और सॉफ़्टवेयर की समस्याएँ ठीक कीजिए।",
+        "mr": "फोनची स्क्रीन, बॅटरी, चार्जिंग पोर्ट आणि सॉफ्टवेअरच्या समस्या दुरुस्त करा."
+      },
+      "first_income_step": {
+        "en": "Help at a local phone repair shop, then fix simple problems such as screen protectors, software resets and battery swaps.",
+        "hi": "पास की मोबाइल मरम्मत की दुकान में मदद कीजिए, फिर स्क्रीन गार्ड, सॉफ़्टवेयर रीसेट और बैटरी बदलने जैसे आसान काम कीजिए।",
+        "mr": "जवळच्या मोबाईल दुरुस्तीच्या दुकानात मदत करा, मग स्क्रीन गार्ड, सॉफ्टवेअर रीसेट आणि बॅटरी बदलणे अशी सोपी कामे करा."
+      },
+      "required_skills": [
+        { "skill": "mobile_repair", "weight": 3 },
+        { "skill": "repair_general", "weight": 1 }
+      ],
+      "related_skills": ["computer_basics", "house_wiring"],
+      "traits": { "startup_cost": "low", "min_hours_per_week": 8, "needs_travel": false, "self_employment": true, "works_near_home": true, "first_income_days": 45, "growth": "medium" },
+      "safety": { "class": "medium", "under18_theory_only": false, "note": "Phone batteries can swell and catch fire if damaged, so learn battery safety first." },
+      "ladder": [
+        { "key": "explore", "title": "Watch and ask", "detail": "Spend an hour watching a repair shop and note the five most common problems." },
+        { "key": "learn", "title": "Learn the parts", "detail": "Learn the parts of a phone, safe opening, the tools, and basic testing with a multimeter." },
+        { "key": "practise", "title": "Practise on old phones", "detail": "Open and rebuild old phones you are allowed to practise on, with photos of each stage reviewed by your mentor." },
+        { "key": "certify", "title": "Get recognised", "detail": "Look at the Handheld Devices (Handset and Tablet) Technician qualification from the Telecom Sector Skill Council." },
+        { "key": "earn", "title": "Work in a shop or start small", "detail": "Work in a repair shop, then take small repair jobs of your own as your skill and tools grow." }
+      ],
+      "opportunity_routes": ["telecom_training", "rseti", "ddu_gky_trades"],
+      "learn_links": [
+        { "title": "Find mobile repair courses", "provider": "Skill India Digital Hub", "url": "https://skillindiadigital.gov.in", "language": "multiple" }
+      ],
+      "sources": [
+        { "title": "Telecom Sector Skill Council: Handheld Devices (Handset and Tablet) Technician qualification pack", "url": "https://www.tsscindia.com/App_Files/Documents/794b6271-80f9-451c-bc90-6494b9fbd638QP_Handheld%20Devices%20(Handset%20&%20Tablet)%20Technician_TEL_Q2201_v4.0.pdf", "note": "The recognised qualification pack for phone repair; earlier versions were called Handset Repair Engineer.", "entered_on": "2026-11-19", "verified_on": null },
+        { "title": "National Qualifications Register: Handheld Devices (Mobile and Accessories) Technician", "url": "https://www.nqr.gov.in/qualification/file/QF_Handheld%20Devices%20%28Mobile%20&%20Accessories%29%20Technician.pdf", "note": "A related recognised qualification.", "entered_on": "2026-11-19", "verified_on": null }
+      ]
+    },
+    {
+      "career_id": "solar_installer",
+      "depth": "card",
+      "family": "trades",
+      "is_stem": true,
+      "name": { "en": "Solar panel installer", "hi": "सोलर पैनल लगाने वाला", "mr": "सोलर पॅनल बसवणारा" },
+      "summary": {
+        "en": "Help install and maintain solar panels and solar pumps, working with a trained team.",
+        "hi": "प्रशिक्षित टीम के साथ सोलर पैनल और सोलर पंप लगाने और उनकी देखभाल में मदद कीजिए।",
+        "mr": "प्रशिक्षित टीमसोबत सोलर पॅनल आणि सोलर पंप बसवण्यात आणि त्यांच्या देखभालीत मदत करा."
+      },
+      "first_income_step": {
+        "en": "Join a local solar installer as a helper on ground-level tasks. Work at height and on live wiring is for trained adults only.",
+        "hi": "स्थानीय सोलर इंस्टॉलर के साथ ज़मीन पर होने वाले कामों में सहायक बनिए। ऊँचाई पर और चालू तारों पर काम सिर्फ़ प्रशिक्षित वयस्कों के लिए है।",
+        "mr": "स्थानिक सोलर इन्स्टॉलरसोबत जमिनीवरच्या कामात सहाय्यक व्हा. उंचीवरचं आणि चालू तारांवरचं काम फक्त प्रशिक्षित प्रौढांसाठी आहे."
+      },
+      "required_skills": [
+        { "skill": "solar_basics", "weight": 3 },
+        { "skill": "house_wiring", "weight": 2 },
+        { "skill": "repair_general", "weight": 1 }
+      ],
+      "related_skills": ["motor_repair", "pump_repair"],
+      "traits": { "startup_cost": "low", "min_hours_per_week": 10, "needs_travel": true, "self_employment": false, "works_near_home": false, "first_income_days": 90, "growth": "high" },
+      "safety": { "class": "high", "under18_theory_only": true, "disclaimer": "KHOJ does not certify anyone to install solar equipment or work at height." },
+      "ladder": [
+        { "key": "explore", "title": "Learn how solar works", "detail": "Learn how a panel, inverter and battery work together and the dangers of direct current and heights." },
+        { "key": "learn", "title": "Take a basics course", "detail": "Take a short course on solar installation basics, safe handling, and reading simple diagrams." },
+        { "key": "practise", "title": "Practise on a training kit", "detail": "Practise connecting a small training kit, with photos reviewed by your mentor. No rooftop work from photos." },
+        { "key": "certify", "title": "Get recognised", "detail": "Look at the Solar PV Installer (Suryamitra) qualification and the national solar skill programme." },
+        { "key": "earn", "title": "Join an installer", "detail": "Join a local installer as a helper and grow into maintenance and installation work." }
+      ],
+      "opportunity_routes": ["suryamitra", "ddu_gky_trades"],
+      "learn_links": [],
+      "sources": [
+        { "title": "National Qualifications Register: Solar PV Installer (Suryamitra)", "url": "https://www.nqr.gov.in/qualification/file/New%20English%20QF_Solar%20PV%20Installer%20%28Suryamitra%29.pdf", "note": "The recognised installer qualification under the national Suryamitra programme.", "entered_on": "2026-11-19", "verified_on": null },
+        { "title": "Ministry of New and Renewable Energy: solar human resource development", "url": "https://mnre.gov.in/en/solar-human-resource-development/", "note": "Where the ministry lists its solar skilling programmes. Eligibility must be read at the training centre.", "entered_on": "2026-11-19", "verified_on": null }
+      ]
+    },
+    {
+      "career_id": "home_caterer_tiffin",
+      "depth": "card",
+      "family": "food",
+      "is_stem": false,
+      "name": { "en": "Home caterer and tiffin service", "hi": "घर का कैटरिंग और टिफ़िन सेवा", "mr": "घरगुती केटरिंग आणि डबा सेवा" },
+      "summary": {
+        "en": "Cook meals at home for workers, students and small events, with clean and safe food.",
+        "hi": "कामगारों, विद्यार्थियों और छोटे कार्यक्रमों के लिए घर पर साफ़ और सुरक्षित खाना बनाइए।",
+        "mr": "कामगार, विद्यार्थी आणि छोट्या कार्यक्रमांसाठी घरी स्वच्छ आणि सुरक्षित जेवण बनवा."
+      },
+      "first_income_step": {
+        "en": "Cook tiffins for two or three regular customers, or take your first small event order.",
+        "hi": "दो-तीन नियमित ग्राहकों के लिए टिफ़िन बनाइए, या किसी छोटे कार्यक्रम का पहला ऑर्डर लीजिए।",
+        "mr": "दोन-तीन नियमित ग्राहकांसाठी डबे बनवा किंवा एखाद्या छोट्या कार्यक्रमाची पहिली ऑर्डर घ्या."
+      },
+      "required_skills": [
+        { "skill": "cooking", "weight": 3 },
+        { "skill": "catering", "weight": 3 },
+        { "skill": "baking", "weight": 2 }
+      ],
+      "related_skills": ["shop_keeping", "bookkeeping"],
+      "traits": { "startup_cost": "low", "min_hours_per_week": 10, "needs_travel": false, "self_employment": true, "works_near_home": true, "first_income_days": 30, "growth": "medium" },
+      "safety": { "class": "low", "under18_theory_only": false, "note": "Selling food usually needs food-safety registration. Check the rules before you start." },
+      "ladder": [
+        { "key": "explore", "title": "Find your first customers", "detail": "Ask three people nearby what meals they would pay for, and what they pay for them today." },
+        { "key": "learn", "title": "Learn food safety and costing", "detail": "Learn clean cooking, storage, portion sizes and how to work out what each meal costs you." },
+        { "key": "practise", "title": "Cook a trial batch", "detail": "Cook a trial batch for friends and ask for honest feedback on taste, quantity and timing." },
+        { "key": "certify", "title": "Register properly", "detail": "Find out which food-safety registration you need before you sell, and look for a food or hospitality training course." },
+        { "key": "earn", "title": "Serve regular customers", "detail": "Serve regular tiffin customers or take event orders, and track what each order earns." }
+      ],
+      "opportunity_routes": ["rseti", "hospitality_training"],
+      "learn_links": [],
+      "sources": [
+        { "title": "FSSAI: Food Licensing and Registration System (FoSCoS)", "url": "https://foscos.fssai.gov.in", "note": "The official portal for food business registration and licences. Which kind you need depends on how you sell, so read the current rules there.", "entered_on": "2026-11-19", "verified_on": null }
+      ]
+    },
+    {
+      "career_id": "shop_accounting_gst",
+      "depth": "full",
+      "family": "retail",
+      "is_stem": false,
+      "name": { "en": "Shop accounting and GST assistant", "hi": "दुकान का हिसाब और जीएसटी सहायक", "mr": "दुकानाचा हिशेब आणि जीएसटी सहाय्यक" },
+      "summary": {
+        "en": "Keep books, bills and tax records for small shops and help them stay in order.",
+        "hi": "छोटी दुकानों के खाते, बिल और टैक्स के रिकॉर्ड रखिए और उन्हें व्यवस्थित रखने में मदद कीजिए।",
+        "mr": "लहान दुकानांचे खाते, बिले आणि कराच्या नोंदी ठेवा आणि त्यांना व्यवस्थित ठेवण्यास मदत करा."
+      },
+      "first_income_step": {
+        "en": "Keep the daily books for two or three local shops.",
+        "hi": "दो-तीन स्थानीय दुकानों के रोज़ के खाते लिखिए।",
+        "mr": "दोन-तीन स्थानिक दुकानांचे रोजचे खाते लिहा."
+      },
+      "required_skills": [
+        { "skill": "bookkeeping", "weight": 3 },
+        { "skill": "gst_basics", "weight": 3 },
+        { "skill": "computer_basics", "weight": 2 },
+        { "skill": "shop_keeping", "weight": 1 },
+        { "skill": "banking_basics", "weight": 1 }
+      ],
+      "related_skills": ["communication", "social_media"],
+      "traits": { "startup_cost": "none", "min_hours_per_week": 6, "needs_travel": false, "self_employment": true, "works_near_home": true, "first_income_days": 45, "growth": "high" },
+      "safety": { "class": "low", "under18_theory_only": false, "note": "Acting as a registered GST practitioner has its own eligibility rules; helping a shop keep its books does not." },
+      "ladder": [
+        { "key": "explore", "title": "Read a shop's books", "detail": "Ask a shopkeeper to show you how they record daily sales, purchases and dues, and copy one page." },
+        { "key": "learn", "title": "Learn bookkeeping and billing", "detail": "Learn a simple cash book and ledger, how a GST bill is made, and basic accounting on a computer or phone." },
+        { "key": "practise", "title": "Keep a practice set of books", "detail": "Keep a full set of practice books for a sample shop for one month, with your mentor reviewing it." },
+        { "key": "certify", "title": "Get recognised", "detail": "Look at recognised courses on Tally and GST, and later the Corporate Accountant qualification as a next step." },
+        { "key": "earn", "title": "Keep books for shops", "detail": "Keep books and file simple records for several shops, and grow towards a small accounts service." }
+      ],
+      "opportunity_routes": ["nats_apprenticeship", "csc_network", "bank_correspondent"],
+      "learn_links": [
+        { "title": "Find accounting, Tally and GST courses", "provider": "Skill India Digital Hub", "url": "https://skillindiadigital.gov.in", "language": "multiple" },
+        { "title": "Free university-level courses", "provider": "SWAYAM", "url": "https://swayam.gov.in", "language": "English and Hindi" }
+      ],
+      "sources": [
+        { "title": "National Qualifications Register: Corporate Accountant", "url": "https://www.nqr.gov.in/qualification/file/QF_%20Corporate_Accountant_NSQF-5.pdf", "note": "A higher-level recognised accounting qualification covering bookkeeping, GST and TDS.", "entered_on": "2026-11-19", "verified_on": null },
+        { "title": "GST portal", "url": "https://www.gst.gov.in", "note": "Where businesses register and file. Enrolling as a GST practitioner has its own eligibility rules, so read them here.", "entered_on": "2026-11-19", "verified_on": null }
+      ]
+    },
+    {
+      "career_id": "csc_operator",
+      "depth": "card",
+      "family": "retail",
+      "is_stem": false,
+      "name": { "en": "Common Service Centre operator", "hi": "कॉमन सर्विस सेंटर संचालक", "mr": "कॉमन सर्व्हिस सेंटर चालक" },
+      "summary": {
+        "en": "Run a village centre that helps people with government forms, bill payments and other digital services.",
+        "hi": "गाँव का ऐसा केंद्र चलाइए जो लोगों को सरकारी फ़ॉर्म, बिल भुगतान और दूसरी डिजिटल सेवाओं में मदद करे।",
+        "mr": "गावातलं असं केंद्र चालवा जे लोकांना सरकारी अर्ज, बिल भरणे आणि इतर डिजिटल सेवांमध्ये मदत करतं."
+      },
+      "first_income_step": {
+        "en": "Help at an existing centre or a local shop with online forms and printouts, and earn a small fee per service.",
+        "hi": "किसी मौजूदा केंद्र या स्थानीय दुकान पर ऑनलाइन फ़ॉर्म और प्रिंटआउट में मदद कीजिए, और हर सेवा पर थोड़ी फ़ीस कमाइए।",
+        "mr": "सध्याच्या केंद्रावर किंवा स्थानिक दुकानात ऑनलाइन अर्ज आणि प्रिंटआउटमध्ये मदत करा आणि प्रत्येक सेवेवर थोडी फी मिळवा."
+      },
+      "required_skills": [
+        { "skill": "computer_basics", "weight": 3 },
+        { "skill": "banking_basics", "weight": 2 },
+        { "skill": "communication", "weight": 1 },
+        { "skill": "community_work", "weight": 1 },
+        { "skill": "shop_keeping", "weight": 1 }
+      ],
+      "related_skills": ["bookkeeping", "gst_basics"],
+      "traits": { "startup_cost": "medium", "min_hours_per_week": 12, "needs_travel": false, "self_employment": true, "works_near_home": true, "first_income_days": 60, "growth": "medium" },
+      "safety": { "class": "low", "under18_theory_only": false },
+      "ladder": [
+        { "key": "explore", "title": "See what the centre does", "detail": "Visit a nearby Common Service Centre and list the services people ask for." },
+        { "key": "learn", "title": "Learn the basics", "detail": "Learn computer and internet basics, how to fill common online forms, and how to explain them clearly to others." },
+        { "key": "practise", "title": "Help people with forms", "detail": "Help family and neighbours fill genuine forms with their consent, with your mentor checking your process." },
+        { "key": "certify", "title": "Check the requirements", "detail": "Read the official requirements for becoming a village-level entrepreneur, including the age and school requirement." },
+        { "key": "earn", "title": "Run a centre", "detail": "Start or join a centre and earn a fee per service." }
+      ],
+      "opportunity_routes": ["csc_network", "bank_correspondent"],
+      "learn_links": [],
+      "sources": [
+        { "title": "Common Service Centres: frequently asked questions", "url": "https://csc.gov.in/faqs", "note": "The official page says a village-level entrepreneur must be at least 18 and have passed Class 10. Read it before applying.", "entered_on": "2026-11-19", "verified_on": null }
+      ]
+    },
+    {
+      "career_id": "childcare_tuition",
+      "depth": "card",
+      "family": "care",
+      "is_stem": false,
+      "name": { "en": "Child care and home tuition", "hi": "बच्चों की देखभाल और घर पर ट्यूशन", "mr": "बालसंगोपन आणि घरगुती शिकवणी" },
+      "summary": {
+        "en": "Look after young children or help them learn, as a crèche helper or a home tutor.",
+        "hi": "क्रेच सहायक या घर के ट्यूटर के रूप में छोटे बच्चों की देखभाल कीजिए या उन्हें पढ़ने में मदद कीजिए।",
+        "mr": "पाळणाघर सहाय्यक किंवा घरगुती शिक्षक म्हणून लहान मुलांची काळजी घ्या किंवा त्यांना शिकण्यास मदत करा."
+      },
+      "first_income_step": {
+        "en": "Tutor two or three younger children in your neighbourhood, or help at a local crèche.",
+        "hi": "अपने मोहल्ले के दो-तीन छोटे बच्चों को पढ़ाइए, या पास के क्रेच में मदद कीजिए।",
+        "mr": "तुमच्या वस्तीतल्या दोन-तीन लहान मुलांना शिकवा किंवा जवळच्या पाळणाघरात मदत करा."
+      },
+      "required_skills": [
+        { "skill": "child_care", "weight": 3 },
+        { "skill": "tutoring", "weight": 3 },
+        { "skill": "communication", "weight": 1 }
+      ],
+      "related_skills": ["elder_care", "community_work", "voice_content"],
+      "traits": { "startup_cost": "none", "min_hours_per_week": 6, "needs_travel": false, "self_employment": true, "works_near_home": true, "first_income_days": 30, "growth": "medium" },
+      "safety": { "class": "low", "under18_theory_only": false, "note": "Always work with a parent's or guardian's knowledge, and never alone with a child behind closed doors." },
+      "ladder": [
+        { "key": "explore", "title": "Spend time with children", "detail": "Spend an afternoon helping with younger children and notice what keeps them interested." },
+        { "key": "learn", "title": "Learn child-friendly teaching", "detail": "Learn simple teaching methods, child safety and hygiene, and how to plan a short lesson or play activity." },
+        { "key": "practise", "title": "Teach a small group", "detail": "Teach one or two children for a few weeks and keep notes on their progress that your mentor reviews." },
+        { "key": "certify", "title": "Get recognised", "detail": "Look at the Early Childhood Educator trade course and related child-care qualifications." },
+        { "key": "earn", "title": "Tutor or work at a crèche", "detail": "Give paid tuition or work at a crèche or pre-school as an assistant." }
+      ],
+      "opportunity_routes": ["ddu_gky_care", "apprenticeship"],
+      "learn_links": [
+        { "title": "Teaching and learning resources", "provider": "DIKSHA", "url": "https://diksha.gov.in", "language": "multiple" }
+      ],
+      "sources": [
+        { "title": "Directorate General of Training: Early Childhood Educator trade", "url": "https://www.dgt.gov.in/sites/default/files/2024-12/Early%20Childhood%20Educator_CTS2.0_NSQF-3.5.pdf", "note": "A government trade course for early childhood educators.", "entered_on": "2026-11-19", "verified_on": null }
+      ]
+    },
+    {
+      "career_id": "digital_marketing_shops",
+      "depth": "full",
+      "family": "creative",
+      "is_stem": false,
+      "name": { "en": "Digital marketing for local shops", "hi": "स्थानीय दुकानों के लिए डिजिटल मार्केटिंग", "mr": "स्थानिक दुकानांसाठी डिजिटल मार्केटिंग" },
+      "summary": {
+        "en": "Help local shops get customers with photos, posts and messages on phones and social media.",
+        "hi": "फ़ोटो, पोस्ट और संदेशों से स्थानीय दुकानों को फ़ोन और सोशल मीडिया पर ग्राहक दिलाने में मदद कीजिए।",
+        "mr": "फोटो, पोस्ट आणि संदेशांद्वारे स्थानिक दुकानांना फोन आणि सोशल मीडियावर ग्राहक मिळवून देण्यास मदत करा."
+      },
+      "first_income_step": {
+        "en": "Make a simple shop profile with good photos and posts for one local shop, and be paid a small fee.",
+        "hi": "एक स्थानीय दुकान के लिए अच्छी फ़ोटो और पोस्ट के साथ एक सरल प्रोफ़ाइल बनाइए, और थोड़ी फ़ीस लीजिए।",
+        "mr": "एका स्थानिक दुकानासाठी चांगले फोटो आणि पोस्टसह साधी प्रोफाइल बनवा आणि थोडी फी घ्या."
+      },
+      "required_skills": [
+        { "skill": "social_media", "weight": 3 },
+        { "skill": "photography", "weight": 1 },
+        { "skill": "video_editing", "weight": 1 },
+        { "skill": "shop_keeping", "weight": 1 },
+        { "skill": "communication", "weight": 1 },
+        { "skill": "computer_basics", "weight": 1 }
+      ],
+      "related_skills": ["voice_content", "handicraft", "bookkeeping"],
+      "traits": { "startup_cost": "none", "min_hours_per_week": 6, "needs_travel": false, "self_employment": true, "works_near_home": true, "first_income_days": 45, "growth": "high" },
+      "safety": { "class": "low", "under18_theory_only": false, "note": "Never post a customer's or a child's photo without their permission, and never share anyone's phone number or address." },
+      "ladder": [
+        { "key": "explore", "title": "Look at what shops post", "detail": "Look at how three local shops show themselves online, and write down one thing each could do better." },
+        { "key": "learn", "title": "Learn the tools", "detail": "Learn to take clear product photos on a phone, write short posts in your language, and use a shop profile on maps and messaging apps." },
+        { "key": "practise", "title": "Build a sample for one shop", "detail": "Make a sample set of photos and posts for one shop, with your mentor reviewing them." },
+        { "key": "certify", "title": "Get recognised", "detail": "Look at the Search Engine Marketing Executive and Social Media Manager qualifications as later steps." },
+        { "key": "earn", "title": "Look after shops' pages", "detail": "Look after the online pages of several shops for a monthly fee." }
+      ],
+      "opportunity_routes": ["nats_apprenticeship", "local_business_gigs"],
+      "learn_links": [
+        { "title": "Find digital marketing courses", "provider": "Skill India Digital Hub", "url": "https://skillindiadigital.gov.in", "language": "multiple" }
+      ],
+      "sources": [
+        { "title": "Media and Entertainment Skills Council: Search Engine Marketing Executive (MES/Q0705)", "url": "https://mescindia.org/pdfnos/nos/approved-nos/MES_Q0705_v3.0_Eng.pdf", "note": "A recognised qualification pack in online marketing.", "entered_on": "2026-11-19", "verified_on": null },
+        { "title": "Media and Entertainment Skills Council: Social Media Manager (MES/Q0703)", "url": "https://www.mescindia.org/images/nos/approved-nos/MES_Q0703_v2.0_Eng.pdf", "note": "A recognised qualification pack in social media work.", "entered_on": "2026-11-19", "verified_on": null }
+      ]
+    },
+    {
+      "career_id": "photography_video",
+      "depth": "card",
+      "family": "creative",
+      "is_stem": false,
+      "name": { "en": "Photography and video", "hi": "फ़ोटोग्राफ़ी और वीडियो", "mr": "फोटोग्राफी आणि व्हिडिओ" },
+      "summary": {
+        "en": "Take and edit photos and short videos for events, shops and families.",
+        "hi": "कार्यक्रमों, दुकानों और परिवारों के लिए फ़ोटो और छोटे वीडियो लीजिए और एडिट कीजिए।",
+        "mr": "कार्यक्रम, दुकाने आणि कुटुंबांसाठी फोटो आणि छोटे व्हिडिओ काढा आणि एडिट करा."
+      },
+      "first_income_step": {
+        "en": "Take photos at a small family event or for a local shop and be paid for your first shoot.",
+        "hi": "किसी छोटे पारिवारिक कार्यक्रम या स्थानीय दुकान के लिए फ़ोटो खींचिए और पहली शूटिंग के पैसे लीजिए।",
+        "mr": "एखाद्या छोट्या कौटुंबिक कार्यक्रमात किंवा स्थानिक दुकानासाठी फोटो काढा आणि पहिल्या शूटचे पैसे मिळवा."
+      },
+      "required_skills": [
+        { "skill": "photography", "weight": 3 },
+        { "skill": "video_editing", "weight": 3 },
+        { "skill": "social_media", "weight": 1 }
+      ],
+      "related_skills": ["voice_content", "handicraft"],
+      "traits": { "startup_cost": "low", "min_hours_per_week": 6, "needs_travel": true, "self_employment": true, "works_near_home": true, "first_income_days": 45, "growth": "medium" },
+      "safety": { "class": "low", "under18_theory_only": false, "note": "Always ask permission before photographing people, and be careful with children's photos." },
+      "ladder": [
+        { "key": "explore", "title": "Study good photos", "detail": "Look at photos you admire and try to take five in the same style with your phone." },
+        { "key": "learn", "title": "Learn light and framing", "detail": "Learn light, framing, steady shots and simple editing on a phone or computer." },
+        { "key": "practise", "title": "Shoot a small project", "detail": "Shoot and edit a short project such as a festival or a shop, and share it with your mentor." },
+        { "key": "certify", "title": "Get recognised", "detail": "Look at the Still Photographer qualification, with videography as a later step." },
+        { "key": "earn", "title": "Take paid shoots", "detail": "Take paid shoots at events and for shops, and build a small portfolio." }
+      ],
+      "opportunity_routes": ["local_business_gigs"],
+      "learn_links": [],
+      "sources": [
+        { "title": "National Qualifications Register: Still Photographer", "url": "https://www.nqr.gov.in/public/qualification/file/NSQF_Still_Photographer.pdf", "note": "A recognised photography qualification; its listed progression includes videographer.", "entered_on": "2026-11-19", "verified_on": null }
+      ]
+    },
+    {
+      "career_id": "govt_exam_prep",
+      "depth": "card",
+      "family": "public",
+      "is_stem": false,
+      "name": { "en": "Government exam preparation", "hi": "सरकारी परीक्षा की तैयारी", "mr": "सरकारी परीक्षेची तयारी" },
+      "summary": {
+        "en": "Prepare for state and national recruitment exams, and help younger students prepare too.",
+        "hi": "राज्य और राष्ट्रीय भर्ती परीक्षाओं की तैयारी कीजिए और छोटे विद्यार्थियों को भी तैयारी में मदद कीजिए।",
+        "mr": "राज्य आणि राष्ट्रीय भरती परीक्षांची तयारी करा आणि लहान विद्यार्थ्यांनाही तयारीत मदत करा."
+      },
+      "first_income_step": {
+        "en": "Tutor younger students in the subjects you are strong in, while you prepare for your own exam.",
+        "hi": "अपनी परीक्षा की तैयारी करते हुए, जिन विषयों में आप मज़बूत हैं उनमें छोटे विद्यार्थियों को पढ़ाइए।",
+        "mr": "तुमच्या स्वतःच्या परीक्षेची तयारी करत असताना, ज्या विषयांत तुम्ही मजबूत आहात त्यात लहान विद्यार्थ्यांना शिकवा."
+      },
+      "required_skills": [
+        { "skill": "exam_prep", "weight": 3 },
+        { "skill": "tutoring", "weight": 1 },
+        { "skill": "community_work", "weight": 1 },
+        { "skill": "communication", "weight": 1 }
+      ],
+      "related_skills": ["computer_basics"],
+      "traits": { "startup_cost": "none", "min_hours_per_week": 14, "needs_travel": false, "self_employment": false, "works_near_home": true, "first_income_days": 60, "growth": "high" },
+      "safety": { "class": "low", "under18_theory_only": false },
+      "ladder": [
+        { "key": "explore", "title": "Pick your exams", "detail": "Find out which recruitment exams you could take and what each one asks for, including age and education." },
+        { "key": "learn", "title": "Study with a plan", "detail": "Make a weekly study plan, use free study resources, and learn the exam pattern." },
+        { "key": "practise", "title": "Take practice tests", "detail": "Take timed practice tests every week and review mistakes with your mentor." },
+        { "key": "certify", "title": "Apply for the exam", "detail": "Apply when you meet the age and education conditions in the official notice." },
+        { "key": "earn", "title": "Tutor while you prepare", "detail": "Earn by tutoring younger students while you prepare, and move into a government post if you succeed." }
+      ],
+      "opportunity_routes": ["mpsc", "police_defence_recruitment"],
+      "learn_links": [
+        { "title": "Free study resources", "provider": "SWAYAM", "url": "https://swayam.gov.in", "language": "English and Hindi" },
+        { "title": "School and exam learning resources", "provider": "DIKSHA", "url": "https://diksha.gov.in", "language": "multiple" }
+      ],
+      "sources": [
+        { "title": "Maharashtra Public Service Commission", "url": "https://mpsc.gov.in", "note": "The official site for state recruitment exams and notices. Age and education conditions are in each notice.", "entered_on": "2026-11-19", "verified_on": null }
+      ]
+    }
+  ]
+}

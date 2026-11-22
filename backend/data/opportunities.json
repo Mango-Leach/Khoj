@@ -1,0 +1,676 @@
+{
+  "_note": "Opportunities are real programmes and portals, linked out. KHOJ never applies for anyone: the learner applies on the official site, with a mentor's help if they have one. Each record names the career routes it serves (route_ids match the opportunity_routes in careers.json), where it applies (scope), whether it pays (income: stipend | support | none | unknown) and an eligibility rule. A record with scheme_id uses that scheme's rule file in data/schemes/ instead of its own conditions. Every record carries source_title, source_url and entered_on; verified_on stays null until a person opens the source and checks it. A rule value that could not be found in an official source is TODO_VERIFY, and then the record says 'Check with the office'. Hindi and Marathi text is a machine-made draft (machine_translated). No pay figures are stored.",
+  "opportunities": [
+    {
+      "id": "pm_vishwakarma",
+      "kind": "enterprise",
+      "scheme_id": "pm_vishwakarma",
+      "route_ids": ["pm_vishwakarma"],
+      "career_ids": [],
+      "any_career": false,
+      "scope": "national",
+      "districts": [],
+      "income": "support",
+      "languages": [],
+      "deadline": null,
+      "apply_url": "https://pmvishwakarma.gov.in",
+      "title_i18n": {
+        "en": "PM Vishwakarma: training, toolkit and loan for artisans",
+        "hi": "पीएम विश्वकर्मा: कारीगरों के लिए प्रशिक्षण, टूलकिट और ऋण",
+        "mr": "पीएम विश्वकर्मा: कारागिरांसाठी प्रशिक्षण, टूलकिट आणि कर्ज"
+      },
+      "summary_i18n": {
+        "en": "Skill training, a toolkit grant and a low-interest loan for artisans in 18 traditional trades, including tailoring.",
+        "hi": "सिलाई सहित 18 पारंपरिक कामों के कारीगरों के लिए कौशल प्रशिक्षण, टूलकिट अनुदान और कम ब्याज का ऋण।",
+        "mr": "शिवणकामासह 18 पारंपरिक व्यवसायांतील कारागिरांसाठी कौशल्य प्रशिक्षण, टूलकिट अनुदान आणि कमी व्याजाचे कर्ज."
+      },
+      "how_i18n": {
+        "en": "Register on the PM Vishwakarma site or at a Common Service Centre. Only one person in a family can register.",
+        "hi": "पीएम विश्वकर्मा साइट पर या कॉमन सर्विस सेंटर में रजिस्टर कीजिए। परिवार में केवल एक व्यक्ति रजिस्टर कर सकता है।",
+        "mr": "पीएम विश्वकर्मा साइटवर किंवा कॉमन सर्व्हिस सेंटरमध्ये नोंदणी करा. कुटुंबातील फक्त एक व्यक्ती नोंदणी करू शकते."
+      }
+    },
+    {
+      "id": "naps",
+      "kind": "apprenticeship",
+      "scheme_id": "naps",
+      "route_ids": ["iti_apprenticeship", "apprenticeship", "apparel_apprenticeship"],
+      "career_ids": [],
+      "any_career": false,
+      "scope": "national",
+      "districts": [],
+      "income": "stipend",
+      "languages": [],
+      "deadline": null,
+      "apply_url": "https://www.apprenticeshipindia.gov.in",
+      "title_i18n": {
+        "en": "Apprenticeship: learn on the job and get a stipend",
+        "hi": "अप्रेंटिसशिप: काम करते हुए सीखिए और वजीफ़ा पाइए",
+        "mr": "अप्रेंटिसशिप: काम करता करता शिका आणि विद्यावेतन मिळवा"
+      },
+      "summary_i18n": {
+        "en": "Learn a trade in a real workplace as an apprentice and get a stipend. Start age depends on the trade: 14 for most, 18 for hazardous trades.",
+        "hi": "असली कार्यस्थल पर अप्रेंटिस बनकर कोई काम सीखिए और वजीफ़ा पाइए। शुरू करने की उम्र काम पर निर्भर है: ज़्यादातर में 14, ख़तरनाक कामों में 18।",
+        "mr": "प्रत्यक्ष कामाच्या जागी अप्रेंटिस म्हणून एखादा व्यवसाय शिका आणि विद्यावेतन मिळवा. सुरू करण्याचे वय व्यवसायावर अवलंबून आहे: बहुतेकांसाठी 14, धोकादायक कामांसाठी 18."
+      },
+      "how_i18n": {
+        "en": "Register on the Apprenticeship India portal, then look for apprentice places in your trade. Your mentor can help you.",
+        "hi": "अप्रेंटिसशिप इंडिया पोर्टल पर रजिस्टर कीजिए, फिर अपने काम में अप्रेंटिस की जगहें देखिए। आपके मेंटर मदद कर सकते हैं।",
+        "mr": "अप्रेंटिसशिप इंडिया पोर्टलवर नोंदणी करा, मग तुमच्या व्यवसायातील अप्रेंटिसच्या जागा शोधा. तुमचे मार्गदर्शक मदत करू शकतात."
+      }
+    },
+    {
+      "id": "nats",
+      "kind": "apprenticeship",
+      "scheme_id": "nats",
+      "route_ids": ["nats_apprenticeship"],
+      "career_ids": [],
+      "any_career": false,
+      "scope": "national",
+      "districts": [],
+      "income": "stipend",
+      "languages": [],
+      "deadline": null,
+      "apply_url": "https://nats.education.gov.in",
+      "title_i18n": {
+        "en": "NATS: apprenticeship for graduates and diploma holders",
+        "hi": "एनएटीएस: स्नातकों और डिप्लोमा धारकों के लिए अप्रेंटिसशिप",
+        "mr": "एनएटीएस: पदवीधर आणि डिप्लोमाधारकांसाठी अप्रेंटिसशिप"
+      },
+      "summary_i18n": {
+        "en": "On-the-job training of 6 months to 1 year for graduates, diploma holders and vocational certificate holders.",
+        "hi": "स्नातकों, डिप्लोमा धारकों और व्यावसायिक प्रमाणपत्र धारकों के लिए 6 महीने से 1 साल का काम पर प्रशिक्षण।",
+        "mr": "पदवीधर, डिप्लोमाधारक आणि व्यावसायिक प्रमाणपत्रधारकांसाठी 6 महिने ते 1 वर्षाचे कामावरचे प्रशिक्षण."
+      },
+      "how_i18n": {
+        "en": "You apply on the NATS portal and an employer picks you.",
+        "hi": "आप एनएटीएस पोर्टल पर आवेदन करते हैं और कोई नियोक्ता आपको चुनता है।",
+        "mr": "तुम्ही एनएटीएस पोर्टलवर अर्ज करता आणि एखादा नियोक्ता तुमची निवड करतो."
+      }
+    },
+    {
+      "id": "pmkvy",
+      "kind": "training",
+      "scheme_id": "pmkvy",
+      "route_ids": ["telecom_training", "hospitality_training"],
+      "career_ids": [],
+      "any_career": false,
+      "scope": "national",
+      "districts": [],
+      "income": "none",
+      "languages": [],
+      "deadline": null,
+      "apply_url": "https://www.skillindiadigital.gov.in",
+      "title_i18n": {
+        "en": "Skill India short courses (PMKVY)",
+        "hi": "स्किल इंडिया के छोटे कोर्स (पीएमकेवीवाई)",
+        "mr": "स्किल इंडियाचे छोटे अभ्यासक्रम (पीएमकेव्हीवाय)"
+      },
+      "summary_i18n": {
+        "en": "Short courses and a certificate for school or college dropouts and unemployed youth. Each course has its own entry rules.",
+        "hi": "स्कूल या कॉलेज छोड़ चुके और बेरोज़गार युवाओं के लिए छोटे कोर्स और प्रमाणपत्र। हर कोर्स के अपने प्रवेश नियम हैं।",
+        "mr": "शाळा किंवा कॉलेज सोडलेल्या आणि बेरोजगार तरुणांसाठी छोटे अभ्यासक्रम आणि प्रमाणपत्र. प्रत्येक अभ्यासक्रमाचे स्वतःचे प्रवेश नियम आहेत."
+      },
+      "how_i18n": {
+        "en": "Search the Skill India Digital Hub for a course, or ask a training centre near you.",
+        "hi": "स्किल इंडिया डिजिटल हब पर कोर्स खोजिए, या अपने पास के प्रशिक्षण केंद्र से पूछिए।",
+        "mr": "स्किल इंडिया डिजिटल हबवर अभ्यासक्रम शोधा, किंवा तुमच्या जवळच्या प्रशिक्षण केंद्राला विचारा."
+      }
+    },
+    {
+      "id": "rseti",
+      "kind": "training",
+      "scheme_id": null,
+      "route_ids": ["rseti"],
+      "career_ids": [],
+      "any_career": false,
+      "scope": "national",
+      "districts": [],
+      "income": "unknown",
+      "languages": [],
+      "deadline": null,
+      "apply_url": "https://bankofmaharashtra.bank.in/rseti",
+      "name_i18n": {
+        "en": "Rural Self Employment Training Institute (RSETI)",
+        "hi": "ग्रामीण स्वरोज़गार प्रशिक्षण संस्थान (आरसेटी)",
+        "mr": "ग्रामीण स्वयंरोजगार प्रशिक्षण संस्था (आरसेटी)"
+      },
+      "title_i18n": {
+        "en": "RSETI: short residential training for self-employment",
+        "hi": "आरसेटी: स्वरोज़गार के लिए छोटा आवासीय प्रशिक्षण",
+        "mr": "आरसेटी: स्वयंरोजगारासाठी लहान निवासी प्रशिक्षण"
+      },
+      "summary_i18n": {
+        "en": "Banks run these institutes in each district. They offer short residential courses to help rural youth start their own work. Entry rules are not confirmed yet.",
+        "hi": "बैंक हर ज़िले में ये संस्थान चलाते हैं। ये ग्रामीण युवाओं को अपना काम शुरू करने में मदद के लिए छोटे आवासीय कोर्स देते हैं। प्रवेश नियम अभी पक्के नहीं हैं।",
+        "mr": "बँका प्रत्येक जिल्ह्यात या संस्था चालवतात. ग्रामीण तरुणांना स्वतःचे काम सुरू करण्यासाठी त्या लहान निवासी अभ्यासक्रम देतात. प्रवेश नियम अजून निश्चित नाहीत."
+      },
+      "how_i18n": {
+        "en": "Ask the RSETI in your district about the next batch and who can join.",
+        "hi": "अपने ज़िले के आरसेटी से अगले बैच और प्रवेश के नियम पूछिए।",
+        "mr": "तुमच्या जिल्ह्यातील आरसेटीला पुढच्या बॅचबद्दल आणि कोण सहभागी होऊ शकते ते विचारा."
+      },
+      "source_title": "Bank of Maharashtra: Rural Self Employment Training Institutes (RSETIs)",
+      "source_url": "https://bankofmaharashtra.bank.in/rseti",
+      "entered_on": "2026-11-20",
+      "verified_on": null,
+      "verification_status": "awaiting_verification",
+      "valid_until": null,
+      "level": "central",
+      "docs_required": [],
+      "conditions": [
+        {
+          "fact": "age",
+          "op": ">=",
+          "value": "TODO_VERIFY",
+          "label_i18n": {
+            "en": "Within the age range the institute accepts",
+            "hi": "संस्थान की स्वीकार की गई उम्र सीमा के भीतर",
+            "mr": "संस्था स्वीकारत असलेल्या वयोमर्यादेत"
+          }
+        }
+      ],
+      "research_note": "READ 2026-11-20: Bank of Maharashtra's RSETI page describes free-of-cost short residential programmes of about 1 to 6 weeks (part of the page was only available as a summary). It gave no age range. A Lok Sabha answer (eparlib.nic.in) and the NIRDPR page could not be fetched, so the age condition stays TODO_VERIFY. Secondary sources say 18 to 45; not entered."
+    },
+    {
+      "id": "ddu_gky",
+      "kind": "training",
+      "scheme_id": null,
+      "route_ids": ["ddu_gky_agri", "ddu_gky_trades", "ddu_gky_care"],
+      "career_ids": [],
+      "any_career": false,
+      "scope": "national",
+      "districts": [],
+      "income": "unknown",
+      "languages": [],
+      "deadline": null,
+      "apply_url": "https://ddugky.gov.in",
+      "name_i18n": {
+        "en": "DDU-GKY (rural skills scheme)",
+        "hi": "डीडीयू-जीकेवाई (ग्रामीण कौशल योजना)",
+        "mr": "डीडीयू-जीकेवाय (ग्रामीण कौशल्य योजना)"
+      },
+      "title_i18n": {
+        "en": "DDU-GKY: skill training for rural youth",
+        "hi": "डीडीयू-जीकेवाई: ग्रामीण युवाओं के लिए कौशल प्रशिक्षण",
+        "mr": "डीडीयू-जीकेवाय: ग्रामीण तरुणांसाठी कौशल्य प्रशिक्षण"
+      },
+      "summary_i18n": {
+        "en": "Skill training for rural youth through approved training centres. The entry rules are not confirmed yet.",
+        "hi": "मान्यता प्राप्त प्रशिक्षण केंद्रों के ज़रिए ग्रामीण युवाओं के लिए कौशल प्रशिक्षण। प्रवेश नियम अभी पक्के नहीं हैं।",
+        "mr": "मान्यताप्राप्त प्रशिक्षण केंद्रांमार्फत ग्रामीण तरुणांसाठी कौशल्य प्रशिक्षण. प्रवेश नियम अजून निश्चित नाहीत."
+      },
+      "how_i18n": {
+        "en": "Find a training centre near you on the DDU-GKY site and ask about entry rules.",
+        "hi": "डीडीयू-जीकेवाई साइट पर अपने पास का प्रशिक्षण केंद्र खोजिए और प्रवेश नियम पूछिए।",
+        "mr": "डीडीयू-जीकेवाय साइटवर तुमच्या जवळचे प्रशिक्षण केंद्र शोधा आणि प्रवेश नियम विचारा."
+      },
+      "source_title": "DDU-GKY, Ministry of Rural Development (official site)",
+      "source_url": "https://ddugky.gov.in",
+      "entered_on": "2026-11-20",
+      "verified_on": null,
+      "verification_status": "awaiting_verification",
+      "valid_until": null,
+      "level": "central",
+      "docs_required": [],
+      "conditions": [
+        {
+          "fact": "age",
+          "op": ">=",
+          "value": "TODO_VERIFY",
+          "label_i18n": {
+            "en": "Within the age range the scheme accepts",
+            "hi": "योजना की स्वीकार की गई उम्र सीमा के भीतर",
+            "mr": "योजना स्वीकारत असलेल्या वयोमर्यादेत"
+          }
+        },
+        {
+          "fact": "household_rule",
+          "op": "==",
+          "value": "TODO_VERIFY",
+          "label_i18n": {
+            "en": "Meets the household rule",
+            "hi": "परिवार से जुड़ी शर्त पूरी करते हैं",
+            "mr": "कुटुंबाशी संबंधित अट पूर्ण करता"
+          }
+        }
+      ],
+      "research_note": "NOT read: ddugky.gov.in did not resolve from the fetcher, and the PIB PDF could not be decoded. Secondary sources say 15 to 35 years with a poor-household rule and a higher age limit for some groups; those are not official text, so both conditions stay TODO_VERIFY."
+    },
+    {
+      "id": "kvk_training",
+      "kind": "training",
+      "scheme_id": null,
+      "route_ids": ["kvk_training"],
+      "career_ids": [],
+      "any_career": false,
+      "scope": "state",
+      "districts": [],
+      "income": "unknown",
+      "languages": [],
+      "deadline": null,
+      "apply_url": "https://icar.org.in",
+      "name_i18n": {
+        "en": "Krishi Vigyan Kendra (KVK) training",
+        "hi": "कृषि विज्ञान केंद्र (केवीके) प्रशिक्षण",
+        "mr": "कृषी विज्ञान केंद्र (केव्हीके) प्रशिक्षण"
+      },
+      "title_i18n": {
+        "en": "KVK: short farm and dairy skill courses",
+        "hi": "केवीके: खेती और डेयरी के छोटे कौशल कोर्स",
+        "mr": "केव्हीके: शेती आणि दुग्ध व्यवसायाचे लहान कौशल्य अभ्यासक्रम"
+      },
+      "summary_i18n": {
+        "en": "Krishi Vigyan Kendras run short skill courses for rural youth in farming and allied work such as poultry and dairy. Dates and entry rules differ by centre.",
+        "hi": "कृषि विज्ञान केंद्र ग्रामीण युवाओं के लिए खेती और मुर्गी पालन, डेयरी जैसे जुड़े कामों के छोटे कोर्स चलाते हैं। तारीख़ें और प्रवेश नियम हर केंद्र में अलग हैं।",
+        "mr": "कृषी विज्ञान केंद्रे ग्रामीण तरुणांसाठी शेती आणि कुक्कुटपालन, दुग्ध व्यवसायासारख्या कामांचे लहान अभ्यासक्रम चालवतात. तारखा आणि प्रवेश नियम केंद्रानुसार वेगळे आहेत."
+      },
+      "how_i18n": {
+        "en": "Ask the KVK in your district about the next course.",
+        "hi": "अपने ज़िले के केवीके से अगले कोर्स के बारे में पूछिए।",
+        "mr": "तुमच्या जिल्ह्यातील केव्हीकेला पुढच्या अभ्यासक्रमाबद्दल विचारा."
+      },
+      "source_title": "ICAR news: Skill Training Programme of Rural Youths on Commercial Poultry Farming, organised by KVK Washim, Maharashtra",
+      "source_url": "https://icar.org.in/en/node/5873",
+      "entered_on": "2026-11-20",
+      "verified_on": null,
+      "verification_status": "awaiting_verification",
+      "valid_until": null,
+      "level": "central",
+      "docs_required": [],
+      "conditions": [
+        {
+          "fact": "course_entry_rule",
+          "op": "==",
+          "value": "TODO_VERIFY",
+          "label_i18n": {
+            "en": "Meets the centre's entry rule",
+            "hi": "केंद्र का प्रवेश नियम पूरा करते हैं",
+            "mr": "केंद्राचा प्रवेश नियम पूर्ण करता"
+          }
+        }
+      ],
+      "research_note": "NOT read in full: the ICAR page was under maintenance when fetched and kvk.icar.gov.in did not resolve. The title above was seen in search results, which also showed KVK courses in Washim, Dhule and Jalgaon. Eligibility and fees differ by centre and stay TODO_VERIFY."
+    },
+    {
+      "id": "suryamitra",
+      "kind": "training",
+      "scheme_id": null,
+      "route_ids": ["suryamitra"],
+      "career_ids": [],
+      "any_career": false,
+      "scope": "national",
+      "districts": [],
+      "income": "unknown",
+      "languages": [],
+      "deadline": null,
+      "apply_url": "https://suryamitra.nise.res.in",
+      "name_i18n": {
+        "en": "Suryamitra solar training",
+        "hi": "सूर्यमित्र सौर प्रशिक्षण",
+        "mr": "सूर्यमित्र सौर प्रशिक्षण"
+      },
+      "title_i18n": {
+        "en": "Suryamitra: solar installer training",
+        "hi": "सूर्यमित्र: सोलर इंस्टॉलर प्रशिक्षण",
+        "mr": "सूर्यमित्र: सोलर इन्स्टॉलर प्रशिक्षण"
+      },
+      "summary_i18n": {
+        "en": "A 600-hour residential course to become a solar installer, with boarding and lodging at the training centre. For ITI or diploma holders; degree holders are not eligible.",
+        "hi": "सोलर इंस्टॉलर बनने के लिए 600 घंटे का आवासीय कोर्स, जिसमें प्रशिक्षण केंद्र पर रहना और खाना मिलता है। आईटीआई या डिप्लोमा धारकों के लिए; डिग्री धारक पात्र नहीं हैं।",
+        "mr": "सोलर इन्स्टॉलर होण्यासाठी 600 तासांचा निवासी अभ्यासक्रम, ज्यात प्रशिक्षण केंद्रात राहणे आणि जेवण मिळते. आयटीआय किंवा डिप्लोमाधारकांसाठी; पदवीधर पात्र नाहीत."
+      },
+      "how_i18n": {
+        "en": "Look for a training centre on the Suryamitra site, or write to suryamitra@nise.res.in or call 0124-2853015 (Monday to Friday, 9 am to 5 pm).",
+        "hi": "सूर्यमित्र साइट पर प्रशिक्षण केंद्र खोजिए, या suryamitra@nise.res.in पर लिखिए या 0124-2853015 पर फ़ोन कीजिए (सोमवार से शुक्रवार, सुबह 9 से शाम 5)।",
+        "mr": "सूर्यमित्र साइटवर प्रशिक्षण केंद्र शोधा, किंवा suryamitra@nise.res.in वर लिहा किंवा 0124-2853015 वर फोन करा (सोमवार ते शुक्रवार, सकाळी 9 ते सायंकाळी 5)."
+      },
+      "source_title": "Suryamitra Skill Development Programme, National Institute of Solar Energy",
+      "source_url": "https://suryamitra.nise.res.in/",
+      "entered_on": "2026-11-20",
+      "verified_on": null,
+      "verification_status": "awaiting_verification",
+      "valid_until": null,
+      "level": "central",
+      "docs_required": [],
+      "conditions": [
+        {
+          "fact": "qualification",
+          "op": "in",
+          "value": ["diploma", "vocational_certificate"],
+          "label_i18n": {
+            "en": "An ITI or diploma holder (not a degree holder)",
+            "hi": "आईटीआई या डिप्लोमा धारक (डिग्री धारक नहीं)",
+            "mr": "आयटीआय किंवा डिप्लोमाधारक (पदवीधर नाही)"
+          }
+        },
+        {
+          "fact": "field_of_study",
+          "op": "in",
+          "value": ["electrical", "electronics", "civil", "mechanical", "fitter", "instrumentation", "welder"],
+          "label_i18n": {
+            "en": "In one of the listed trades (electrical, electronics, civil, mechanical, fitter, instrumentation, welder)",
+            "hi": "सूचीबद्ध कामों में से एक में (इलेक्ट्रिकल, इलेक्ट्रॉनिक्स, सिविल, मैकेनिकल, फिटर, इंस्ट्रूमेंटेशन, वेल्डर)",
+            "mr": "यादीतील एका व्यवसायात (इलेक्ट्रिकल, इलेक्ट्रॉनिक्स, सिव्हिल, मेकॅनिकल, फिटर, इन्स्ट्रुमेंटेशन, वेल्डर)"
+          }
+        }
+      ],
+      "research_note": "READ 2026-11-20 (suryamitra.nise.res.in, Director General's message): 600 hours, residential, qualification ITI or diploma in the trades listed above, degree holders strictly not eligible, boarding and lodging provided by the training partner. No age and no fee were stated, so none is entered. The guidelines PDF on sm.nise.res.in was not read. The learner is never asked for a field of study, so this record always says Check with the office until a person confirms."
+    },
+    {
+      "id": "csc_vle",
+      "kind": "enterprise",
+      "scheme_id": null,
+      "route_ids": ["csc_network"],
+      "career_ids": [],
+      "any_career": false,
+      "scope": "national",
+      "districts": [],
+      "income": "unknown",
+      "languages": [],
+      "deadline": null,
+      "apply_url": "https://cscregister.csccloud.in/",
+      "name_i18n": {
+        "en": "Common Service Centre (CSC) operator",
+        "hi": "कॉमन सर्विस सेंटर (सीएससी) संचालक",
+        "mr": "कॉमन सर्व्हिस सेंटर (सीएससी) चालक"
+      },
+      "title_i18n": {
+        "en": "CSC: run a Common Service Centre as a village entrepreneur",
+        "hi": "सीएससी: ग्रामीण उद्यमी बनकर कॉमन सर्विस सेंटर चलाइए",
+        "mr": "सीएससी: ग्रामीण उद्योजक म्हणून कॉमन सर्व्हिस सेंटर चालवा"
+      },
+      "summary_i18n": {
+        "en": "A Village Level Entrepreneur runs a Common Service Centre that gives government and other services to people in the village. Registration is free.",
+        "hi": "ग्राम स्तरीय उद्यमी एक कॉमन सर्विस सेंटर चलाता है, जो गाँव के लोगों को सरकारी और दूसरी सेवाएँ देता है। रजिस्ट्रेशन मुफ़्त है।",
+        "mr": "ग्राम स्तरीय उद्योजक कॉमन सर्व्हिस सेंटर चालवतो, जे गावातील लोकांना सरकारी आणि इतर सेवा देते. नोंदणी मोफत आहे."
+      },
+      "how_i18n": {
+        "en": "Register on the CSC site. You need an Aadhaar number. Registration costs nothing.",
+        "hi": "सीएससी साइट पर रजिस्टर कीजिए। आधार नंबर चाहिए। रजिस्ट्रेशन में कोई शुल्क नहीं है।",
+        "mr": "सीएससी साइटवर नोंदणी करा. आधार क्रमांक लागतो. नोंदणीला काहीही शुल्क नाही."
+      },
+      "source_title": "Common Services Centres (CSC): Frequently Asked Questions",
+      "source_url": "https://csc.gov.in/faqs",
+      "entered_on": "2026-11-20",
+      "verified_on": null,
+      "verification_status": "awaiting_verification",
+      "valid_until": null,
+      "level": "central",
+      "docs_required": ["aadhaar"],
+      "conditions": [
+        {
+          "fact": "age",
+          "op": ">=",
+          "value": 19,
+          "label_i18n": {
+            "en": "Above 18 years of age",
+            "hi": "18 साल से ऊपर की उम्र",
+            "mr": "18 वर्षांपेक्षा जास्त वय"
+          }
+        },
+        {
+          "fact": "grade",
+          "op": ">=",
+          "value": 11,
+          "label_i18n": {
+            "en": "Passed Class 10 (in Class 11 or later)",
+            "hi": "10वीं पास (11वीं या उससे आगे)",
+            "mr": "10वी उत्तीर्ण (11वी किंवा पुढे)"
+          }
+        }
+      ],
+      "research_note": "READ 2026-11-20 (csc.gov.in/faqs, page footer dated 11-11-2026): the VLE should be a village youth above 18 years of age, must have passed the 10th level examination from a recognized board, needs a valid Aadhaar number, and registration is free. 'Above 18' is entered as 19 or more, and 'passed Class 10' as now in Class 11 or later; a learner who left school after Class 10 should check with the office."
+    },
+    {
+      "id": "cmykpy",
+      "kind": "internship",
+      "scheme_id": null,
+      "route_ids": [],
+      "career_ids": [],
+      "any_career": true,
+      "scope": "state",
+      "districts": [],
+      "income": "stipend",
+      "languages": [],
+      "deadline": null,
+      "apply_url": "https://www.cmykpy.mahaswayam.gov.in/",
+      "name_i18n": {
+        "en": "Mukhyamantri Yuva Karya Prashikshan Yojana",
+        "hi": "मुख्यमंत्री युवा कार्य प्रशिक्षण योजना",
+        "mr": "मुख्यमंत्री युवा कार्य प्रशिक्षण योजना"
+      },
+      "title_i18n": {
+        "en": "Maharashtra youth work training: a 6-month paid internship",
+        "hi": "महाराष्ट्र युवा कार्य प्रशिक्षण: 6 महीने की वेतन वाली इंटर्नशिप",
+        "mr": "महाराष्ट्र युवा कार्य प्रशिक्षण: 6 महिन्यांची वेतनासह इंटर्नशिप"
+      },
+      "summary_i18n": {
+        "en": "A 6-month internship for unemployed youth in Maharashtra, with a monthly stipend paid straight to the bank account. For ages 18 to 35.",
+        "hi": "महाराष्ट्र के बेरोज़गार युवाओं के लिए 6 महीने की इंटर्नशिप, जिसमें हर महीने का वजीफ़ा सीधे बैंक खाते में आता है। उम्र 18 से 35।",
+        "mr": "महाराष्ट्रातील बेरोजगार तरुणांसाठी 6 महिन्यांची इंटर्नशिप, ज्यात दरमहा विद्यावेतन थेट बँक खात्यात जमा होते. वय 18 ते 35."
+      },
+      "how_i18n": {
+        "en": "Register on the scheme's site. Your mentor can help you register.",
+        "hi": "योजना की साइट पर रजिस्टर कीजिए। आपके मेंटर रजिस्टर करने में मदद कर सकते हैं।",
+        "mr": "योजनेच्या साइटवर नोंदणी करा. नोंदणी करण्यात तुमचे मार्गदर्शक मदत करू शकतात."
+      },
+      "source_title": "Maharashtra Rojgar portal: Mukhyamantri Yuva Karya Prashikshan Yojana (CMYKPY)",
+      "source_url": "https://rojgar.mahaswayam.gov.in/",
+      "entered_on": "2026-11-20",
+      "verified_on": null,
+      "verification_status": "awaiting_verification",
+      "valid_until": "TODO_VERIFY",
+      "level": "maharashtra",
+      "docs_required": [],
+      "conditions": [
+        {
+          "fact": "age",
+          "op": ">=",
+          "value": 18,
+          "label_i18n": {
+            "en": "At least 18 years old",
+            "hi": "कम से कम 18 साल की उम्र",
+            "mr": "किमान 18 वर्षे वय"
+          }
+        },
+        {
+          "fact": "age",
+          "op": "<=",
+          "value": 35,
+          "label_i18n": {
+            "en": "No more than 35 years old",
+            "hi": "35 साल से ज़्यादा नहीं",
+            "mr": "35 वर्षांपेक्षा जास्त नाही"
+          }
+        },
+        {
+          "fact": "state",
+          "op": "==",
+          "value": "maharashtra",
+          "label_i18n": {
+            "en": "A resident of Maharashtra",
+            "hi": "महाराष्ट्र के निवासी",
+            "mr": "महाराष्ट्राचे रहिवासी"
+          }
+        },
+        {
+          "fact": "education_level",
+          "op": "in",
+          "value": "TODO_VERIFY",
+          "label_i18n": {
+            "en": "Class 12, ITI, diploma or degree",
+            "hi": "12वीं, आईटीआई, डिप्लोमा या डिग्री",
+            "mr": "12वी, आयटीआय, डिप्लोमा किंवा पदवी"
+          }
+        }
+      ],
+      "research_note": "READ 2026-11-20 (rojgar.mahaswayam.gov.in): a 6-month internship scheme for unemployed youth with a monthly stipend by DBT; age 18 to 35; resident of Maharashtra; education 12th pass, ITI, diploma, graduation or post graduation. The education rule is kept as TODO_VERIFY because KHOJ does not hold a learner's exact education, and the scheme's current batch dates were not found, so valid_until stays TODO_VERIFY. The registration site (cmykpy.mahaswayam.gov.in) was linked from the page but not opened. No stipend amount is stored."
+    },
+    {
+      "id": "mahaswayam_rojgar",
+      "kind": "portal",
+      "scheme_id": null,
+      "route_ids": [],
+      "career_ids": [],
+      "any_career": true,
+      "scope": "state",
+      "districts": [],
+      "income": "unknown",
+      "languages": [],
+      "deadline": null,
+      "apply_url": "https://rojgar.mahaswayam.gov.in/",
+      "name_i18n": {
+        "en": "Maharashtra Rojgar portal",
+        "hi": "महाराष्ट्र रोज़गार पोर्टल",
+        "mr": "महाराष्ट्र रोजगार पोर्टल"
+      },
+      "title_i18n": {
+        "en": "Maharashtra Rojgar portal: job fairs and vacancies",
+        "hi": "महाराष्ट्र रोज़गार पोर्टल: रोज़गार मेले और रिक्तियाँ",
+        "mr": "महाराष्ट्र रोजगार पोर्टल: रोजगार मेळावे आणि रिक्त जागा"
+      },
+      "summary_i18n": {
+        "en": "The Maharashtra government's portal for jobs, job fairs in each district, skill training and self-employment programmes.",
+        "hi": "महाराष्ट्र सरकार का पोर्टल: नौकरियाँ, हर ज़िले के रोज़गार मेले, कौशल प्रशिक्षण और स्वरोज़गार कार्यक्रम।",
+        "mr": "महाराष्ट्र सरकारचे पोर्टल: नोकऱ्या, प्रत्येक जिल्ह्यातील रोजगार मेळावे, कौशल्य प्रशिक्षण आणि स्वयंरोजगार कार्यक्रम."
+      },
+      "how_i18n": {
+        "en": "Open the portal and look for job fairs and vacancies in your district.",
+        "hi": "पोर्टल खोलिए और अपने ज़िले के रोज़गार मेले और रिक्तियाँ देखिए।",
+        "mr": "पोर्टल उघडा आणि तुमच्या जिल्ह्यातील रोजगार मेळावे आणि रिक्त जागा पाहा."
+      },
+      "source_title": "Maharashtra Rojgar portal, Commissionerate of Skill Development, Employment and Entrepreneurship",
+      "source_url": "https://rojgar.mahaswayam.gov.in/",
+      "entered_on": "2026-11-20",
+      "verified_on": null,
+      "verification_status": "awaiting_verification",
+      "valid_until": null,
+      "level": "maharashtra",
+      "docs_required": [],
+      "conditions": [
+        {
+          "fact": "portal_registration_rule",
+          "op": "==",
+          "value": "TODO_VERIFY",
+          "label_i18n": {
+            "en": "Meets the portal's registration rule",
+            "hi": "पोर्टल के रजिस्ट्रेशन नियम पूरे करते हैं",
+            "mr": "पोर्टलच्या नोंदणी नियमांची पूर्तता करता"
+          }
+        }
+      ],
+      "research_note": "READ 2026-11-20 (mahaswayam.gov.in/about and rojgar.mahaswayam.gov.in): the Government of Maharashtra portal for skill training, job vacancies and entrepreneurship programmes, with district job fairs. No portal-wide age or residence rule was stated (the 18 to 35 rule belongs to the internship scheme only), so the registration rule stays TODO_VERIFY."
+    },
+    {
+      "id": "mpsc",
+      "kind": "exam",
+      "scheme_id": null,
+      "route_ids": ["mpsc"],
+      "career_ids": [],
+      "any_career": false,
+      "scope": "state",
+      "districts": [],
+      "income": "unknown",
+      "languages": [],
+      "deadline": null,
+      "apply_url": "https://mpsc.gov.in",
+      "name_i18n": {
+        "en": "Maharashtra Public Service Commission (MPSC)",
+        "hi": "महाराष्ट्र लोक सेवा आयोग (एमपीएससी)",
+        "mr": "महाराष्ट्र लोकसेवा आयोग (एमपीएससी)"
+      },
+      "title_i18n": {
+        "en": "MPSC: state government job exams",
+        "hi": "एमपीएससी: राज्य सरकार की नौकरी की परीक्षाएँ",
+        "mr": "एमपीएससी: राज्य सरकारच्या नोकरीच्या परीक्षा"
+      },
+      "summary_i18n": {
+        "en": "The Commission holds exams for Maharashtra government posts. Age, education and dates are set in each exam's own notice.",
+        "hi": "आयोग महाराष्ट्र सरकार के पदों के लिए परीक्षाएँ लेता है। उम्र, शिक्षा और तारीख़ें हर परीक्षा की अपनी सूचना में तय होती हैं।",
+        "mr": "आयोग महाराष्ट्र सरकारच्या पदांसाठी परीक्षा घेतो. वय, शिक्षण आणि तारखा प्रत्येक परीक्षेच्या स्वतःच्या जाहिरातीत ठरतात."
+      },
+      "how_i18n": {
+        "en": "Read the notice for the exam on the MPSC site before you plan your preparation.",
+        "hi": "तैयारी की योजना बनाने से पहले एमपीएससी साइट पर परीक्षा की सूचना पढ़िए।",
+        "mr": "तयारीचे नियोजन करण्यापूर्वी एमपीएससी साइटवर परीक्षेची जाहिरात वाचा."
+      },
+      "source_title": "Maharashtra Public Service Commission (official site)",
+      "source_url": "https://mpsc.gov.in",
+      "entered_on": "2026-11-20",
+      "verified_on": null,
+      "verification_status": "awaiting_verification",
+      "valid_until": null,
+      "level": "maharashtra",
+      "docs_required": [],
+      "conditions": [
+        {
+          "fact": "exam_notice_rule",
+          "op": "==",
+          "value": "TODO_VERIFY",
+          "label_i18n": {
+            "en": "Meets the age and education rules in the exam notice",
+            "hi": "परीक्षा सूचना की उम्र और शिक्षा की शर्तें पूरी करते हैं",
+            "mr": "परीक्षा जाहिरातीतील वय आणि शिक्षणाच्या अटी पूर्ण करता"
+          }
+        }
+      ],
+      "research_note": "NOT read: no MPSC notice was opened. Coaching sites give ages and qualifications that differ by post and year, so none is entered. Each exam notice sets its own rules."
+    },
+    {
+      "id": "maha_police",
+      "kind": "exam",
+      "scheme_id": null,
+      "route_ids": ["police_defence_recruitment"],
+      "career_ids": [],
+      "any_career": false,
+      "scope": "state",
+      "districts": [],
+      "income": "unknown",
+      "languages": [],
+      "deadline": null,
+      "apply_url": "https://mahapolice.gov.in",
+      "name_i18n": {
+        "en": "Maharashtra Police recruitment",
+        "hi": "महाराष्ट्र पुलिस भर्ती",
+        "mr": "महाराष्ट्र पोलीस भरती"
+      },
+      "title_i18n": {
+        "en": "Maharashtra Police recruitment",
+        "hi": "महाराष्ट्र पुलिस भर्ती",
+        "mr": "महाराष्ट्र पोलीस भरती"
+      },
+      "summary_i18n": {
+        "en": "Police recruitment is announced from time to time. Age, education, fitness tests and dates are set in each notice.",
+        "hi": "पुलिस भर्ती की घोषणा समय-समय पर होती है। उम्र, शिक्षा, शारीरिक परीक्षा और तारीख़ें हर सूचना में तय होती हैं।",
+        "mr": "पोलीस भरतीची घोषणा वेळोवेळी होते. वय, शिक्षण, शारीरिक चाचण्या आणि तारखा प्रत्येक जाहिरातीत ठरतात."
+      },
+      "how_i18n": {
+        "en": "Read the latest recruitment notice on the Maharashtra Police site.",
+        "hi": "महाराष्ट्र पुलिस की साइट पर ताज़ा भर्ती सूचना पढ़िए।",
+        "mr": "महाराष्ट्र पोलीस साइटवर ताजी भरती जाहिरात वाचा."
+      },
+      "source_title": "Maharashtra Police (official site)",
+      "source_url": "https://mahapolice.gov.in",
+      "entered_on": "2026-11-20",
+      "verified_on": null,
+      "verification_status": "awaiting_verification",
+      "valid_until": null,
+      "level": "maharashtra",
+      "docs_required": [],
+      "conditions": [
+        {
+          "fact": "recruitment_notice_rule",
+          "op": "==",
+          "value": "TODO_VERIFY",
+          "label_i18n": {
+            "en": "Meets the rules in the recruitment notice",
+            "hi": "भर्ती सूचना की शर्तें पूरी करते हैं",
+            "mr": "भरती जाहिरातीतील अटी पूर्ण करता"
+          }
+        }
+      ],
+      "research_note": "NOT read: no official recruitment notice was opened. Third-party guides give an age range and a Class 12 pass, but they are not official, so none is entered."
+    }
+  ]
+}

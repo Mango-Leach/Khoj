@@ -1,0 +1,60 @@
+{
+  "id": "nmmss",
+  "name_i18n": {
+    "en": "National Means-cum-Merit Scholarship (NMMSS)"
+  },
+  "summary_i18n": {
+    "en": "A yearly scholarship for bright students from low-income families who study in government and aided schools."
+  },
+  "level": "central",
+  "source_title": "Central Sector Scheme: National Means-Cum-Merit Scholarship Scheme (guidelines), Ministry of Education",
+  "source_url": "https://scholarships.gov.in/public/schemeGuidelines/NMMSSGuidelines.pdf",
+  "apply_url": "https://scholarships.gov.in",
+  "entered_on": "2026-11-19",
+  "verified_on": null,
+  "verification_status": "awaiting_verification",
+  "valid_until": null,
+  "docs_required": [],
+  "conditions": [
+    {
+      "fact": "grade",
+      "op": "in",
+      "value": "TODO_VERIFY",
+      "label_i18n": {
+        "en": "Studying in the class the new scholarship is open to"
+      }
+    },
+    {
+      "fact": "school_type",
+      "op": "in",
+      "value": [
+        "government",
+        "government_aided",
+        "local_body"
+      ],
+      "label_i18n": {
+        "en": "In a government, government-aided or local body school"
+      }
+    },
+    {
+      "fact": "annual_income_inr",
+      "op": "<=",
+      "value": 350000,
+      "label_i18n": {
+        "en": "Parents' yearly income from all sources is Rs 3.5 lakh or less"
+      }
+    },
+    {
+      "fact": "marks_percent_qualifying_exam",
+      "op": ">=",
+      "value": "TODO_VERIFY",
+      "label_i18n": {
+        "en": "Marks in the earlier exam meet the cut-off"
+      }
+    }
+  ],
+  "note_i18n": {
+    "en": "You must also pass your state's selection test. The 2026-27 application window closed on 15 November 2026, so check the portal for the next one."
+  },
+  "research_note": "NOT read in full: the guidelines PDF could not be opened (certificate error), so these values come from an excerpt of the official guidelines and PIB notices seen in search results. Income Rs 3.5 lakh and the school types are consistent across them. The qualifying marks (55%, relaxed by 5% for SC/ST) are quoted for Class VII in one place and Class VIII in another, so the marks condition stays TODO_VERIFY. The class in which a new scholarship is awarded was not confirmed, so the grade condition stays TODO_VERIFY. Students of Navodaya, Kendriya and residential schools are excluded. A state selection test is also required. PIB says applications for 2026-27 closed on 15 November 2026."
+}

@@ -1,0 +1,41 @@
+{
+  "_note": "SEED: the team's rough judgement of how much local work each career offers, used ONLY to nudge the ranking of paths. It is not shown to students as a number or as a claim, and it is replaced by real signals (teachers logging demand, org data) when they exist. is_demo is kept in the data so seeded rows can be told apart and removed. Levels: high | medium | low. Districts not listed use the career's default.",
+  "is_demo": true,
+  "default": {
+    "tailoring_enterprise": "high",
+    "embroidery_zari": "medium",
+    "dairy_poultry": "medium",
+    "mushroom_beekeeping": "low",
+    "electrician_wiring": "medium",
+    "pump_motor_repair": "medium",
+    "mobile_repair": "medium",
+    "solar_installer": "low",
+    "home_caterer_tiffin": "medium",
+    "shop_accounting_gst": "medium",
+    "csc_operator": "medium",
+    "childcare_tuition": "medium",
+    "digital_marketing_shops": "low",
+    "photography_video": "medium",
+    "govt_exam_prep": "medium"
+  },
+  "districts": {
+    "pune": { "digital_marketing_shops": "high", "electrician_wiring": "high", "mobile_repair": "high", "shop_accounting_gst": "high", "photography_video": "high", "dairy_poultry": "high", "solar_installer": "medium" },
+    "thane": { "digital_marketing_shops": "medium", "electrician_wiring": "high", "mobile_repair": "high", "shop_accounting_gst": "high", "home_caterer_tiffin": "high", "dairy_poultry": "low" },
+    "mumbai_city": { "digital_marketing_shops": "high", "mobile_repair": "high", "home_caterer_tiffin": "high", "shop_accounting_gst": "high", "dairy_poultry": "low", "pump_motor_repair": "low", "mushroom_beekeeping": "low" },
+    "mumbai_suburban": { "digital_marketing_shops": "high", "mobile_repair": "high", "home_caterer_tiffin": "high", "shop_accounting_gst": "high", "dairy_poultry": "low", "pump_motor_repair": "low" },
+    "nashik": { "digital_marketing_shops": "medium", "electrician_wiring": "high", "pump_motor_repair": "high", "dairy_poultry": "high", "mushroom_beekeeping": "medium", "solar_installer": "medium" },
+    "nagpur": { "digital_marketing_shops": "medium", "electrician_wiring": "high", "mobile_repair": "high", "shop_accounting_gst": "high", "govt_exam_prep": "high" },
+    "chhatrapati_sambhajinagar": { "digital_marketing_shops": "medium", "electrician_wiring": "high", "pump_motor_repair": "high", "mobile_repair": "high", "shop_accounting_gst": "high", "solar_installer": "medium" },
+    "kolhapur": { "dairy_poultry": "high", "tailoring_enterprise": "high", "pump_motor_repair": "high", "mushroom_beekeeping": "medium" },
+    "sangli": { "dairy_poultry": "high", "pump_motor_repair": "high", "tailoring_enterprise": "high" },
+    "satara": { "dairy_poultry": "high", "mushroom_beekeeping": "medium", "pump_motor_repair": "high" },
+    "ahilyanagar": { "dairy_poultry": "high", "pump_motor_repair": "high", "solar_installer": "medium" },
+    "solapur": { "pump_motor_repair": "high", "tailoring_enterprise": "high", "dairy_poultry": "high", "embroidery_zari": "medium" },
+    "jalgaon": { "pump_motor_repair": "high", "dairy_poultry": "medium", "mushroom_beekeeping": "low" },
+    "latur": { "pump_motor_repair": "high", "govt_exam_prep": "high" },
+    "beed": { "pump_motor_repair": "high", "govt_exam_prep": "high", "tailoring_enterprise": "high" },
+    "amravati": { "tailoring_enterprise": "high", "govt_exam_prep": "high" },
+    "gadchiroli": { "mushroom_beekeeping": "medium", "csc_operator": "high", "dairy_poultry": "low" },
+    "nandurbar": { "csc_operator": "high", "mushroom_beekeeping": "medium", "dairy_poultry": "low" }
+  }
+}

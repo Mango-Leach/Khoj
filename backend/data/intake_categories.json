@@ -1,0 +1,13 @@
+{
+  "_note": "The eight career families, shown as picture tiles. Icons are placeholders until real pictures and recorded audio labels exist. Hindi and Marathi names are DRAFTS for native-speaker review.",
+  "categories": [
+    { "id": "textile", "icon": "scissors", "name": { "en": "Tailoring and clothes", "hi": "सिलाई और कपड़े", "mr": "शिवणकाम आणि कपडे" } },
+    { "id": "agriculture", "icon": "sprout", "name": { "en": "Farming and animals", "hi": "खेती और पशुपालन", "mr": "शेती आणि पशुपालन" } },
+    { "id": "trades", "icon": "wrench", "name": { "en": "Repair and trades", "hi": "मरम्मत और कारीगरी", "mr": "दुरुस्ती आणि कारागिरी" } },
+    { "id": "food", "icon": "cooking-pot", "name": { "en": "Food and cooking", "hi": "खाना और रसोई", "mr": "अन्न आणि स्वयंपाक" } },
+    { "id": "retail", "icon": "store", "name": { "en": "Shops, accounts and money", "hi": "दुकान, हिसाब और पैसे", "mr": "दुकान, हिशेब आणि पैसे" } },
+    { "id": "care", "icon": "heart-handshake", "name": { "en": "Care and teaching", "hi": "देखभाल और पढ़ाना", "mr": "काळजी आणि शिकवणे" } },
+    { "id": "creative", "icon": "clapperboard", "name": { "en": "Art, photos and videos", "hi": "कला, फ़ोटो और वीडियो", "mr": "कला, फोटो आणि व्हिडिओ" } },
+    { "id": "public", "icon": "landmark", "name": { "en": "Government exams and service", "hi": "सरकारी परीक्षा और सेवा", "mr": "सरकारी परीक्षा आणि सेवा" } }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "id": "pm_yasasvi",
+  "name_i18n": {
+    "en": "PM YASASVI scholarship (OBC, EBC, DNT)"
+  },
+  "summary_i18n": {
+    "en": "Scholarship for Class 9 to 12 students from OBC, EBC and DNT families with income up to Rs 2.5 lakh."
+  },
+  "level": "central",
+  "source_title": "PM YASASVI scheme for OBC, EBC and DNT students, Ministry of Social Justice and Empowerment",
+  "source_url": "https://socialjustice.gov.in/writereaddata/UploadFile/90711699348458.pdf",
+  "apply_url": "https://scholarships.gov.in",
+  "entered_on": "2026-11-19",
+  "verified_on": null,
+  "verification_status": "awaiting_verification",
+  "valid_until": null,
+  "docs_required": [],
+  "conditions": [
+    {
+      "fact": "social_category",
+      "op": "in",
+      "value": [
+        "obc",
+        "ebc",
+        "dnt"
+      ],
+      "label_i18n": {
+        "en": "From an OBC, EBC or DNT community"
+      }
+    },
+    {
+      "fact": "grade",
+      "op": "in",
+      "value": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "label_i18n": {
+        "en": "Studying in Class 9 to 12"
+      }
+    },
+    {
+      "fact": "annual_income_inr",
+      "op": "<=",
+      "value": 250000,
+      "label_i18n": {
+        "en": "Parents' or guardian's yearly income from all sources is Rs 2.5 lakh or less"
+      }
+    },
+    {
+      "fact": "marks_percent_qualifying_exam",
+      "op": ">=",
+      "value": "TODO_VERIFY",
+      "label_i18n": {
+        "en": "Marks in the earlier exam meet the cut-off"
+      }
+    }
+  ],
+  "note_i18n": {
+    "en": "Money goes to students in schools chosen under the scheme. Check the current year's notice for dates."
+  },
+  "research_note": "NOT read in full: the Ministry PDF returned HTTP 503 on 2026-11-19, so these values come from an excerpt of that PDF seen in search results (2023-24 cycle). Income Rs 2.5 lakh and Classes 9 to 12 agree across sources. The marks cut-off is 60% in Class 8 or 10 in the PDF excerpt but 33% or 'passing marks' elsewhere, so it stays TODO_VERIFY. The scheme also needs entry through an empanelled school and a selection test; not modelled."
+}

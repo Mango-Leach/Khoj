@@ -1,0 +1,58 @@
+{
+  "id": "pms_sc_maharashtra",
+  "name_i18n": {
+    "en": "Post-Matric Scholarship for SC students (Maharashtra)"
+  },
+  "summary_i18n": {
+    "en": "Money for fees and living costs for Scheduled Caste and Navbouddha students studying after Class 10."
+  },
+  "level": "central_via_maharashtra",
+  "source_title": "Government of India Post-Matric Scholarship Scheme, Social Justice and Special Assistance Department, Maharashtra (page updated 25.04.2025)",
+  "source_url": "https://sjsa.maharashtra.gov.in/en/scheme/government-of-india-post-matric-scholarship-scheme/",
+  "apply_url": "https://mahadbt.maharashtra.gov.in",
+  "entered_on": "2026-11-19",
+  "verified_on": null,
+  "verification_status": "awaiting_verification",
+  "valid_until": null,
+  "docs_required": [],
+  "conditions": [
+    {
+      "fact": "state",
+      "op": "==",
+      "value": "maharashtra",
+      "label_i18n": {
+        "en": "Living in Maharashtra"
+      }
+    },
+    {
+      "fact": "social_category",
+      "op": "in",
+      "value": [
+        "sc"
+      ],
+      "label_i18n": {
+        "en": "Scheduled Caste or Navbouddha"
+      }
+    },
+    {
+      "fact": "grade",
+      "op": ">=",
+      "value": 11,
+      "label_i18n": {
+        "en": "Studying after Class 10"
+      }
+    },
+    {
+      "fact": "annual_income_inr",
+      "op": "<=",
+      "value": 250000,
+      "label_i18n": {
+        "en": "Parents' yearly income is Rs 2.5 lakh or less"
+      }
+    }
+  ],
+  "note_i18n": {
+    "en": "Apply on the MahaDBT portal. Ask the Social Justice office which papers to bring."
+  },
+  "research_note": "READ in full on 2026-11-19 (page fetched): category SC or Navbouddha, above 10th standard, Maharashtra resident, parent income up to Rs 2.50 lakh for the full scholarship; apply on MahaDBT; start date 01/11/2003, no end date. The page lists no documents. Reports that the central income limit may rise to Rs 4.5 lakh are a plan, not a notified rule, so they are not used."
+}

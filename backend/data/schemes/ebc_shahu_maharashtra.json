@@ -1,0 +1,56 @@
+{
+  "id": "ebc_shahu_maharashtra",
+  "name_i18n": {
+    "en": "Rajarshi Chhatrapati Shahu Maharaj fee concession (Maharashtra)"
+  },
+  "summary_i18n": {
+    "en": "Pays part or all of the fees for students in professional courses whose family income is up to Rs 8 lakh."
+  },
+  "level": "maharashtra",
+  "source_title": "Rajarshi Chhatrapati Shahu Maharaj Shikshan Shulkh Shishyavrutti Yojana, Directorate of Technical Education, Maharashtra (page updated 20 November 2025)",
+  "source_url": "https://dte.maharashtra.gov.in/rajarshi-chhatrapati-shahu-maharaj/",
+  "apply_url": "https://mahadbt.maharashtra.gov.in",
+  "entered_on": "2026-11-19",
+  "verified_on": null,
+  "verification_status": "awaiting_verification",
+  "valid_until": null,
+  "docs_required": [],
+  "conditions": [
+    {
+      "fact": "state",
+      "op": "==",
+      "value": "maharashtra",
+      "label_i18n": {
+        "en": "Living in Maharashtra"
+      }
+    },
+    {
+      "fact": "grade",
+      "op": ">=",
+      "value": 13,
+      "label_i18n": {
+        "en": "In college or finished school"
+      }
+    },
+    {
+      "fact": "in_professional_course",
+      "op": "==",
+      "value": true,
+      "label_i18n": {
+        "en": "In a professional course"
+      }
+    },
+    {
+      "fact": "annual_income_inr",
+      "op": "<=",
+      "value": 800000,
+      "label_i18n": {
+        "en": "Both parents' yearly income together is Rs 8 lakh or less"
+      }
+    }
+  ],
+  "note_i18n": {
+    "en": "Half of the fees for boys and all of the fees for girls (from 2024-25). Apply on the MahaDBT portal while you are enrolled."
+  },
+  "research_note": "READ in full on 2026-11-19 (page fetched): family income up to Rs 8 lakh (both parents together), professional courses, 50% of fees for male and 100% for female students from 2024-25, apply on MahaDBT. The page does not state domicile, a child limit or documents. MahaDBT listings (seen in search excerpts only) mention Maharashtra domicile, CAP admission and two children per family: these are NOT used until read on MahaDBT. Which courses count as professional is not spelled out on the page."
+}

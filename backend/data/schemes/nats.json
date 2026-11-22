@@ -1,0 +1,44 @@
+{
+  "id": "nats",
+  "name_i18n": {
+    "en": "NATS (apprenticeship for graduates and diploma holders)"
+  },
+  "summary_i18n": {
+    "en": "On-the-job training of 6 months to 1 year for graduates, diploma holders and vocational certificate holders."
+  },
+  "level": "central",
+  "source_title": "National Apprenticeship Training Scheme (NATS) 2.0 portal: About, Ministry of Education",
+  "source_url": "https://nats.education.gov.in/about-us.php",
+  "apply_url": "https://nats.education.gov.in",
+  "entered_on": "2026-11-19",
+  "verified_on": null,
+  "verification_status": "awaiting_verification",
+  "valid_until": null,
+  "docs_required": [],
+  "conditions": [
+    {
+      "fact": "qualification",
+      "op": "in",
+      "value": [
+        "graduate",
+        "diploma",
+        "vocational_certificate"
+      ],
+      "label_i18n": {
+        "en": "A graduate, diploma holder or vocational certificate holder"
+      }
+    },
+    {
+      "fact": "field_of_study",
+      "op": "in",
+      "value": "TODO_VERIFY",
+      "label_i18n": {
+        "en": "In a field of study the scheme accepts"
+      }
+    }
+  ],
+  "note_i18n": {
+    "en": "You apply on the NATS portal and an employer picks you."
+  },
+  "research_note": "READ on 2026-11-19 (page fetched): NATS offers graduate, diploma and vocational certificate holders on-the-job training of 6 months to 1 year, with 50% of the stipend reimbursed to the employer. No age or time limit is stated. The same portal's FAQ page says it deals only with graduates and diplomas in engineering or technology, so the field of study stays TODO_VERIFY."
+}

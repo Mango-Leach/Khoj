@@ -1,0 +1,371 @@
+{
+  "_note": "Links only. Found on 2026-11-19 as page titles and URLs in search results from each provider's own site. Course dates, fees and languages were not readable (the pages are built in the browser), so they are recorded only where a listing stated them. verified_on stays null until a person opens the page and checks it. Re-check monthly with scripts/check_resources.py.",
+  "resources": [
+    {
+      "id": "swayam_electricity_wiring",
+      "title": "Electricity and Electrical Wiring",
+      "provider": "SWAYAM (IGNOU)",
+      "kind": "mooc",
+      "url": "https://onlinecourses.swayam2.ac.in/nou25_ec14/preview",
+      "career_ids": [
+        "electrician_wiring"
+      ],
+      "rung": "learn",
+      "level": null,
+      "duration_weeks": 12,
+      "languages": [],
+      "cost": "free_certificate_fee",
+      "entry": null,
+      "access": "link_out",
+      "found_on": "2026-11-19",
+      "verified_on": null
+    },
+    {
+      "id": "nios_house_wiring",
+      "title": "House Wiring and Electrical Appliance Repairing",
+      "provider": "NIOS (six-month vocational course)",
+      "kind": "course",
+      "url": "https://www.nios.ac.in/departmentsunits/vocational-education/six-months-courses.aspx",
+      "career_ids": [
+        "electrician_wiring"
+      ],
+      "rung": "learn",
+      "level": "school",
+      "duration_weeks": null,
+      "languages": [],
+      "cost": null,
+      "entry": "school_entry_below_secondary",
+      "access": "link_out",
+      "found_on": "2026-11-19",
+      "verified_on": null
+    },
+    {
+      "id": "nptel_basic_circuits",
+      "title": "Basic Electrical Circuits",
+      "provider": "NPTEL",
+      "kind": "mooc",
+      "url": "https://onlinecourses.nptel.ac.in/e-learning/preview/noc22_ee90",
+      "career_ids": [
+        "electrician_wiring",
+        "pump_motor_repair"
+      ],
+      "rung": "learn",
+      "level": "college",
+      "duration_weeks": null,
+      "languages": [],
+      "cost": null,
+      "entry": null,
+      "access": "link_out",
+      "found_on": "2026-11-19",
+      "verified_on": null
+    },
+    {
+      "id": "nios_motor_rewinding",
+      "title": "Motor and Transformer Rewinding",
+      "provider": "NIOS (six-month vocational course)",
+      "kind": "course",
+      "url": "https://www.nios.ac.in/departmentsunits/vocational-education/six-months-courses.aspx",
+      "career_ids": [
+        "pump_motor_repair"
+      ],
+      "rung": "learn",
+      "level": "school",
+      "duration_weeks": null,
+      "languages": [],
+      "cost": null,
+      "entry": "school_entry_below_secondary",
+      "access": "link_out",
+      "found_on": "2026-11-19",
+      "verified_on": null
+    },
+    {
+      "id": "nitttr_machines",
+      "title": "Induction, Synchronous and Special Electrical Machines",
+      "provider": "SWAYAM (NITTTR Puducherry)",
+      "kind": "mooc",
+      "url": "https://onlinecourses.swayam2.ac.in/ntr25_ed135/preview",
+      "career_ids": [
+        "pump_motor_repair"
+      ],
+      "rung": "learn",
+      "level": "diploma",
+      "duration_weeks": null,
+      "languages": [],
+      "cost": null,
+      "entry": null,
+      "access": "link_out",
+      "found_on": "2026-11-19",
+      "verified_on": null
+    },
+    {
+      "id": "tssc_handset_technician",
+      "title": "Handheld Devices (Handset and Tablet) Technician: participant handbook",
+      "provider": "Telecom Sector Skill Council",
+      "kind": "curriculum",
+      "url": "https://www.tsscindia.com/App_Files/Documents/59c49344-c807-4257-8106-1e753f6c7830Handheld%20Devices%20(Handset%20&%20Tablet)%20Technician%20-%20Eng_PH_LR.pdf",
+      "career_ids": [
+        "mobile_repair"
+      ],
+      "rung": "learn",
+      "level": null,
+      "duration_weeks": null,
+      "languages": [],
+      "cost": null,
+      "entry": null,
+      "access": "link_out",
+      "found_on": "2026-11-19",
+      "verified_on": null
+    },
+    {
+      "id": "nptel_basic_electronics",
+      "title": "Basic Electronics",
+      "provider": "NPTEL (IIT Bombay)",
+      "kind": "mooc",
+      "url": "https://onlinecourses.nptel.ac.in/noc21_ee55/preview",
+      "career_ids": [
+        "mobile_repair"
+      ],
+      "rung": "learn",
+      "level": null,
+      "duration_weeks": null,
+      "languages": [],
+      "cost": null,
+      "entry": null,
+      "access": "link_out",
+      "found_on": "2026-11-19",
+      "verified_on": null
+    },
+    {
+      "id": "nios_cutting_tailoring",
+      "title": "Cutting and Tailoring",
+      "provider": "NIOS (six-month vocational course)",
+      "kind": "course",
+      "url": "https://www.nios.ac.in/departmentsunits/vocational-education/six-months-courses.aspx",
+      "career_ids": [
+        "tailoring_enterprise"
+      ],
+      "rung": "learn",
+      "level": "school",
+      "duration_weeks": null,
+      "languages": [],
+      "cost": null,
+      "entry": "school_entry_below_secondary",
+      "access": "link_out",
+      "found_on": "2026-11-19",
+      "verified_on": null
+    },
+    {
+      "id": "nios_dress_making",
+      "title": "Dress Making",
+      "provider": "NIOS (six-month vocational course)",
+      "kind": "course",
+      "url": "https://www.nios.ac.in/departmentsunits/vocational-education/six-months-courses.aspx",
+      "career_ids": [
+        "tailoring_enterprise"
+      ],
+      "rung": "learn",
+      "level": "school",
+      "duration_weeks": null,
+      "languages": [],
+      "cost": null,
+      "entry": "school_entry_below_secondary",
+      "access": "link_out",
+      "found_on": "2026-11-19",
+      "verified_on": null
+    },
+    {
+      "id": "nsdc_tailor_curriculum",
+      "title": "Tailor (Basic Sewing Machine Operator): national curriculum",
+      "provider": "NSDC",
+      "kind": "curriculum",
+      "url": "https://www.nsdcindia.org/scmp/assets/image/2145395852-Tailor_(Basic_Sewing_Machine_Operator)_English.pdf",
+      "career_ids": [
+        "tailoring_enterprise"
+      ],
+      "rung": "learn",
+      "level": null,
+      "duration_weeks": null,
+      "languages": [],
+      "cost": null,
+      "entry": null,
+      "access": "link_out",
+      "found_on": "2026-11-19",
+      "verified_on": null
+    },
+    {
+      "id": "swayam_digital_marketing_entrepreneurs",
+      "title": "Entrepreneurship Skills and Digital Marketing Strategies",
+      "provider": "SWAYAM (Uttarakhand Open University)",
+      "kind": "mooc",
+      "url": "https://onlinecourses.swayam2.ac.in/nou25_mg10/preview",
+      "career_ids": [
+        "digital_marketing_shops"
+      ],
+      "rung": "learn",
+      "level": null,
+      "duration_weeks": 12,
+      "languages": [],
+      "cost": null,
+      "entry": null,
+      "access": "link_out",
+      "found_on": "2026-11-19",
+      "verified_on": null
+    },
+    {
+      "id": "swayam_basics_digital_marketing",
+      "title": "Basics of Digital Marketing",
+      "provider": "SWAYAM",
+      "kind": "mooc",
+      "url": "https://onlinecourses.swayam2.ac.in/cec25_mg19/preview",
+      "career_ids": [
+        "digital_marketing_shops"
+      ],
+      "rung": "learn",
+      "level": "college",
+      "duration_weeks": 12,
+      "languages": [],
+      "cost": null,
+      "entry": null,
+      "access": "link_out",
+      "found_on": "2026-11-19",
+      "verified_on": null
+    },
+    {
+      "id": "nios_accountancy_secondary",
+      "title": "Secondary: Accountancy (224)",
+      "provider": "SWAYAM (NIOS)",
+      "kind": "mooc",
+      "url": "https://onlinecourses.swayam2.ac.in/e-learning/preview/nos20_sc12",
+      "career_ids": [
+        "shop_accounting_gst"
+      ],
+      "rung": "learn",
+      "level": "school",
+      "duration_weeks": null,
+      "languages": [],
+      "cost": null,
+      "entry": null,
+      "access": "link_out",
+      "found_on": "2026-11-19",
+      "verified_on": null
+    },
+    {
+      "id": "swayam_financial_accounting_tally",
+      "title": "Fundamentals of Financial Accounting (includes Tally)",
+      "provider": "SWAYAM (Savitribai Phule Pune University)",
+      "kind": "mooc",
+      "url": "https://onlinecourses.swayam2.ac.in/cec20_mg23/preview",
+      "career_ids": [
+        "shop_accounting_gst"
+      ],
+      "rung": "learn",
+      "level": null,
+      "duration_weeks": null,
+      "languages": [],
+      "cost": null,
+      "entry": null,
+      "access": "link_out",
+      "found_on": "2026-11-19",
+      "verified_on": null
+    },
+    {
+      "id": "nptel_intro_gst",
+      "title": "Introduction to GST",
+      "provider": "NPTEL (ICMAI)",
+      "kind": "mooc",
+      "url": "https://onlinecourses.nptel.ac.in/noc25_mg109/preview",
+      "career_ids": [
+        "shop_accounting_gst"
+      ],
+      "rung": "learn",
+      "level": null,
+      "duration_weeks": 8,
+      "languages": [],
+      "cost": null,
+      "entry": null,
+      "access": "link_out",
+      "found_on": "2026-11-19",
+      "verified_on": null
+    },
+    {
+      "id": "swayam_iimb_gst",
+      "title": "GST",
+      "provider": "SWAYAM (IIM Bangalore)",
+      "kind": "mooc",
+      "url": "https://onlinecourses.swayam2.ac.in/imb26_mg112/preview",
+      "career_ids": [
+        "shop_accounting_gst"
+      ],
+      "rung": "learn",
+      "level": null,
+      "duration_weeks": null,
+      "languages": [],
+      "cost": null,
+      "entry": null,
+      "access": "link_out",
+      "found_on": "2026-11-19",
+      "verified_on": null
+    },
+    {
+      "id": "nios_poultry_farming",
+      "title": "Vocational: Poultry Farming",
+      "provider": "SWAYAM (NIOS)",
+      "kind": "mooc",
+      "url": "https://onlinecourses.swayam2.ac.in/nos25_ge13/preview",
+      "career_ids": [
+        "dairy_poultry"
+      ],
+      "rung": "learn",
+      "level": null,
+      "duration_weeks": 24,
+      "languages": [
+        "hi"
+      ],
+      "cost": null,
+      "entry": null,
+      "access": "link_out",
+      "found_on": "2026-11-19",
+      "verified_on": null
+    },
+    {
+      "id": "bhu_animal_husbandry",
+      "title": "पशुपालन: एक तकनीकी दृष्टिकोण (Animal Husbandry: A Technical Approach)",
+      "provider": "SWAYAM (Banaras Hindu University)",
+      "kind": "mooc",
+      "url": "https://onlinecourses.swayam2.ac.in/ini25_bt09/preview",
+      "career_ids": [
+        "dairy_poultry"
+      ],
+      "rung": "learn",
+      "level": null,
+      "duration_weeks": 12,
+      "languages": [
+        "hi"
+      ],
+      "cost": null,
+      "entry": null,
+      "access": "link_out",
+      "found_on": "2026-11-19",
+      "verified_on": null
+    },
+    {
+      "id": "ignou_poultry_intro",
+      "title": "Introduction to Poultry Farming",
+      "provider": "SWAYAM (IGNOU)",
+      "kind": "mooc",
+      "url": "https://onlinecourses.swayam2.ac.in/nou22_ag12/preview",
+      "career_ids": [
+        "dairy_poultry"
+      ],
+      "rung": "learn",
+      "level": "diploma",
+      "duration_weeks": 10,
+      "languages": [],
+      "cost": null,
+      "entry": null,
+      "access": "link_out",
+      "found_on": "2026-11-19",
+      "verified_on": null
+    }
+  ]
+}

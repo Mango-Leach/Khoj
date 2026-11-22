@@ -1,0 +1,360 @@
+{
+  "version": 1,
+  "status": "placeholder_scores",
+  "note": "Sample work descriptions and expert scores were written by the build team so the flow can be shown. A real practitioner must replace each expert_score before any teacher is verified for real. Never show expert_score to a teacher.",
+  "scale": {
+    "1": "Not acceptable: wrong or unsafe",
+    "2": "Needs rework before it can be used",
+    "3": "Good: does the job, small points to improve",
+    "4": "Very good: could be shown as an example"
+  },
+  "pass_rule": {
+    "items": 5,
+    "within": 1,
+    "needed": 4,
+    "max_attempts": 3
+  },
+  "areas": [
+    {
+      "id": "tailoring",
+      "name": {
+        "en": "Tailoring",
+        "hi": "सिलाई",
+        "mr": "शिवणकाम"
+      },
+      "career_ids": [
+        "tailoring_enterprise"
+      ],
+      "verifies": [
+        "sewing",
+        "sewing_machine_care",
+        "garment_finishing"
+      ],
+      "items": [
+        {
+          "id": "t1",
+          "work": "A learner stitched a salwar kameez side seam. The seam is straight and even, the thread tension is good, and the raw edge is finished with an overlock.",
+          "expert_score": 4
+        },
+        {
+          "id": "t2",
+          "work": "A learner stitched a blouse sleeve. The seam puckers along its length and the stitch length changes from long to short in several places.",
+          "expert_score": 2
+        },
+        {
+          "id": "t3",
+          "work": "A learner sewed a hem on a school uniform. The hem is even, but there are two skipped stitches and the thread ends are not tied off.",
+          "expert_score": 3
+        },
+        {
+          "id": "t4",
+          "work": "A learner says the machine skips stitches and answers by tightening the top thread tension fully. They did not check the needle or the threading.",
+          "expert_score": 1
+        },
+        {
+          "id": "t5",
+          "work": "A learner took measurements for a kurta: chest, waist, shoulder and length. All are written down, but the chest was measured over a thick jacket.",
+          "expert_score": 2
+        }
+      ]
+    },
+    {
+      "id": "shop_accounting",
+      "name": {
+        "en": "Shop accounts and GST",
+        "hi": "दुकान का हिसाब और जीएसटी",
+        "mr": "दुकानाचा हिशेब आणि जीएसटी"
+      },
+      "career_ids": [
+        "shop_accounting_gst"
+      ],
+      "verifies": [
+        "bookkeeping",
+        "gst_basics",
+        "computer_basics"
+      ],
+      "items": [
+        {
+          "id": "a1",
+          "work": "A learner kept a daily cash book for a grocery shop for a week. Every sale and purchase has a date and an amount, and the closing balance matches the cash in the drawer.",
+          "expert_score": 4
+        },
+        {
+          "id": "a2",
+          "work": "A learner wrote a tax invoice but left out the buyer's name and the invoice number. The tax is calculated correctly.",
+          "expert_score": 2
+        },
+        {
+          "id": "a3",
+          "work": "A learner entered a purchase on credit as a cash payment, so the shop's cash balance shows less money than it really has.",
+          "expert_score": 1
+        },
+        {
+          "id": "a4",
+          "work": "A learner prepared a monthly sales summary in a spreadsheet. The totals are correct, but the columns have no headings.",
+          "expert_score": 3
+        },
+        {
+          "id": "a5",
+          "work": "A learner explained that a small shop below the turnover limit may still need to register if it sells goods to another state. They said to check the rule on the official portal.",
+          "expert_score": 4
+        }
+      ]
+    },
+    {
+      "id": "digital_marketing",
+      "name": {
+        "en": "Digital marketing for local shops",
+        "hi": "स्थानीय दुकानों के लिए डिजिटल मार्केटिंग",
+        "mr": "स्थानिक दुकानांसाठी डिजिटल मार्केटिंग"
+      },
+      "career_ids": [
+        "digital_marketing_shops"
+      ],
+      "verifies": [
+        "social_media",
+        "communication",
+        "photography"
+      ],
+      "items": [
+        {
+          "id": "m1",
+          "work": "A learner made a post for a sweet shop: a sharp photo of the sweets in daylight, a short line in Marathi, the shop's phone number and the address.",
+          "expert_score": 4
+        },
+        {
+          "id": "m2",
+          "work": "A learner made a post for a tailor with a blurry photo taken in the dark. The text is long, has spelling mistakes and has no contact details.",
+          "expert_score": 1
+        },
+        {
+          "id": "m3",
+          "work": "A learner set up a shop's business profile with the right opening hours and a map pin, but the photos are old and the phone number is missing.",
+          "expert_score": 2
+        },
+        {
+          "id": "m4",
+          "work": "A learner replied politely to a customer's question about price on the shop's page, in the customer's language, within the hour.",
+          "expert_score": 4
+        },
+        {
+          "id": "m5",
+          "work": "A learner promised the shop owner that 1,000 new customers will come in a month.",
+          "expert_score": 1
+        }
+      ]
+    },
+    {
+      "id": "house_wiring",
+      "name": {
+        "en": "House wiring",
+        "hi": "घर की वायरिंग",
+        "mr": "घराची वायरिंग"
+      },
+      "career_ids": [
+        "electrician_wiring"
+      ],
+      "verifies": [
+        "house_wiring",
+        "repair_general"
+      ],
+      "items": [
+        {
+          "id": "w1",
+          "work": "A learner wired a training board: switched the main switch off and put a tag on it, tested that the circuit was dead, used the right colour wires and fitted the earth to the socket.",
+          "expert_score": 4
+        },
+        {
+          "id": "w2",
+          "work": "A learner joined two wires with plain twisting and no tape or connector, then left the joint outside a junction box.",
+          "expert_score": 1
+        },
+        {
+          "id": "w3",
+          "work": "A learner wired a socket correctly but used red for neutral and black for live. They also did not label the circuit.",
+          "expert_score": 2
+        },
+        {
+          "id": "w4",
+          "work": "A learner changed a bulb holder after switching off at the wall switch only, without turning off the main switch.",
+          "expert_score": 1
+        },
+        {
+          "id": "w5",
+          "work": "A learner laid conduit in neat straight runs with saddles at even spacing, and all bends are smooth and wires are not strained.",
+          "expert_score": 4
+        }
+      ]
+    },
+    {
+      "id": "pump_motor",
+      "name": {
+        "en": "Pump and motor repair",
+        "hi": "पंप और मोटर की मरम्मत",
+        "mr": "पंप आणि मोटर दुरुस्ती"
+      },
+      "career_ids": [
+        "pump_motor_repair"
+      ],
+      "verifies": [
+        "pump_repair",
+        "motor_repair",
+        "repair_general"
+      ],
+      "items": [
+        {
+          "id": "p1",
+          "work": "A learner opened a motor only after switching off and removing the fuse, laid the parts on a clean cloth in order, and photographed the wiring before disconnecting it.",
+          "expert_score": 4
+        },
+        {
+          "id": "p2",
+          "work": "A learner pressed a new bearing onto a shaft by hammering on the outer ring, and the bearing is now noisy and tilted.",
+          "expert_score": 1
+        },
+        {
+          "id": "p3",
+          "work": "A learner refitted a motor and checked that the shaft turns freely by hand, but did not check the terminal tightness.",
+          "expert_score": 3
+        },
+        {
+          "id": "p4",
+          "work": "A learner tested a repaired pump by switching it on with the guard removed and the shaft coupling uncovered.",
+          "expert_score": 1
+        },
+        {
+          "id": "p5",
+          "work": "A learner replaced a worn pump seal, cleaned the seat and refitted it with the right sealing surface. There is a small drip when first started.",
+          "expert_score": 2
+        }
+      ]
+    },
+    {
+      "id": "mobile_repair",
+      "name": {
+        "en": "Mobile repair",
+        "hi": "मोबाइल रिपेयर",
+        "mr": "मोबाइल दुरुस्ती"
+      },
+      "career_ids": [
+        "mobile_repair"
+      ],
+      "verifies": [
+        "mobile_repair",
+        "repair_general"
+      ],
+      "items": [
+        {
+          "id": "r1",
+          "work": "A learner changed a cracked screen: powered the phone off, took out the battery connector first, kept the screws in order and tested the touch before sealing.",
+          "expert_score": 4
+        },
+        {
+          "id": "r2",
+          "work": "A learner opened a phone without disconnecting the battery and used a metal tool close to the board.",
+          "expert_score": 1
+        },
+        {
+          "id": "r3",
+          "work": "A learner told a customer that the data on the phone would be safe, then wiped it to fix a software problem without asking.",
+          "expert_score": 1
+        },
+        {
+          "id": "r4",
+          "work": "A learner replaced a charging port and soldered it neatly, but there are two small solder bridges that they did not notice.",
+          "expert_score": 2
+        },
+        {
+          "id": "r5",
+          "work": "A learner wrote down the phone's faults and the price before starting, and the customer agreed. They also kept the old parts in a labelled bag.",
+          "expert_score": 4
+        }
+      ]
+    },
+    {
+      "id": "computer_csc",
+      "name": {
+        "en": "Computer and CSC services",
+        "hi": "कंप्यूटर और सीएससी सेवाएँ",
+        "mr": "संगणक आणि सीएससी सेवा"
+      },
+      "career_ids": [
+        "csc_operator"
+      ],
+      "verifies": [
+        "computer_basics",
+        "banking_basics",
+        "communication"
+      ],
+      "items": [
+        {
+          "id": "c1",
+          "work": "A learner helped a villager apply for a certificate on the official portal. They filled the form together, read each answer back, and gave the customer the receipt number.",
+          "expert_score": 4
+        },
+        {
+          "id": "c2",
+          "work": "A learner asked a customer for the bank PIN and the OTP on their phone so that the learner could finish the transaction faster.",
+          "expert_score": 1
+        },
+        {
+          "id": "c3",
+          "work": "A learner typed a customer's form correctly but did not save a copy of the scanned documents and left them on the shared computer desktop.",
+          "expert_score": 2
+        },
+        {
+          "id": "c4",
+          "work": "A learner explained to an older customer, in the customer's language, how to check their account balance, and made clear that the bank never asks for the PIN on a call.",
+          "expert_score": 4
+        },
+        {
+          "id": "c5",
+          "work": "A learner kept a daily register of every service, the fee taken and a receipt number, but the fee column sometimes has no entry.",
+          "expert_score": 3
+        }
+      ]
+    },
+    {
+      "id": "photo_video",
+      "name": {
+        "en": "Photography and video",
+        "hi": "फ़ोटोग्राफ़ी और वीडियो",
+        "mr": "फोटोग्राफी आणि व्हिडिओ"
+      },
+      "career_ids": [
+        "photography_video"
+      ],
+      "verifies": [
+        "photography",
+        "video_editing"
+      ],
+      "items": [
+        {
+          "id": "v1",
+          "work": "A learner photographed a family at a wedding in daylight. The faces are sharp and well lit, the background is not cluttered, and several poses are taken in case someone blinked.",
+          "expert_score": 4
+        },
+        {
+          "id": "v2",
+          "work": "A learner filmed a function by holding the phone upright and moving it fast from side to side. The video is shaky and the sound is mostly wind noise.",
+          "expert_score": 1
+        },
+        {
+          "id": "v3",
+          "work": "A learner edited a two-minute shop advertisement. The cuts are clean and the text is readable, but the music is louder than the voice and drowns it out in places.",
+          "expert_score": 3
+        },
+        {
+          "id": "v4",
+          "work": "A learner took a product photo of a handloom saree against a clean cloth with the light coming from a window. The colours look true and the weave pattern is visible.",
+          "expert_score": 4
+        },
+        {
+          "id": "v5",
+          "work": "A learner put a customer's family photos and videos on social media for the shop's advertisement without asking the family first.",
+          "expert_score": 1
+        }
+      ]
+    }
+  ]
+}

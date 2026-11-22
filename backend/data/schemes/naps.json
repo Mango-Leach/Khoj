@@ -1,0 +1,40 @@
+{
+  "id": "naps",
+  "name_i18n": {
+    "en": "NAPS (apprenticeship with a stipend)"
+  },
+  "summary_i18n": {
+    "en": "Learn on the job in a company as an apprentice and get a stipend. Starts at age 14 for most trades and 18 for hazardous trades."
+  },
+  "level": "central",
+  "source_title": "The Apprentices Act, 1961, section 3 (qualifications for being engaged as an apprentice), Ministry of Skill Development and Entrepreneurship copy",
+  "source_url": "https://www.msde.gov.in/static/uploads/2024/03/The-Apprentices-Act-1961-1.pdf",
+  "apply_url": "https://www.apprenticeshipindia.gov.in",
+  "entered_on": "2026-11-19",
+  "verified_on": null,
+  "verification_status": "awaiting_verification",
+  "valid_until": "TODO_VERIFY",
+  "docs_required": [],
+  "conditions": [
+    {
+      "fact": "age",
+      "op": ">=",
+      "value": 14,
+      "label_i18n": {
+        "en": "Aged 14 or more (18 or more for hazardous trades)"
+      }
+    },
+    {
+      "fact": "trade_entry_rules",
+      "op": "==",
+      "value": "TODO_VERIFY",
+      "label_i18n": {
+        "en": "Meets the education and fitness rules of the trade"
+      }
+    }
+  ],
+  "note_i18n": {
+    "en": "Hazardous trades, such as live electrical work, start at 18."
+  },
+  "research_note": "NOT read in full: the Act PDF returned HTTP 403, so the age rule comes from the Act's text quoted in search results (section 3: not less than 14, and not less than 18 for designated trades in hazardous industries). Education and fitness rules vary by trade (the Apprenticeship Rules give 5th pass for optional trades in one place and 8th pass in an amendment), so that condition stays TODO_VERIFY. The NAPS scheme was merged into the Skill India Programme approved to 2025-26 and no extension was found, so valid_until stays TODO_VERIFY."
+}
