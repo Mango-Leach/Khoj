@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { PageBanner } from "../components/PageBanner";
 import { Check, Hourglass, Loader2, Lock, X } from "lucide-react";
 import { LearnerCardView } from "../components/LearnerCard";
 import { Button, Notice } from "../components/ui";
@@ -53,10 +54,7 @@ export function TeacherRequestsPage() {
 
   return (
     <div className="flex flex-col gap-8 pt-2">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-[30px] leading-[1.1] font-bold tracking-tight md:text-[38px]">{t("req.title")}</h1>
-        <p className="max-w-3xl text-lg text-muted">{t("req.lead")}</p>
-      </div>
+      <PageBanner title={t("req.title")} lead={t("req.lead")} />
 
       {unverified && (
         <section className="flex flex-col gap-4 rounded-2xl bg-warn-bg p-6 text-warn sm:flex-row sm:items-center">
@@ -85,14 +83,14 @@ export function TeacherRequestsPage() {
           <p className="text-lg font-semibold text-deep">{t("req.places", { free: data.capacity.free, limit: data.capacity.limit })}</p>
 
           {data.pending.length === 0 ? (
-            <section className="flex max-w-3xl gap-4 rounded-2xl border border-line bg-surface p-7 shadow-(--shadow-soft)">
+            <section className="flex max-w-3xl gap-4 rounded-[28px] border border-line bg-surface p-7 shadow-(--shadow-soft)">
               <Hourglass className="mt-1 size-7 shrink-0 text-accent" aria-hidden="true" />
               <p className="text-lg text-muted">{t("req.empty")}</p>
             </section>
           ) : (
             <ul className="grid gap-5 md:grid-cols-2 2xl:grid-cols-3">
               {data.pending.map((r) => (
-                <li key={r.id} className="flex flex-col gap-5 rounded-2xl border border-line bg-surface p-6 shadow-(--shadow-soft)">
+                <li key={r.id} className="flex flex-col gap-5 rounded-[28px] border border-line bg-surface p-6 shadow-(--shadow-soft)">
                   <LearnerCardView card={r.student} />
                   <p className="inline-flex items-center gap-2 text-[15px] font-semibold text-warn">
                     <Hourglass className="size-4" aria-hidden="true" />

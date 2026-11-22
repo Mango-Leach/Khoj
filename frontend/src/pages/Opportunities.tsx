@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { PageBanner } from "../components/PageBanner";
 import { Award, Briefcase, CheckCircle2, ChevronDown, Clock, ExternalLink, FileText, GraduationCap, Hammer, Loader2, Lock, ShieldAlert, Store, Wallet, type LucideIcon } from "lucide-react";
 import { Reasons, StatusChip, opensText, pick } from "../components/Eligibility";
 import { Link } from "../components/Link";
@@ -122,7 +123,7 @@ function OpportunityItem({ card, onChanged }: { card: OpportunityCard; onChanged
 
   return (
     <li className="flex">
-      <article className="flex w-full flex-col gap-5 rounded-2xl border border-line bg-surface p-5 shadow-(--shadow-soft) sm:p-6" aria-labelledby={`opp-${card.id}`}>
+      <article className="flex w-full flex-col gap-5 rounded-[28px] border border-line bg-surface p-5 shadow-(--shadow-soft) sm:p-6" aria-labelledby={`opp-${card.id}`}>
         <header className="flex flex-col gap-3.5">
           <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
             <span className="inline-flex items-center gap-2 text-sm font-semibold text-muted">
@@ -202,7 +203,7 @@ function OpportunityItem({ card, onChanged }: { card: OpportunityCard; onChanged
                 href={card.apply_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-12 min-w-44 flex-[2_1_0%] items-center justify-center gap-2 rounded-xl border-[1.5px] border-line-strong px-4 text-base font-semibold whitespace-nowrap text-ink transition-colors hover:border-accent hover:text-accent"
+                className="inline-flex h-12 min-w-44 flex-[2_1_0%] items-center justify-center gap-2 rounded-full border-[1.5px] border-line-strong px-4 text-base font-semibold whitespace-nowrap text-ink transition-colors hover:border-accent hover:text-accent"
               >
                 {t("opp.visit")}
                 <ExternalLink className="size-4 shrink-0" aria-hidden="true" />
@@ -233,7 +234,7 @@ function OpportunityItem({ card, onChanged }: { card: OpportunityCard; onChanged
 function NoPath() {
   const { t } = useLang();
   return (
-    <section className="flex max-w-2xl flex-col items-start gap-4 rounded-2xl border border-line bg-surface p-7 shadow-(--shadow-soft)">
+    <section className="flex max-w-2xl flex-col items-start gap-4 rounded-[28px] border border-line bg-surface p-7 shadow-(--shadow-soft)">
       <Briefcase className="size-8 text-accent" aria-hidden="true" />
       <h2 className="text-2xl font-bold tracking-tight">{t("opp.locked.title")}</h2>
       <p className="text-lg text-muted">{t("opp.locked.help")}</p>
@@ -252,12 +253,12 @@ function UnlockNotice({ unlock }: { unlock: OpportunityList["unlock"] }) {
   const progress = t("opp.unlock.progress", { done: unlock.approved, total: unlock.total });
   return (
     <section
-      className="flex flex-col gap-5 rounded-2xl border border-tint-strong bg-tint p-5 sm:p-6 md:flex-row md:items-center md:gap-8"
+      className="flex flex-col gap-5 rounded-[28px] bg-tint p-5 text-deep sm:p-6 md:flex-row md:items-center md:gap-8"
       aria-labelledby="opp-unlock"
       data-testid="unlock-notice"
     >
       <div className="flex min-w-0 flex-1 items-start gap-4">
-        <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-surface text-accent shadow-(--shadow-soft)" aria-hidden="true">
+        <span className="grid size-12 shrink-0 place-items-center rounded-full bg-accent text-white" aria-hidden="true">
           <Lock className="size-6" />
         </span>
         <div className="flex min-w-0 flex-1 flex-col gap-1.5">
@@ -285,7 +286,7 @@ function UnlockNotice({ unlock }: { unlock: OpportunityList["unlock"] }) {
         )}
         <Link
           to={unlock.has_mentor || left === 0 ? "/assignments" : "/mentor"}
-          className="inline-flex h-12 items-center justify-center rounded-xl bg-accent px-6 text-base font-semibold text-white transition-colors hover:bg-deep"
+          className="inline-flex h-12 items-center justify-center rounded-full bg-night px-6 text-base font-semibold text-white transition-colors hover:bg-black"
         >
           {t("opp.unlock.cta")}
         </Link>
@@ -346,10 +347,7 @@ export function OpportunitiesPage() {
 
   return (
     <div className="flex flex-col gap-8 pt-2">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-[30px] leading-[1.1] font-bold tracking-tight md:text-[38px]">{t("opp.title")}</h1>
-        <p className="max-w-3xl text-lg text-muted">{t("opp.lead")}</p>
-      </div>
+      <PageBanner title={t("opp.title")} lead={t("opp.lead")} />
 
       {error && <Notice>{t(error)}</Notice>}
       {locked && <NoPath />}
@@ -361,7 +359,7 @@ export function OpportunitiesPage() {
       )}
 
       {data && data.in_person_check_needed && (
-        <section className="flex gap-4 rounded-2xl border border-warn/40 bg-warn-bg p-5" role="note" aria-labelledby="person-check">
+        <section className="flex gap-4 rounded-[28px] border border-warn/40 bg-warn-bg p-5" role="note" aria-labelledby="person-check">
           <ShieldAlert className="mt-0.5 size-7 shrink-0 text-warn" aria-hidden="true" />
           <div className="flex flex-col gap-1">
             <h2 id="person-check" className="text-lg font-bold">
@@ -427,8 +425,8 @@ export function OpportunitiesPage() {
             )}
 
             {data.unlock.finished && (
-              <section className="flex flex-col items-start gap-4 rounded-2xl border border-tint-strong bg-tint p-5 sm:flex-row sm:items-center sm:gap-5 sm:p-6" aria-labelledby="opp-pack">
-                <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-surface text-accent shadow-(--shadow-soft)" aria-hidden="true">
+              <section className="flex flex-col items-start gap-4 rounded-[28px] bg-tint p-5 text-deep sm:flex-row sm:items-center sm:gap-5 sm:p-6" aria-labelledby="opp-pack">
+                <span className="grid size-12 shrink-0 place-items-center rounded-full bg-accent text-white" aria-hidden="true">
                   <FileText className="size-6" />
                 </span>
                 <div className="flex min-w-0 flex-1 flex-col gap-0.5">
@@ -437,7 +435,7 @@ export function OpportunitiesPage() {
                   </h2>
                   <p className="text-base text-deep">{t("opp.pack.help")}</p>
                 </div>
-                <Link to={`/pack/${data.journey.career_id}`} className="inline-flex h-12 shrink-0 items-center rounded-xl bg-accent px-6 text-base font-semibold text-white transition-colors hover:bg-deep">
+                <Link to={`/pack/${data.journey.career_id}`} className="inline-flex h-12 shrink-0 items-center rounded-full bg-night px-6 text-base font-semibold text-white transition-colors hover:bg-black">
                   {t("opp.pack.cta")}
                 </Link>
               </section>

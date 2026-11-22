@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { PageBanner } from "../components/PageBanner";
 import { ExternalLink, FileCheck2, GraduationCap, Loader2, MessageSquare, ShieldAlert, Route } from "lucide-react";
 import { pick } from "../components/Eligibility";
 import { ListenButton } from "../components/ListenButton";
@@ -11,7 +12,7 @@ import { useJourney } from "../lib/usePaths";
 
 function Section({ icon, title, children, id }: { icon: React.ReactNode; title: string; children: React.ReactNode; id: string }) {
   return (
-    <section className="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-6 shadow-(--shadow-soft)" aria-labelledby={id}>
+    <section className="flex flex-col gap-4 rounded-[28px] border border-line bg-surface p-6 shadow-(--shadow-soft)" aria-labelledby={id}>
       <h2 id={id} className="flex items-center gap-3 text-xl font-bold tracking-tight">
         <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-tint text-accent" aria-hidden="true">
           {icon}
@@ -48,10 +49,7 @@ export function JobPackPage({ careerId: fixed }: { careerId?: string }) {
   }, [careerId]);
 
   const heading = (
-    <div className="flex flex-col gap-2">
-      <h1 className="text-[30px] leading-[1.1] font-bold tracking-tight md:text-[38px]">{t("pack.title")}</h1>
-      <p className="max-w-3xl text-lg text-muted">{t("pack.lead")}</p>
-    </div>
+    <PageBanner title={t("pack.title")} lead={t("pack.lead")} />
   );
 
   if ((loaded && !journey && !fixed) || locked) {
@@ -79,7 +77,7 @@ export function JobPackPage({ careerId: fixed }: { careerId?: string }) {
       {pack && (
         <>
           {pack.safety.in_person_check_needed && (
-            <section className="flex gap-4 rounded-2xl border border-warn/40 bg-warn-bg p-5" role="note">
+            <section className="flex gap-4 rounded-[28px] border border-warn/40 bg-warn-bg p-5" role="note">
               <ShieldAlert className="mt-0.5 size-7 shrink-0 text-warn" aria-hidden="true" />
               <div className="flex flex-col gap-1">
                 <h2 className="text-lg font-bold">{t("opp.person.title")}</h2>

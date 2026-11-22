@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { PageBanner } from "../components/PageBanner";
 import { CheckCircle2, ClipboardCheck, Inbox, Loader2, Sparkles, ShieldAlert } from "lucide-react";
 import { WorkPhoto } from "../components/WorkPhoto";
 import { Button, Notice, cx } from "../components/ui";
@@ -96,7 +97,7 @@ function Detail({ item, onDone }: { item: QueueItem; onDone: (approved: boolean)
         </p>
       )}
 
-      <section className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-5">
+      <section className="flex flex-col gap-3 rounded-[28px] border border-line bg-surface p-5">
         <h3 className="text-lg font-bold">{t("rv.answer")}</h3>
         {sub.text ? <p className="text-lg whitespace-pre-line text-ink">{sub.text}</p> : <p className="text-base text-muted">{t("rv.noanswer")}</p>}
         {sub.via === "voice" && <p className="text-sm font-semibold text-muted">{t("rv.voice")}</p>}
@@ -109,7 +110,7 @@ function Detail({ item, onDone }: { item: QueueItem; onDone: (approved: boolean)
         )}
       </section>
 
-      <section className="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-5">
+      <section className="flex flex-col gap-4 rounded-[28px] border border-line bg-surface p-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h3 className="text-lg font-bold">{t("rv.score")}</h3>
           {sub.audit_sample ? (
@@ -170,7 +171,7 @@ function Detail({ item, onDone }: { item: QueueItem; onDone: (approved: boolean)
         </ul>
       </section>
 
-      <section className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-5">
+      <section className="flex flex-col gap-3 rounded-[28px] border border-line bg-surface p-5">
         <label className="flex flex-col gap-1.5">
           <span className="text-lg font-bold">{t("rv.feedback")}</span>
           <span className="text-sm text-muted">{t("rv.feedback.help")}</span>
@@ -228,10 +229,7 @@ export function TeacherReviewPage() {
 
   return (
     <div className="flex flex-col gap-6 pt-2 lg:-mb-10 lg:h-[calc(100dvh-92px)] lg:gap-5">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-[30px] leading-[1.1] font-bold tracking-tight md:text-[38px]">{t("rv.title")}</h1>
-        <p className="max-w-3xl text-lg text-muted">{t("rv.lead")}</p>
-      </div>
+      <PageBanner title={t("rv.title")} lead={t("rv.lead")} />
       {failed && <Notice>{t("err.network")}</Notice>}
       {done && <Notice tone="info">{t(done)}</Notice>}
       {!items && !failed && (
@@ -241,7 +239,7 @@ export function TeacherReviewPage() {
         </div>
       )}
       {items && items.length === 0 && (
-        <section className="flex max-w-3xl gap-4 rounded-2xl border border-line bg-surface p-7 shadow-(--shadow-soft)">
+        <section className="flex max-w-3xl gap-4 rounded-[28px] border border-line bg-surface p-7 shadow-(--shadow-soft)">
           <Inbox className="mt-1 size-7 shrink-0 text-accent" aria-hidden="true" />
           <p className="text-lg text-muted">{t("rv.empty")}</p>
         </section>

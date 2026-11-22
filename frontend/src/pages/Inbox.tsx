@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { PageBanner } from "../components/PageBanner";
 import { Bell, CheckCheck, ChevronRight, Loader2 } from "lucide-react";
 import { Button, Notice, cx } from "../components/ui";
 import { getNotifications, markAllNotificationsRead, markNotificationRead, type AppNotification } from "../lib/api";
@@ -66,17 +67,17 @@ export function InboxPage() {
 
   return (
     <div className="flex flex-col gap-6 pt-2">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div className="flex flex-col gap-2">
-          <h1 className="text-[30px] leading-[1.1] font-bold tracking-tight md:text-[38px]">{t("inbox.title")}</h1>
-          <p className="max-w-3xl text-lg text-muted">{t("inbox.lead")}</p>
-        </div>
-        {unread > 0 && (
-          <Button variant="secondary" full={false} loading={busy} icon={<CheckCheck className="size-5" />} onClick={() => void readAll()} className="h-11 text-base">
-            {t("inbox.markAll")}
-          </Button>
-        )}
-      </div>
+      <PageBanner
+        title={t("inbox.title")}
+        lead={t("inbox.lead")}
+        aside={
+          unread > 0 && (
+            <Button variant="secondary" full={false} loading={busy} icon={<CheckCheck className="size-5" />} onClick={() => void readAll()} className="h-11 text-base">
+              {t("inbox.markAll")}
+            </Button>
+          )
+        }
+      />
 
       {error && <Notice>{t(error)}</Notice>}
       {!items && !error && (
@@ -86,7 +87,7 @@ export function InboxPage() {
         </div>
       )}
       {items && items.length === 0 && (
-        <section className="flex max-w-3xl gap-4 rounded-2xl border border-line bg-surface p-7 shadow-(--shadow-soft)">
+        <section className="flex max-w-3xl gap-4 rounded-[28px] border border-line bg-surface p-7 shadow-(--shadow-soft)">
           <Bell className="mt-1 size-7 shrink-0 text-accent" aria-hidden="true" />
           <p className="text-lg text-muted">{t("inbox.empty")}</p>
         </section>

@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { translate, type Lang } from "../../lib/i18n";
-import { SPEECH_TAG } from "../../lib/speech";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import type { Lang } from "../../lib/i18n";
 
 // ---------------------------------------------------------------------------
 // Motion preference: every animation on this page respects it.
@@ -156,55 +155,4 @@ export function useLanguageCycle(everyMs = 3400): Lang {
     return () => window.clearInterval(timer);
   }, [reduced, everyMs]);
   return CYCLE[i];
-}
-
-// ---------------------------------------------------------------------------
-// Read the page's opening aloud with the browser's own voices. Offered only when the
-// browser has a voice for the current language, so the button never does nothing.
-// ---------------------------------------------------------------------------
-
-
-export function useReadAloud(lang: Lang): { available: boolean; speaking: boolean; toggle: () => void } {
-  const supported = typeof window !== "undefined" && "speechSynthesis" in window;
-  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
-  const [speaking, setSpeaking] = useState(false);
-
-  useEffect(() => {
-    if (!supported) return;
-    const load = () => setVoices(window.speechSynthesis.getVoices());
-    load();
-    window.speechSynthesis.addEventListener("voiceschanged", load);
-    return () => {
-      window.speechSynthesis.removeEventListener("voiceschanged", load);
-      window.speechSynthesis.cancel();
-    };
-  }, [supported]);
-
-  // Changing language stops any reading in the old one.
-  useEffect(() => {
-    if (supported) window.speechSynthesis.cancel();
-    setSpeaking(false);
-  }, [lang, supported]);
-
-  const prefix = SPEECH_TAG[lang].slice(0, 2).toLowerCase();
-  const voice = voices.find((v) => v.lang.toLowerCase().startsWith(prefix));
-
-  const toggle = useCallback(() => {
-    if (!supported) return;
-    if (window.speechSynthesis.speaking) {
-      window.speechSynthesis.cancel();
-      setSpeaking(false);
-      return;
-    }
-    const text = `${translate(lang, "app.tagline")} ${translate(lang, "lp.hero.sub")}`;
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = SPEECH_TAG[lang];
-    if (voice) utterance.voice = voice;
-    utterance.onend = () => setSpeaking(false);
-    utterance.onerror = () => setSpeaking(false);
-    setSpeaking(true);
-    window.speechSynthesis.speak(utterance);
-  }, [lang, supported, voice]);
-
-  return { available: supported && Boolean(voice), speaking, toggle };
 }

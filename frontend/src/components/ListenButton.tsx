@@ -15,7 +15,7 @@ export function ListenButton({ text, className }: { text: string; className?: st
       aria-pressed={speaking}
       aria-busy={loading || undefined}
       className={cx(
-        "inline-flex h-12 shrink-0 items-center gap-2 rounded-xl border-[1.5px] px-4 text-base font-semibold transition-colors",
+        "inline-flex h-12 shrink-0 items-center gap-2 rounded-full border-[1.5px] px-5 text-base font-semibold transition-colors",
         speaking ? "border-accent bg-accent text-white" : "border-line-strong bg-surface text-accent hover:border-accent",
         className,
       )}

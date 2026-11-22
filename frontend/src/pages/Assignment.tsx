@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
-import { ArrowLeft, Camera, CheckCircle2, Hourglass, Loader2, Mic, PhoneCall, RotateCcw, Send, ShieldAlert, Square } from "lucide-react";
+import { PageBanner } from "../components/PageBanner";
+import { ArrowLeft, Camera, CheckCircle2, Hourglass, Loader2, Mic, PhoneCall, RotateCcw, Send, ShieldAlert, Sparkles, Square } from "lucide-react";
 import { WorkPhoto } from "../components/WorkPhoto";
 import { Button, Notice, cx } from "../components/ui";
 import { StatusChip } from "./Assignments";
@@ -52,12 +53,13 @@ function Panel({ title, children, tone = "plain" }: { title?: string; children: 
 // What the mentor said
 // ---------------------------------------------------------------------------
 
-function FeedbackCard({ sub, assignment, onChanged }: { sub: Submission; assignment: AssignmentDoc; onChanged: () => Promise<void> }) {
+function FeedbackCard({ sub, assignment, hasMentor, onChanged }: { sub: Submission; assignment: AssignmentDoc; hasMentor: boolean; onChanged: () => Promise<void> }) {
   const { t, lang } = useLang();
   const review = sub.review;
   const [busy, setBusy] = useState(false);
   if (!review) return null;
-  const approved = review.decision === "approve";
+  const byAi = review.by_ai;
+  const approved = review.decision === "approve" || review.decision === "pass";
   const ack = async (answer: "yes" | "no") => {
     setBusy(true);
     try {
@@ -72,13 +74,21 @@ function FeedbackCard({ sub, assignment, onChanged }: { sub: Submission; assignm
       <div className={cx("flex items-start gap-3", approved ? "text-ok" : "text-warn")}>
         {approved ? <CheckCircle2 className="mt-0.5 size-7 shrink-0" aria-hidden="true" /> : <RotateCcw className="mt-0.5 size-7 shrink-0" aria-hidden="true" />}
         <div className="flex flex-col gap-0.5">
-          <h2 className="text-xl font-bold">{approved ? t("work.approved.title") : t("work.returned.title")}</h2>
+          <h2 className="text-xl font-bold">
+            {byAi ? t(review.decision === "pass" ? "work.ai.passed.title" : review.decision === "feedback" ? "work.ai.tips.title" : "work.ai.returned.title") : approved ? t("work.approved.title") : t("work.returned.title")}
+          </h2>
           <p className="text-base">{t("work.attempt", { n: sub.attempt })}</p>
+          {byAi && (
+            <span className="mt-1 inline-flex items-center gap-1.5 self-start rounded-full bg-tint px-3 py-1 text-sm font-semibold text-accent">
+              <Sparkles className="size-4" aria-hidden="true" />
+              {t("work.ai.badge")}
+            </span>
+          )}
         </div>
       </div>
       {review.feedback && (
         <div className="flex flex-col gap-1 rounded-xl bg-surface p-4">
-          <h3 className="text-sm font-semibold tracking-wide text-muted uppercase">{t("work.feedback")}</h3>
+          <h3 className="text-sm font-semibold tracking-wide text-muted uppercase">{t(byAi ? "work.feedback.ai" : "work.feedback")}</h3>
           <p className="text-lg whitespace-pre-line text-ink">{review.feedback}</p>
         </div>
       )}
@@ -86,17 +96,27 @@ function FeedbackCard({ sub, assignment, onChanged }: { sub: Submission; assignm
         {assignment.criteria.map((c) => (
           <li key={c.id} className="grid grid-cols-1 items-center gap-x-4 gap-y-1 sm:grid-cols-[minmax(0,1fr)_auto]">
             <span className="text-base text-ink">{pickText(c.text, lang)}</span>
-            <ScoreMeter score={review.scores[c.id] ?? 1} />
+            {review.scores[c.id] == null ? <span className="text-sm font-semibold text-muted">{t("work.ai.notjudged")}</span> : <ScoreMeter score={review.scores[c.id] as number} />}
           </li>
         ))}
       </ul>
+      {byAi && (
+        <div className="flex flex-col gap-2 rounded-xl bg-tint p-4">
+          <p className="text-base text-deep">{t("work.ai.note")}</p>
+          {!hasMentor && (
+            <Link to="/mentor" className="self-start text-base font-semibold text-accent underline">
+              {t("work.ai.connect")}
+            </Link>
+          )}
+        </div>
+      )}
       {review.call_needed && (
         <p className="flex items-center gap-2.5 rounded-xl bg-surface p-4 text-lg font-semibold text-deep">
           <PhoneCall className="size-6 shrink-0 text-accent" aria-hidden="true" />
           {t("work.call")}
         </p>
       )}
-      {sub.ack === null ? (
+      {byAi ? null : sub.ack === null ? (
         <div className="flex flex-col gap-2.5 rounded-xl bg-surface p-4">
           <p className="text-lg font-semibold">{t("work.ack.q")}</p>
           <div className="flex gap-3">
@@ -262,11 +282,17 @@ function Editor({ detail, seed, onChanged }: { detail: AssignmentDetail; seed: S
         <Button full={false} variant="secondary" className="h-12 px-6 text-base" loading={busy === "save"} disabled={busy !== null || empty} onClick={() => void onSave()}>
           {t("work.save")}
         </Button>
-        <Button full={false} className="h-12 px-6 text-base" icon={<Send className="size-5" />} loading={busy === "send"} disabled={busy !== null || empty || !detail.has_mentor} onClick={() => void onSend()}>
-          {t("work.send")}
+        <Button full={false} className="h-12 px-6 text-base" icon={<Send className="size-5" />} loading={busy === "send"} disabled={busy !== null || empty} onClick={() => void onSend()}>
+          {t(detail.has_mentor ? "work.send" : "work.send.ai")}
         </Button>
         {savedNote && <span className="text-base font-semibold text-ok">{t("work.saved")}</span>}
       </div>
+      {busy === "send" && !detail.has_mentor && (
+        <p className="flex items-center gap-2 text-base text-muted" role="status">
+          <Loader2 className="size-5 animate-spin" aria-hidden="true" />
+          {t("work.ai.wait")}
+        </p>
+      )}
       {!detail.has_mentor && (
         <div className="flex flex-col gap-2 rounded-xl bg-tint p-4">
           <p className="text-base text-deep">{t("work.send.nomentor")}</p>
@@ -351,10 +377,7 @@ export function AssignmentPage({ assignmentId }: { assignmentId: string }) {
   return (
     <div className="flex flex-col gap-5 pt-2">
       {back}
-      <div className="flex flex-wrap items-center gap-3">
-        <h1 className="text-[30px] leading-[1.1] font-bold tracking-tight md:text-[38px]">{pickText(a.title, lang)}</h1>
-        <StatusChip status={latest?.status ?? "none"} />
-      </div>
+      <PageBanner title={pickText(a.title, lang)} aside={<StatusChip status={latest?.status ?? "none"} />} />
       {notInLang(a.title, lang) && <p className="text-sm text-muted">{t("work.writtenIn")}</p>}
 
       <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
@@ -381,11 +404,11 @@ export function AssignmentPage({ assignmentId }: { assignmentId: string }) {
         </div>
 
         <div className="flex flex-col gap-5">
-          {lastReviewed && <FeedbackCard key={lastReviewed.id + String(lastReviewed.ack)} sub={lastReviewed} assignment={a} onChanged={load} />}
+          {lastReviewed && <FeedbackCard key={lastReviewed.id + String(lastReviewed.ack)} sub={lastReviewed} assignment={a} hasMentor={detail.has_mentor} onChanged={load} />}
           {latest?.status === "submitted" && <SentCard sub={latest} />}
-          {detail.can_work && <Editor key={latest?.id ?? "new"} detail={detail} seed={latest?.status === "returned" ? latest : null} onChanged={load} />}
+          {detail.can_work && <Editor key={latest?.id ?? "new"} detail={detail} seed={latest?.status === "returned" || latest?.status === "ai_returned" ? latest : null} onChanged={load} />}
           {earlier.length > 0 && (
-            <details className="rounded-2xl border border-line bg-surface p-5">
+            <details className="rounded-[28px] border border-line bg-surface p-5">
               <summary className="cursor-pointer text-lg font-semibold">{t("work.history")}</summary>
               <ul className="mt-3 flex flex-col gap-3">
                 {earlier.map((s) => (

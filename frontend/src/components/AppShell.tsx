@@ -9,6 +9,8 @@ import { LanguageSwitch } from "./LanguageSwitch";
 import { Link } from "./Link";
 import { Button, Logo, cx } from "./ui";
 
+const GRID = "linear-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / 0.07) 1px, transparent 1px)";
+
 export interface NavItem {
   path: string;
   label: MessageKey;
@@ -55,20 +57,21 @@ export function AppShell({ items, children }: { items: NavItem[]; children: Reac
   }, [open]);
 
   return (
-    <div className="grid min-h-dvh grid-cols-1 md:grid-cols-[264px_minmax(0,1fr)]">
+    <div className="grid min-h-dvh grid-cols-1 md:grid-cols-[272px_minmax(0,1fr)]">
       {open && <div className="fixed inset-0 z-30 bg-ink/40 md:hidden" onClick={() => setOpen(false)} aria-hidden="true" />}
       <nav
         id="main-nav"
+        style={{ backgroundImage: GRID, backgroundSize: "56px 56px" }}
         aria-label={t("nav.main")}
         className={cx(
-          "fixed inset-y-0 left-0 z-40 flex h-dvh w-[280px] max-w-[85vw] flex-col gap-1 overflow-y-auto border-r border-line bg-surface p-4 transition-transform",
-          "md:sticky md:top-0 md:z-auto md:w-auto md:max-w-none md:translate-x-0 md:visible",
+          "fixed inset-y-0 left-0 z-40 flex h-dvh w-[280px] max-w-[85vw] flex-col gap-1 overflow-y-auto bg-accent px-4 pt-5 pb-4 text-white transition-transform",
+          "md:sticky md:top-0 md:z-auto md:h-dvh md:w-auto md:max-w-none md:translate-x-0 md:visible",
           open ? "translate-x-0" : "invisible -translate-x-full",
         )}
       >
-        <div className="px-2.5 pt-1 pb-6">
+        <div className="mb-3 border-b border-white/20 px-2.5 pt-1 pb-5">
           <Link to="/" aria-label={t("nav.landing")} className="inline-flex rounded-lg">
-            <Logo />
+            <Logo inverse />
           </Link>
         </div>
         {items.map(({ path: to, label, icon: Icon }) => {
@@ -79,8 +82,8 @@ export function AppShell({ items, children }: { items: NavItem[]; children: Reac
               to={to}
               aria-current={active ? "page" : undefined}
               className={cx(
-                "flex h-[54px] items-center gap-3.5 rounded-xl px-3.5 text-[17px] font-semibold transition-colors",
-                active ? "bg-tint text-accent" : "text-muted hover:bg-bg hover:text-ink",
+                "flex h-12 items-center gap-3.5 rounded-xl px-4 text-[16px] font-semibold transition-colors",
+                active ? "bg-lime text-night" : "text-white/80 hover:bg-white/10 hover:text-white",
               )}
             >
               <Icon className="size-[22px] shrink-0" aria-hidden="true" />
@@ -89,15 +92,15 @@ export function AppShell({ items, children }: { items: NavItem[]; children: Reac
           );
         })}
 
-        <div className="mt-auto flex flex-col gap-3 border-t border-line pt-4">
+        <div className="mt-auto flex flex-col gap-3 border-t border-white/20 pt-4">
           <div className="flex items-center gap-3 px-1.5">
-            <span className="grid size-11 shrink-0 place-items-center rounded-full bg-deep text-lg font-bold text-white" aria-hidden="true">
+            <span className="grid size-11 shrink-0 place-items-center rounded-full bg-lime text-lg font-bold text-night" aria-hidden="true">
               {name.trim().charAt(0).toUpperCase()}
             </span>
-            <span className="min-w-0 truncate text-base font-semibold text-ink">{name}</span>
+            <span className="min-w-0 truncate text-base font-semibold text-white">{name}</span>
           </div>
           <div className="flex flex-col gap-2">
-            <Button variant="secondary" full onClick={() => void signOut()} icon={<LogOut className="size-[18px]" />} className="h-11 px-3 text-[15px]">
+            <Button variant="secondary" full onClick={() => void signOut()} icon={<LogOut className="size-[18px]" />} className="h-11 border-white/30 bg-white/10 px-3 text-[15px] text-white hover:border-white hover:bg-white/20 hover:text-white">
               {t("nav.signOut")}
             </Button>
           </div>
@@ -112,7 +115,7 @@ export function AppShell({ items, children }: { items: NavItem[]; children: Reac
             aria-expanded={open}
             aria-controls="main-nav"
             aria-label={t("nav.menu")}
-            className="grid size-11 shrink-0 place-items-center rounded-xl border-[1.5px] border-line-strong bg-surface text-ink md:hidden"
+            className="grid size-11 shrink-0 place-items-center rounded-full border-[1.5px] border-line-strong bg-surface text-ink md:hidden"
           >
             <Menu className="size-6" aria-hidden="true" />
           </button>
@@ -123,7 +126,7 @@ export function AppShell({ items, children }: { items: NavItem[]; children: Reac
               aria-label={unread > 0 ? `${t("nav.inbox")}, ${t("inbox.unreadCount", { n: unread })}` : t("nav.inbox")}
               aria-current={path === inbox ? "page" : undefined}
               className={cx(
-                "relative grid size-11 shrink-0 place-items-center rounded-xl border-[1.5px] bg-surface transition-colors",
+                "relative grid size-11 shrink-0 place-items-center rounded-full border-[1.5px] bg-surface transition-colors",
                 path === inbox ? "border-accent text-accent" : "border-line-strong text-ink hover:border-accent hover:text-accent",
               )}
             >

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState, type FormEvent } from "react";
+import { PageBanner } from "../components/PageBanner";
 import { CheckCircle2, ClipboardList, FileEdit, Loader2, Plus, Sparkles, Trash2, Users, X } from "lucide-react";
 import { Link } from "../components/Link";
 import { Button, Notice, cx } from "../components/ui";
@@ -159,7 +160,7 @@ function MilestoneBlock({
   const live = m.assignments.length;
 
   return (
-    <section className="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-6 shadow-(--shadow-soft)">
+    <section className="flex flex-col gap-4 rounded-[28px] border border-line bg-surface p-6 shadow-(--shadow-soft)">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="flex flex-col gap-0.5">
           <h2 className="text-xl font-bold">{pickText(m.title, lang)}</h2>
@@ -280,10 +281,7 @@ export function TeacherAssignmentsPage() {
 
   return (
     <div className="flex flex-col gap-6 pt-2 lg:-mb-10 lg:h-[calc(100dvh-92px)] lg:gap-5">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-[30px] leading-[1.1] font-bold tracking-tight md:text-[38px]">{t("ta.title")}</h1>
-        <p className="max-w-3xl text-lg text-muted">{t("ta.lead")}</p>
-      </div>
+      <PageBanner title={t("ta.title")} lead={t("ta.lead")} />
       {failed && <Notice>{t("err.network")}</Notice>}
       {!mentees && !failed && (
         <div className="flex items-center gap-3 text-lg text-muted" role="status">
@@ -292,7 +290,7 @@ export function TeacherAssignmentsPage() {
         </div>
       )}
       {mentees && mentees.length === 0 && (
-        <section className="flex max-w-3xl gap-4 rounded-2xl border border-line bg-surface p-7 shadow-(--shadow-soft)">
+        <section className="flex max-w-3xl gap-4 rounded-[28px] border border-line bg-surface p-7 shadow-(--shadow-soft)">
           <Users className="mt-1 size-7 shrink-0 text-accent" aria-hidden="true" />
           <p className="text-lg text-muted">{t("ta.empty")}</p>
         </section>

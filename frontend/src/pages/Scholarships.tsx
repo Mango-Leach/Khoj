@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { PageBanner } from "../components/PageBanner";
 import { ExternalLink, Loader2 } from "lucide-react";
 import { Reasons, StatusChip, opensText, pick } from "../components/Eligibility";
 import { ListenButton } from "../components/ListenButton";
@@ -20,7 +21,7 @@ function SchemeCard({ r }: { r: SchemeResult }) {
   const spoken = [name.text, summary.text, ...opens].join(". ");
   return (
     <li className="flex">
-      <article className="flex w-full flex-col gap-4 rounded-2xl border border-line bg-surface p-6 shadow-(--shadow-soft)" aria-labelledby={`scheme-${r.id}`}>
+      <article className="flex w-full flex-col gap-4 rounded-[28px] border border-line bg-surface p-6 shadow-(--shadow-soft)" aria-labelledby={`scheme-${r.id}`}>
         <header className="flex flex-col gap-2">
           <StatusChip status={r.status} />
           <h3 id={`scheme-${r.id}`} className="text-[21px] leading-tight font-bold tracking-tight">
@@ -78,7 +79,7 @@ function SchemeCard({ r }: { r: SchemeResult }) {
                 href={r.apply_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-12 items-center gap-2 rounded-xl border-[1.5px] border-line-strong px-5 text-base font-semibold text-ink hover:border-accent hover:text-accent"
+                className="inline-flex h-12 items-center gap-2 rounded-full border-[1.5px] border-line-strong px-5 text-base font-semibold text-ink hover:border-accent hover:text-accent"
               >
                 {t("schemes.apply")}
                 <ExternalLink className="size-4" aria-hidden="true" />
@@ -135,10 +136,7 @@ export function ScholarshipsPage() {
 
   return (
     <div className="flex flex-col gap-8 pt-2">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-[30px] leading-[1.1] md:text-[38px] font-bold tracking-tight">{t("schemes.title")}</h1>
-        <p className="max-w-3xl text-lg text-muted">{t("schemes.lead")}</p>
-      </div>
+      <PageBanner title={t("schemes.title")} lead={t("schemes.lead")} />
 
       {error && <Notice>{t(error)}</Notice>}
 

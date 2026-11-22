@@ -1,4 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
+import { PageBanner } from "../components/PageBanner";
 import { Check, Loader2, Plus, X } from "lucide-react";
 import { Button, Notice, cx } from "../components/ui";
 import { acceptIntake, getCategories, getLatestIntake, getSkills, isApiFailure, type Category, type Extracted, type IntakeSession, type SkillInfo } from "../lib/api";
@@ -58,7 +59,7 @@ function SkillPicker({ selected, onToggle, onClose }: { selected: string[]; onTo
   ].filter((g) => g.items.length > 0);
 
   return (
-    <section className="flex flex-col gap-5 rounded-2xl border border-line bg-tint p-6" aria-label={t("review.add.title")}>
+    <section className="flex flex-col gap-5 rounded-[28px] border border-line bg-tint p-6" aria-label={t("review.add.title")}>
       <div className="flex items-start justify-between gap-4">
         <div className="flex flex-col gap-1">
           <h2 className="text-xl font-semibold">{t("review.add.title")}</h2>
@@ -182,82 +183,86 @@ export function IntakeReviewPage() {
   const hasEnglish = other.length + interests.length > 0 || goal !== null;
 
   return (
-    <div className="flex max-w-3xl flex-col gap-8 pt-2">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-[30px] leading-[1.15] md:text-[38px] font-bold tracking-tight">{t("review.title")}</h1>
-        <p className="text-lg text-muted">{t("review.lead")}</p>
-      </div>
+    <div className="flex flex-col gap-6 pt-2">
+      <PageBanner title={t("review.title")} lead={t("review.lead")} />
 
       {session.extraction_source === "fallback" && <Notice tone="info">{t("review.fallbackNote")}</Notice>}
       {!hasAnything && <Notice tone="info">{t("review.none")}</Notice>}
 
-      <div className="flex flex-col gap-7 rounded-2xl border border-line bg-surface p-8 shadow-(--shadow-soft)">
-        <Group title={t("review.skills")}>
-          {skills.map((s) => (
-            <Chip key={s} label={skillName(s)} onRemove={() => setSkills((cur) => cur.filter((x) => x !== s))} />
-          ))}
-          {!picking && (
-            <li>
-              <button
-                type="button"
-                onClick={() => setPicking(true)}
-                className="inline-flex min-h-12 items-center gap-2 rounded-full border-[1.5px] border-dashed border-accent px-5 py-2 text-lg font-semibold text-accent transition-colors hover:bg-tint"
-              >
-                <Plus className="size-5" aria-hidden="true" />
-                {t("review.add")}
-              </button>
-            </li>
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-start">
+        <div className="flex flex-col gap-7 rounded-[28px] border border-line bg-surface p-7 shadow-(--shadow-soft) md:p-8">
+          <Group title={t("review.skills")}>
+            {skills.map((s) => (
+              <Chip key={s} label={skillName(s)} onRemove={() => setSkills((cur) => cur.filter((x) => x !== s))} />
+            ))}
+            {!picking && (
+              <li>
+                <button
+                  type="button"
+                  onClick={() => setPicking(true)}
+                  className="inline-flex min-h-12 items-center gap-2 rounded-full border-[1.5px] border-dashed border-accent px-5 py-2 text-lg font-semibold text-accent transition-colors hover:bg-tint"
+                >
+                  <Plus className="size-5" aria-hidden="true" />
+                  {t("review.add")}
+                </button>
+              </li>
+            )}
+          </Group>
+          {picking && (
+            <SkillPicker
+              selected={skills}
+              onToggle={(id) =>
+                setSkills((cur) => (cur.includes(id) ? cur.filter((x) => x !== id) : cur.length < MAX_SKILLS ? [...cur, id] : cur))
+              }
+              onClose={() => setPicking(false)}
+            />
           )}
-        </Group>
-        {picking && (
-          <SkillPicker
-            selected={skills}
-            onToggle={(id) =>
-              setSkills((cur) => (cur.includes(id) ? cur.filter((x) => x !== id) : cur.length < MAX_SKILLS ? [...cur, id] : cur))
-            }
-            onClose={() => setPicking(false)}
-          />
-        )}
-        {other.length > 0 && (
-          <Group title={t("review.other")}>
-            {other.map((s) => (
-              <Chip key={s} label={s} onRemove={() => setOther((cur) => cur.filter((x) => x !== s))} />
-            ))}
-          </Group>
-        )}
-        {interests.length > 0 && (
-          <Group title={t("review.interests")}>
-            {interests.map((s) => (
-              <Chip key={s} label={s} onRemove={() => setInterests((cur) => cur.filter((x) => x !== s))} />
-            ))}
-          </Group>
-        )}
-        {goal && (
-          <Group title={t("review.goal")}>
-            <Chip label={goal} onRemove={() => setGoal(null)} />
-          </Group>
-        )}
-        {hasEnglish && <p className="text-[15px] text-muted">{t("review.englishNote")}</p>}
+          {other.length > 0 && (
+            <Group title={t("review.other")}>
+              {other.map((s) => (
+                <Chip key={s} label={s} onRemove={() => setOther((cur) => cur.filter((x) => x !== s))} />
+              ))}
+            </Group>
+          )}
+          {interests.length > 0 && (
+            <Group title={t("review.interests")}>
+              {interests.map((s) => (
+                <Chip key={s} label={s} onRemove={() => setInterests((cur) => cur.filter((x) => x !== s))} />
+              ))}
+            </Group>
+          )}
+          {goal && (
+            <Group title={t("review.goal")}>
+              <Chip label={goal} onRemove={() => setGoal(null)} />
+            </Group>
+          )}
+          {hasEnglish && <p className="text-[15px] text-muted">{t("review.englishNote")}</p>}
+        </div>
 
-        <section className="flex flex-col gap-3 border-t border-line pt-6" aria-label={t("review.constraints")}>
-          <h2 className="text-xl font-semibold">{t("review.constraints")}</h2>
-          <ul className="flex flex-col gap-1.5 text-lg text-muted">
-            {constraintLines(session.extracted.constraints, t).map((line) => (
-              <li key={line}>{line}</li>
-            ))}
-          </ul>
-        </section>
-      </div>
+        <aside className="flex flex-col gap-6 rounded-[28px] border border-line bg-surface p-7 shadow-(--shadow-soft) md:p-8 lg:sticky lg:top-4" aria-label={t("review.constraints")}>
+          <section className="flex flex-col gap-3">
+            <h2 className="text-xl font-semibold">{t("review.constraints")}</h2>
+            <ul className="flex flex-col gap-2 text-lg text-muted">
+              {constraintLines(session.extracted.constraints, t).map((line) => (
+                <li key={line} className="flex items-start gap-3">
+                  <span className="mt-2.5 size-2 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                  {line}
+                </li>
+              ))}
+            </ul>
+          </section>
 
-      {error && <Notice>{error}</Notice>}
+          {error && <Notice>{error}</Notice>}
 
-      <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto]">
-        <Button loading={saving} disabled={!hasAnything} onClick={accept}>
-          {t("review.accept")}
-        </Button>
-        <Button variant="secondary" full={false} disabled={saving} onClick={() => navigate("/skills")}>
-          {t("review.again")}
-        </Button>
+          <div className="flex flex-col gap-3 border-t border-line pt-6">
+            <Button loading={saving} disabled={!hasAnything} onClick={accept}>
+              {t("review.accept")}
+            </Button>
+            <Button variant="secondary" disabled={saving} onClick={() => navigate("/skills")}>
+              {t("review.again")}
+            </Button>
+          </div>
+        </aside>
       </div>
     </div>
   );

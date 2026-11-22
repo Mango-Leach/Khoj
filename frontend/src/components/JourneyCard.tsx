@@ -48,7 +48,7 @@ export function JourneyCard({ journey }: { journey: Journey }) {
 
   return (
     <section
-      className="grid gap-8 rounded-2xl border border-line bg-surface p-6 shadow-(--shadow-lift) md:p-8 xl:col-span-2 xl:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]"
+      className="grid gap-8 rounded-[28px] border border-line bg-surface p-6 shadow-(--shadow-lift) md:p-8 xl:col-span-2 xl:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]"
       aria-labelledby="your-path"
     >
       <div className="flex min-w-0 flex-col gap-5">
@@ -60,7 +60,7 @@ export function JourneyCard({ journey }: { journey: Journey }) {
           {journey.career.summary && <p className="max-w-2xl text-lg text-muted">{journey.career.summary[lang]}</p>}
         </div>
         {journey.career.first_income_step && (
-          <div className="rounded-xl bg-tint p-5">
+          <div className="rounded-2xl bg-tint p-5">
             <p className="text-sm font-semibold tracking-wide text-deep uppercase">{t("paths.first")}</p>
             <p className="mt-1 text-lg">{journey.career.first_income_step[lang]}</p>
           </div>

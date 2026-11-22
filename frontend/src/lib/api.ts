@@ -26,6 +26,8 @@ export interface User {
   roles: string[];
   language: Lang;
   profile: "student" | "teacher" | null;
+  /** The signed-in person's own number, shown only on their own Home screen. */
+  phone?: string | null;
 }
 
 export interface Tokens {
@@ -403,6 +405,9 @@ export interface VoiceStatus {
 
 export const getVoiceStatus = () => request<VoiceStatus>("/voice/status");
 
+/** For the public page, where nobody is signed in: can the server voice be used? */
+export const getPublicVoiceStatus = () => request<{ tts: boolean }>("/voice/public/status", { auth: false });
+
 /** Sends one recorded answer (WAV) and returns the words in it. The server does not keep the audio. */
 export function transcribeAudio(audio: Blob, language: Lang): Promise<{ transcript: string; language: Lang }> {
   const form = new FormData();
@@ -414,6 +419,12 @@ export function transcribeAudio(audio: Blob, language: Lang): Promise<{ transcri
 /** Spoken audio for a line of text (repeated lines are cached on the server). */
 export async function fetchSpeech(text: string, language: Lang): Promise<Blob> {
   const res = await requestRaw("/voice/tts", { method: "POST", body: { text, language }, accept: "audio/*" });
+  return res.blob();
+}
+
+/** The same spoken audio, for a visitor who has not signed in (new lines are rate limited on the server). */
+export async function fetchPublicSpeech(text: string, language: Lang): Promise<Blob> {
+  const res = await requestRaw("/voice/public/tts", { method: "POST", body: { text, language }, accept: "audio/*", auth: false });
   return res.blob();
 }
 
@@ -714,7 +725,7 @@ export const startProofReview = () => request<{ status: "reviewing" }>("/teacher
 // ---------------------------------------------------------------------------
 
 export type MilestoneKey = "explore" | "learn" | "practise";
-export type SubmissionStatus = "draft" | "submitted" | "approved" | "returned";
+export type SubmissionStatus = "draft" | "submitted" | "approved" | "returned" | "ai_passed" | "ai_returned";
 /** Text in the languages it was written in. Default assignments have all three; a mentor's own may have one. */
 export type TextMap = Partial<Record<Lang, string>>;
 
@@ -766,8 +777,12 @@ export interface MilestonesView {
 }
 
 export interface WorkReview {
-  decision: "approve" | "return";
-  scores: Record<string, number>;
+  /** `pass`, `return` and `feedback` come from the AI (a learner with no mentor); `approve` is a mentor's. */
+  decision: "approve" | "return" | "pass" | "feedback";
+  /** true when the AI reviewed it. Practice feedback only: it never counts as a mentor's approval. */
+  by_ai: boolean;
+  /** null: the AI could not judge that criterion from the written answer. */
+  scores: Record<string, number | null>;
   feedback: string;
   /** After two returns the mentor is asked to call the learner. */
   call_needed: boolean;
@@ -811,6 +826,7 @@ export interface AssignmentDetail {
   /** The learner may save or start work now. */
   can_work: boolean;
   approved: boolean;
+  ai_passed: boolean;
 }
 
 export interface QueueItem {

@@ -7,8 +7,15 @@ import { LanguageSwitch } from "./LanguageSwitch";
 import { Button, Logo } from "./ui";
 
 /** The signed-out frame: a brand panel on the left, one task on the right. */
+/** Splits "Speak your skill. Find your first income." so the promise can carry the colour. */
+function splitTagline(text: string): [string, string] {
+  const m = text.match(/^(.+?[.,।])\s+(.+)$/);
+  return m ? [m[1], m[2]] : [text, ""];
+}
+
 export function AuthLayout({ children }: { children: ReactNode }) {
   const { t } = useLang();
+  const [first, second] = splitTagline(t("app.tagline"));
   const how = [
     { icon: Mic, text: t("brand.how1") },
     { icon: Compass, text: t("brand.how2") },
@@ -17,26 +24,32 @@ export function AuthLayout({ children }: { children: ReactNode }) {
   return (
     <div className="grid min-h-dvh lg:grid-cols-[minmax(440px,5fr)_7fr]">
       <aside
-        className="relative hidden flex-col justify-between bg-deep p-14 text-white lg:flex"
-        style={{ backgroundImage: "radial-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px)", backgroundSize: "26px 26px" }}
+        className="relative m-3 hidden flex-col justify-between rounded-[32px] bg-accent p-12 text-white lg:flex"
+        style={{
+          backgroundImage: "linear-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / 0.07) 1px, transparent 1px)",
+          backgroundSize: "56px 56px",
+        }}
       >
         <Link to="/" aria-label="KHOJ" className="self-start">
           <Logo inverse />
         </Link>
         <div>
-          <h1 className="max-w-[16ch] text-balance text-[52px] leading-[1.08] font-bold tracking-tight">{t("app.tagline")}</h1>
+          <h1 className="max-w-[16ch] text-balance text-[46px] leading-[1.1] font-bold tracking-tight">
+            <span className="block">{first}</span>
+            {second && <span className="block text-lime">{second}</span>}
+          </h1>
           <ul className="mt-12 flex flex-col gap-5">
             {how.map(({ icon: Icon, text }) => (
-              <li key={text} className="flex items-center gap-4 text-lg text-[#dce6ff]">
-                <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-white/12" aria-hidden="true">
-                  <Icon className="size-5 text-white" />
+              <li key={text} className="flex items-center gap-4 text-lg text-white/90">
+                <span className="grid size-11 shrink-0 place-items-center rounded-full bg-lime" aria-hidden="true">
+                  <Icon className="size-5 text-night" />
                 </span>
                 {text}
               </li>
             ))}
           </ul>
         </div>
-        <p className="text-[15px] text-[#b9c8f0]">{t("app.expansion")}</p>
+        <p className="text-[15px] text-white/70">{t("app.expansion")}</p>
       </aside>
 
       <div className="flex min-h-dvh flex-col">

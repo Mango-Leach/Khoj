@@ -13,7 +13,7 @@ export function LearnerCardView({ card }: { card: Card }) {
   return (
     <div className="flex min-w-0 flex-col gap-4">
       <div className="flex items-center gap-3">
-        <span className="grid size-12 shrink-0 place-items-center rounded-full bg-deep text-xl font-bold text-white" aria-hidden="true">
+        <span className="grid size-12 shrink-0 place-items-center rounded-full bg-accent text-xl font-bold text-white" aria-hidden="true">
           {card.name.trim().charAt(0).toUpperCase()}
         </span>
         <div className="flex min-w-0 flex-col">

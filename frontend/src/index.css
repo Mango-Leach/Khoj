@@ -1,37 +1,49 @@
 @import "tailwindcss";
 @import "@fontsource-variable/inter/wght.css";
+/* Poppins draws Hindi and Marathi (and the Latin letters and digits beside them). Only the two
+   subsets in use are bundled, so they also work offline. Noto Sans Devanagari stays as a fallback. */
+@import "@fontsource/poppins/latin-400.css";
+@import "@fontsource/poppins/latin-500.css";
+@import "@fontsource/poppins/latin-600.css";
+@import "@fontsource/poppins/latin-700.css";
+@import "@fontsource/poppins/devanagari-400.css";
+@import "@fontsource/poppins/devanagari-500.css";
+@import "@fontsource/poppins/devanagari-600.css";
+@import "@fontsource/poppins/devanagari-700.css";
 @import "@fontsource/noto-sans-devanagari/400.css";
-@import "@fontsource/noto-sans-devanagari/500.css";
-@import "@fontsource/noto-sans-devanagari/600.css";
 @import "@fontsource/noto-sans-devanagari/700.css";
 
 /*
- * KHOJ design tokens. Direction: a modern product look in blue, white and black
- * (see PRODUCT.md, brand commitments). Blue is the only hue; green, amber and red
- * appear only as status colours. Latin text is Inter; Devanagari falls through to
- * the bundled Noto Sans Devanagari so Hindi and Marathi render offline.
+ * KHOJ design tokens. Direction: a royal-blue product look with a lime accent, white cards
+ * and black (see PRODUCT.md, brand commitments). Green, amber and red appear only as status
+ * colours. Latin text is Inter; Hindi and Marathi are set in Poppins, with Noto Sans
+ * Devanagari behind it, all bundled so text renders offline.
  */
 @theme {
-  --color-bg: #f7f9fd;
+  --color-bg: #f4f5f9;
   --color-surface: #ffffff;
-  --color-ink: #0b1220;
-  --color-muted: #46506a;
-  --color-line: #e3e8f2;
-  --color-line-strong: #c5cee0;
-  --color-accent: #1d4ed8;
-  --color-accent-hover: #1a43bd;
-  --color-deep: #0b2a6f;
-  --color-tint: #eef3ff;
-  --color-tint-strong: #dce6ff;
+  --color-ink: #0b0d1c;
+  --color-muted: #4b5169;
+  --color-line: #e2e5f0;
+  --color-line-strong: #c3c8dc;
+  --color-accent: #2433a6;
+  --color-accent-hover: #1c2a8c;
+  --color-deep: #121a6e;
+  --color-tint: #eceeff;
+  --color-tint-strong: #d9ddfb;
+  --color-lime: #dcf53f;
+  --color-lime-soft: #f1fbb4;
+  --color-night: #0b0d1c;
   --color-ok: #166534;
   --color-ok-bg: #e7f6ec;
   --color-warn: #8a4b08;
   --color-warn-bg: #fdf1dc;
   --color-bad: #b42318;
   --color-bad-bg: #fdecea;
-  --font-sans: "Inter Variable", "Noto Sans Devanagari", system-ui, sans-serif;
-  --shadow-lift: 0 1px 2px rgb(11 18 32 / 0.05), 0 8px 24px rgb(29 78 216 / 0.1);
-  --shadow-soft: 0 1px 2px rgb(11 18 32 / 0.04), 0 2px 8px rgb(11 18 32 / 0.04);
+  --font-sans: "Inter Variable", "Poppins", "Noto Sans Devanagari", system-ui, sans-serif;
+  --font-indic: "Poppins", "Inter Variable", "Noto Sans Devanagari", system-ui, sans-serif;
+  --shadow-lift: 0 1px 2px rgb(11 13 28 / 0.05), 0 8px 24px rgb(36 51 166 / 0.12);
+  --shadow-soft: 0 1px 2px rgb(11 13 28 / 0.04), 0 2px 8px rgb(11 13 28 / 0.04);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -49,9 +61,11 @@
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
   }
-  /* Devanagari needs more line height than Latin to keep its marks apart. */
+  /* Hindi and Marathi use Poppins throughout, and need more line height than Latin to keep
+     the marks above and below the line apart. */
   :lang(hi),
   :lang(mr) {
+    font-family: var(--font-indic);
     line-height: 1.65;
   }
   ::selection {

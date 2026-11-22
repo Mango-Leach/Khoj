@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Briefcase, CheckCircle2, ChevronRight, Circle, GraduationCap, Hourglass, Loader2, Lock, PencilLine, PhoneCall, RotateCcw, Send } from "lucide-react";
+import { PageBanner } from "../components/PageBanner";
+import { Briefcase, CheckCircle2, ChevronRight, Circle, GraduationCap, Hourglass, Loader2, Lock, PencilLine, PhoneCall, RotateCcw, Send, Sparkles } from "lucide-react";
 import { Link } from "../components/Link";
 import { Button, Notice, cx } from "../components/ui";
 import { completeJourney, getMilestones, getOpportunities, type MilestoneAssignment, type MilestonesView, type SubmissionStatus } from "../lib/api";
@@ -19,6 +20,8 @@ const STATUS_STYLE: Record<SubmissionStatus | "none", { icon: typeof Circle; ton
   submitted: { icon: Send, tone: "bg-warn-bg text-warn" },
   approved: { icon: CheckCircle2, tone: "bg-ok-bg text-ok" },
   returned: { icon: RotateCcw, tone: "bg-warn-bg text-warn" },
+  ai_passed: { icon: Sparkles, tone: "bg-tint text-accent" },
+  ai_returned: { icon: RotateCcw, tone: "bg-warn-bg text-warn" },
 };
 
 export function StatusChip({ status }: { status: SubmissionStatus | "none" }) {
@@ -37,7 +40,7 @@ function Banner({ view }: { view: MilestonesView }) {
   if (view.has_mentor) return null;
   const pending = view.journey_state === "mentor_pending";
   return (
-    <section className="flex flex-col gap-3 rounded-2xl bg-tint px-5 py-4 sm:flex-row sm:items-center sm:gap-4" aria-labelledby="mentor-banner">
+    <section className="flex flex-col gap-3 rounded-[28px] bg-tint px-6 py-5 text-deep sm:flex-row sm:items-center sm:gap-4" aria-labelledby="mentor-banner">
       {pending ? <Hourglass className="size-7 shrink-0 text-accent" aria-hidden="true" /> : <GraduationCap className="size-7 shrink-0 text-accent" aria-hidden="true" />}
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         <h2 id="mentor-banner" className="text-lg font-bold text-deep">
@@ -77,7 +80,7 @@ function FinishCard({ view, onDone }: { view: MilestonesView; onDone: (state: Mi
   };
 
   return (
-    <section className="flex flex-col gap-3 rounded-2xl bg-tint px-5 py-4 sm:flex-row sm:items-center sm:gap-4" aria-labelledby="finish-card">
+    <section className="flex flex-col gap-3 rounded-[28px] bg-tint px-6 py-5 text-deep sm:flex-row sm:items-center sm:gap-4" aria-labelledby="finish-card">
       {finished ? <Briefcase className="size-7 shrink-0 text-accent" aria-hidden="true" /> : <CheckCircle2 className="size-7 shrink-0 text-accent" aria-hidden="true" />}
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         <h2 id="finish-card" className="text-lg font-bold text-deep">
@@ -115,7 +118,7 @@ function OpportunitiesTeaser({ journeyId, state }: { journeyId: string; state: M
   }, [journeyId, state]);
   if (locked === 0 || FINISHED.includes(state)) return null;
   return (
-    <section className="flex flex-col gap-3 rounded-2xl bg-tint px-5 py-4 sm:flex-row sm:items-center sm:gap-4" aria-labelledby="teaser-card">
+    <section className="flex flex-col gap-3 rounded-[28px] bg-tint px-6 py-5 text-deep sm:flex-row sm:items-center sm:gap-4" aria-labelledby="teaser-card">
       <Lock className="size-7 shrink-0 text-accent" aria-hidden="true" />
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         <h2 id="teaser-card" className="text-lg font-bold text-deep">
@@ -150,9 +153,10 @@ export function AssignmentsPage() {
 
   if (loaded && !journey) {
     return (
-      <div className="flex max-w-2xl flex-col items-start gap-4 pt-2">
-        <h1 className="text-[30px] leading-[1.1] font-bold tracking-tight md:text-[38px]">{t("work.title")}</h1>
-        <p className="text-lg text-muted">{t("work.nopath.help")}</p>
+      <div className="flex flex-col items-start gap-6 pt-2">
+        <div className="w-full">
+          <PageBanner title={t("work.title")} lead={t("work.nopath.help")} />
+        </div>
         <Button full={false} onClick={() => navigate("/paths")}>
           {t("mentor.none.cta")}
         </Button>
@@ -162,10 +166,7 @@ export function AssignmentsPage() {
 
   return (
     <div className="flex flex-col gap-6 pt-2">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-[30px] leading-[1.1] font-bold tracking-tight md:text-[38px]">{t("work.title")}</h1>
-        {journey && <p className="max-w-3xl text-lg text-muted">{t("work.lead", { career: pickText(journey.career.name, lang) })}</p>}
-      </div>
+      <PageBanner title={t("work.title")} lead={journey ? t("work.lead", { career: pickText(journey.career.name, lang) }) : undefined} />
       {failed && <Notice>{t("err.network")}</Notice>}
       {!view && !failed && (
         <div className="flex items-center gap-3 text-lg text-muted" role="status">
@@ -180,7 +181,7 @@ export function AssignmentsPage() {
           <OpportunitiesTeaser journeyId={view.journey_id} state={view.journey_state} />
           <ol className="grid gap-5 lg:grid-cols-3">
             {view.milestones.map((m, i) => (
-              <li key={m.key} className="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-6 shadow-(--shadow-soft)">
+              <li key={m.key} className="flex flex-col gap-4 rounded-[28px] border border-line bg-surface p-6 shadow-(--shadow-soft)">
                 <div className="flex items-start gap-3.5">
                   <span className={cx("grid size-11 shrink-0 place-items-center rounded-xl text-lg font-bold", m.state === "done" ? "bg-ok-bg text-ok" : "bg-tint text-accent")} aria-hidden="true">
                     {m.state === "done" ? <CheckCircle2 className="size-6" /> : i + 1}

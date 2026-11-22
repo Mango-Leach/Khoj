@@ -10,18 +10,32 @@ export function cx(...parts: Array<string | false | null | undefined>): string {
 // Logo: a placeholder mark (a magnifier, from the name "khoj" = search). The real mark is still to be designed.
 // ---------------------------------------------------------------------------
 
-export function Logo({ inverse = false }: { inverse?: boolean }) {
+export function Logo({ inverse = false, large = false }: { inverse?: boolean; large?: boolean }) {
   return (
-    <span className="inline-flex items-center gap-2.5">
-      {/* The mark has a transparent background, so it sits straight on the page. On the dark panel it gets a white tile. */}
+    <span className={cx("inline-flex items-center", large ? "gap-3 lg:gap-3.5" : "gap-2.5")}>
+      {/* The mark has a transparent background, so it sits straight on the page. On a dark or coloured background it gets a white tile. */}
       {inverse ? (
-        <span className="grid size-12 place-items-center rounded-xl bg-white" aria-hidden="true">
-          <img src={markUrl} alt="" className="h-9 w-auto" width={32} height={36} />
+        <span
+          className={cx(
+            "grid place-items-center bg-white",
+            large ? "size-11 rounded-xl sm:size-14 sm:rounded-2xl lg:size-[58px] lg:rounded-[18px]" : "size-12 rounded-xl",
+          )}
+          aria-hidden="true"
+        >
+          <img src={markUrl} alt="" className={large ? "h-7 w-auto sm:h-9 lg:h-[37px]" : "h-9 w-auto"} width={32} height={36} />
         </span>
       ) : (
-        <img src={markUrl} alt="" aria-hidden="true" className="h-11 w-auto" width={39} height={44} />
+        <img src={markUrl} alt="" aria-hidden="true" className={large ? "h-10 w-auto sm:h-12 lg:h-14" : "h-11 w-auto"} width={39} height={44} />
       )}
-      <span className={cx("text-[22px] font-bold tracking-wide", inverse ? "text-white" : "text-ink")}>KHOJ</span>
+      <span
+        className={cx(
+          "font-bold tracking-wide",
+          large ? "text-[22px] sm:text-[26px] lg:text-[29px]" : "text-[22px]",
+          inverse ? "text-white" : "text-ink",
+        )}
+      >
+        KHOJ
+      </span>
     </span>
   );
 }
@@ -40,7 +54,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const VARIANTS: Record<Variant, string> = {
-  primary: "bg-accent text-white hover:bg-accent-hover active:bg-deep",
+  primary: "bg-night text-white hover:bg-black active:bg-night",
   secondary: "border-[1.5px] border-line-strong bg-surface text-ink hover:border-accent hover:text-accent",
   ghost: "text-muted hover:bg-tint hover:text-accent",
 };
@@ -52,7 +66,7 @@ export function Button({ variant = "primary", loading = false, icon, full = true
       disabled={disabled || loading}
       aria-busy={loading || undefined}
       className={cx(
-        "inline-flex h-14 items-center justify-center gap-2.5 rounded-xl px-6 text-lg font-semibold transition-colors",
+        "inline-flex h-14 items-center justify-center gap-2.5 rounded-full px-7 text-lg font-semibold transition-colors",
         "disabled:cursor-not-allowed disabled:opacity-55",
         full && "w-full",
         VARIANTS[variant],
@@ -103,7 +117,7 @@ function FieldShell({ label, help, error, children }: FieldShellProps) {
 }
 
 const INPUT_CLASS =
-  "h-14 w-full rounded-xl border-[1.5px] bg-surface px-4 text-xl text-ink outline-none transition-colors " +
+  "h-14 w-full rounded-2xl border-[1.5px] bg-surface px-4 text-xl text-ink outline-none transition-colors " +
   "placeholder:text-[#6b7690] focus:border-accent focus:ring-4 focus:ring-tint-strong";
 
 interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "id"> {
@@ -183,7 +197,7 @@ export function Choice({ selected, onSelect, title, description, icon, type = "r
       aria-checked={type === "action" ? undefined : selected}
       onClick={onSelect}
       className={cx(
-        "flex w-full items-center gap-4 rounded-2xl border-[1.5px] text-left transition-colors",
+        "flex w-full items-center gap-4 rounded-3xl border-[1.5px] text-left transition-colors",
         compact ? "min-h-14 px-4 py-2.5" : "min-h-[72px] px-5 py-3.5",
         selected ? "border-accent bg-tint" : "border-line bg-surface hover:border-line-strong",
       )}
@@ -227,7 +241,7 @@ export function Pill({ selected, onSelect, children }: { selected: boolean; onSe
       aria-checked={selected}
       onClick={onSelect}
       className={cx(
-        "min-h-12 rounded-xl border-[1.5px] px-5 text-base font-semibold transition-colors",
+        "min-h-12 rounded-full border-[1.5px] px-5 text-base font-semibold transition-colors",
         selected ? "border-accent bg-accent text-white" : "border-line-strong bg-surface text-ink hover:border-accent",
       )}
     >
@@ -245,7 +259,7 @@ export function Notice({ tone = "error", children }: { tone?: "error" | "info"; 
     <div
       role={tone === "error" ? "alert" : "status"}
       className={cx(
-        "flex items-start gap-3 rounded-xl px-4 py-3 text-base font-medium",
+        "flex items-start gap-3 rounded-2xl px-4 py-3 text-base font-medium",
         tone === "error" ? "bg-bad-bg text-bad" : "bg-tint text-deep",
       )}
     >

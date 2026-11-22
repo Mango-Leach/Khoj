@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
-import { BadgeCheck, Calculator, Check, Landmark, Mic, Milk, Pencil, Scissors, Smartphone, Store, Users, Wrench } from "lucide-react";
+import { BadgeCheck, Calculator, Check, Landmark, Mic, Milk, Pencil, Scissors, Smartphone, Store, Wrench } from "lucide-react";
+import { Avatar, type PersonName } from "../../components/People";
 import { cx } from "../../components/ui";
 import { useLang, type MessageKey } from "../../lib/i18n";
 import { useTypewriter } from "./hooks";
@@ -49,23 +50,23 @@ export function SpeakScreen() {
   const text = t("lp.mock.said");
   const { shown, done } = useTypewriter(text, true, 46);
   return (
-    <div className="grid h-full grid-cols-[auto_minmax(0,1fr)] items-center gap-10 px-10 py-8">
-      <div className="relative grid size-36 shrink-0 place-items-center" aria-hidden="true">
+    <div className="grid h-full grid-cols-1 items-center gap-6 px-6 py-7 sm:grid-cols-[auto_minmax(0,1fr)] sm:gap-10 sm:px-10 sm:py-8">
+      <div className="relative grid size-28 shrink-0 place-items-center justify-self-center sm:size-36" aria-hidden="true">
         {[0, 800, 1600].map((d) => (
           <span key={d} className="ring absolute inset-3 rounded-full bg-accent/25" style={{ "--d": `${d}ms` } as CSSProperties} />
         ))}
-        <span className="relative grid size-24 place-items-center rounded-full bg-accent text-white shadow-(--shadow-lift)">
+        <span className="relative grid size-20 place-items-center rounded-full bg-accent text-white shadow-(--shadow-lift) sm:size-24">
           <Mic className="size-10" />
         </span>
       </div>
       <div className="flex min-w-0 flex-col gap-4">
         <p className="text-base font-semibold text-muted">{t("lp.mock.ask")}</p>
         <Waveform className="h-12" count={20} />
-        <p className="min-h-[4.5rem] text-[28px] leading-snug font-semibold text-ink">
+        <p className="min-h-[4.5rem] text-[22px] leading-snug font-semibold text-ink sm:text-[28px]">
           “{shown}
           {!done && <span className="ml-0.5 inline-block h-7 w-[3px] translate-y-1 animate-pulse bg-accent" />}”
         </p>
-        <div className="flex h-12 items-center gap-3">
+        <div className="flex min-h-12 flex-wrap items-center gap-3">
           {done && (
             <>
               <span className="pop text-base font-medium text-muted">{t("lp.mock.right")}</span>
@@ -109,7 +110,7 @@ function Meter({ level }: { level: 1 | 2 | 3 }) {
 export function PathsScreen() {
   const { t } = useLang();
   return (
-    <div className="grid h-full grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)] gap-5 p-7">
+    <div className="grid h-full grid-cols-1 gap-5 p-5 sm:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)] sm:p-7">
       <div className="flex min-w-0 flex-col gap-2.5">
         <p className="text-base font-semibold text-muted">{t("lp.mock.pathsTitle")}</p>
         {PATH_ROWS.map(({ key, icon: Icon, demand }, i) => (
@@ -136,7 +137,7 @@ export function PathsScreen() {
           </div>
         ))}
       </div>
-      <div className="relative flex flex-col justify-center gap-3 rounded-2xl bg-bg px-6 py-4">
+      <div className="relative hidden flex-col justify-center gap-3 rounded-2xl bg-bg px-6 py-4 sm:flex">
         <span className="absolute top-9 bottom-9 left-[38px] w-[3px] rounded-full bg-line-strong" aria-hidden="true" />
         {RUNGS.map((key, i) => (
           <div key={key} className="pop relative flex items-center gap-4" style={{ "--d": `${450 + i * 200}ms` } as CSSProperties}>
@@ -160,26 +161,24 @@ export function PathsScreen() {
 // 3. Mentor
 // ---------------------------------------------------------------------------
 
-const MENTORS: { role: MessageKey; chosen: boolean }[] = [
-  { role: "teacherRole.mentor", chosen: false },
-  { role: "teacherRole.expert", chosen: true },
-  { role: "teacherRole.teacher", chosen: false },
+const MENTORS: { role: MessageKey; chosen: boolean; person: PersonName }[] = [
+  { role: "teacherRole.mentor", chosen: false, person: "kiran" },
+  { role: "teacherRole.expert", chosen: true, person: "dev" },
+  { role: "teacherRole.teacher", chosen: false, person: "meena" },
 ];
 
 export function MentorScreen() {
   const { t } = useLang();
   return (
-    <div className="flex h-full flex-col gap-3 p-7">
+    <div className="flex h-full flex-col gap-3 p-5 sm:p-7">
       <p className="text-base font-semibold text-muted">{t("lp.mock.mentorTitle")}</p>
-      {MENTORS.map(({ role, chosen }, i) => (
+      {MENTORS.map(({ role, chosen, person }, i) => (
         <div
           key={role}
           className={cx("pop flex items-center gap-4 rounded-2xl border-[1.5px] px-5 py-3.5", chosen ? "border-accent bg-tint" : "border-line bg-white")}
           style={{ "--d": `${i * 160}ms` } as CSSProperties}
         >
-          <span className={cx("grid size-12 shrink-0 place-items-center rounded-full", chosen ? "bg-accent text-white" : "bg-tint text-accent")} aria-hidden="true">
-            <Users className="size-6" />
-          </span>
+          <Avatar name={person} className={cx("block size-14 shrink-0 overflow-hidden rounded-full border-[3px]", chosen ? "border-accent" : "border-transparent")} />
           <span className="min-w-0 flex-1">
             <span className="block text-lg font-semibold">{t(role)}</span>
             <span className="mt-1.5 flex flex-wrap gap-2">
@@ -191,7 +190,7 @@ export function MentorScreen() {
             </span>
           </span>
           {chosen && (
-            <span className="pop inline-flex h-11 items-center rounded-xl bg-accent px-5 text-base font-semibold text-white" style={{ "--d": "700ms" } as CSSProperties}>
+            <span className="pop inline-flex h-11 items-center rounded-xl bg-accent px-5 text-base font-semibold text-white max-sm:hidden" style={{ "--d": "700ms" } as CSSProperties}>
               {t("lp.mock.request")}
             </span>
           )}
@@ -209,21 +208,21 @@ export function ReviewScreen() {
   const { t } = useLang();
   const criteria: MessageKey[] = ["lp.mock.c1", "lp.mock.c2", "lp.mock.c3"];
   return (
-    <div className="grid h-full grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] gap-6 p-7">
+    <div className="grid h-full grid-cols-1 gap-5 p-5 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] sm:gap-6 sm:p-7">
       <figure className="flex min-w-0 flex-col gap-2.5">
-        <div className="relative grow overflow-hidden rounded-2xl bg-tint-strong">
+        <div className="relative min-h-[150px] grow overflow-hidden rounded-2xl bg-tint-strong">
           <svg viewBox="0 0 320 220" className="size-full" role="img" aria-label={t("lp.mock.assignment")}>
             <defs>
               <pattern id="weave" width="8" height="8" patternUnits="userSpaceOnUse">
-                <path d="M0 4h8M4 0v8" stroke="#1d4ed8" strokeOpacity="0.1" strokeWidth="1" />
+                <path d="M0 4h8M4 0v8" stroke="#2433a6" strokeOpacity="0.1" strokeWidth="1" />
               </pattern>
             </defs>
-            <rect width="320" height="220" fill="#dce6ff" />
+            <rect width="320" height="220" fill="#d9ddfb" />
             <path d="M30 40 L290 28 L296 112 L24 118 Z" fill="#ffffff" />
             <path d="M30 40 L290 28 L296 112 L24 118 Z" fill="url(#weave)" />
-            <path d="M24 118 L296 112 L292 196 L34 204 Z" fill="#c9d8ff" />
+            <path d="M24 118 L296 112 L292 196 L34 204 Z" fill="#c4caf7" />
             <path d="M24 118 L296 112 L292 196 L34 204 Z" fill="url(#weave)" />
-            <path className="stitch" d="M24 116 L296 110" stroke="#0b2a6f" strokeWidth="3" strokeLinecap="round" fill="none" />
+            <path className="stitch" d="M24 116 L296 110" stroke="#121a6e" strokeWidth="3" strokeLinecap="round" fill="none" />
           </svg>
         </div>
         <figcaption className="text-base font-semibold">{t("lp.mock.assignment")}</figcaption>
@@ -259,14 +258,14 @@ const JOBS: { key: MessageKey; icon: typeof Wrench; ok: boolean }[] = [
 export function JobsScreen() {
   const { t } = useLang();
   return (
-    <div className="flex h-full flex-col gap-3 p-7">
+    <div className="flex h-full flex-col gap-3 p-5 sm:p-7">
       <p className="text-base font-semibold text-muted">{t("lp.mock.jobsTitle")}</p>
       {JOBS.map(({ key, icon: Icon, ok }, i) => (
-        <div key={key} className="pop flex items-center gap-4 rounded-2xl border border-line bg-white px-5 py-4" style={{ "--d": `${i * 170}ms` } as CSSProperties}>
+        <div key={key} className="pop flex flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl border border-line bg-white px-4 py-4 sm:flex-nowrap sm:px-5" style={{ "--d": `${i * 170}ms` } as CSSProperties}>
           <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-tint text-accent" aria-hidden="true">
             <Icon className="size-6" />
           </span>
-          <span className="min-w-0 flex-1 text-lg font-semibold">{t(key)}</span>
+          <span className="min-w-0 flex-1 basis-40 text-lg font-semibold">{t(key)}</span>
           <Chip tone={ok ? "ok" : "warn"}>{ok ? t("lp.mock.eligible") : t("lp.mock.checkOffice")}</Chip>
         </div>
       ))}

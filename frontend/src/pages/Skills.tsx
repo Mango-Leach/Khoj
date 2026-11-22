@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { PageBanner } from "../components/PageBanner";
 import {
   Check,
   Clapperboard,
@@ -107,16 +108,10 @@ export function SkillsPage() {
 
   return (
     <div className="flex max-w-4xl flex-col gap-8 pt-2">
-      <div className="flex items-start justify-between gap-6">
-        <div className="flex flex-col gap-2">
-          <h1 className="text-[30px] leading-[1.15] md:text-[38px] font-bold tracking-tight">{t("skills.title")}</h1>
-          <p className="text-lg text-muted">{t("skills.lead")}</p>
-        </div>
-        <ListenButton text={`${t("skills.title")} ${t("skills.lead")}`} />
-      </div>
+      <PageBanner title={t("skills.title")} lead={t("skills.lead")} aside={<ListenButton text={`${t("skills.title")} ${t("skills.lead")}`} />} />
 
       {unfinished && (
-        <section className="flex items-center justify-between gap-6 rounded-2xl border border-line bg-tint p-6" aria-label={t("skills.resume.title")}>
+        <section className="flex items-center justify-between gap-6 rounded-[28px] border border-line bg-tint p-6" aria-label={t("skills.resume.title")}>
           <div className="flex flex-col gap-1">
             <h2 className="text-xl font-semibold">{t("skills.resume.title")}</h2>
             <p className="text-base text-muted">{t("skills.resume.help", { n: unfinished.answers.length, total: unfinished.total_questions })}</p>

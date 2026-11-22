@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { PageBanner } from "../components/PageBanner";
 import { CalendarClock, CheckCircle2, Loader2, Lock, ShieldCheck, Star, UserRound } from "lucide-react";
 import { Button, Notice, Pill, SelectField, TextField, cx } from "../components/ui";
 import { addCallSlot, cancelCallSlot, getHostCalls, setOfferingCalls, type CallContactKind, type HostCalls, type HostSlot } from "../lib/api";
@@ -48,7 +49,7 @@ function SlotCard({ slot, busy, onCancel }: { slot: HostSlot; busy: boolean; onC
   const [sure, setSure] = useState(false);
   const contact = slot.contact_kind === "phone" ? spacedPhone(slot.contact) : slot.contact;
   return (
-    <li className="flex flex-col gap-3.5 rounded-2xl border border-line bg-surface p-5 shadow-(--shadow-soft)">
+    <li className="flex flex-col gap-3.5 rounded-[28px] border border-line bg-surface p-5 shadow-(--shadow-soft)">
       <div className="flex items-baseline justify-between gap-3">
         <p className="text-[26px] leading-none font-bold tracking-tight">{timeLabel(slot.starts_at, lang)}</p>
         <StatusChip slot={slot} />
@@ -201,10 +202,7 @@ export function TeacherCallsPage() {
   return (
     // From 1280 px up the page is exactly one screen tall (the shell adds 76 px of header and 56 px of bottom padding), and only the two panels below scroll.
     <div className="flex flex-col gap-8 pt-2 xl:-mb-10 xl:h-[calc(100dvh-92px)] xl:gap-4">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-[30px] leading-[1.1] font-bold tracking-tight md:text-[38px]">{t("tcalls.title")}</h1>
-        <p className="max-w-3xl text-lg text-muted">{t("tcalls.lead")}</p>
-      </div>
+      <PageBanner title={t("tcalls.title")} lead={t("tcalls.lead")} />
 
       {failed && <Notice>{t("err.network")}</Notice>}
       {!data && !failed && (
@@ -228,7 +226,7 @@ export function TeacherCallsPage() {
               </Button>
             </section>
           ) : (
-            <section className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-4 shadow-(--shadow-soft) sm:flex-row sm:items-center sm:gap-4" aria-labelledby="tcalls-switch">
+            <section className="flex flex-col gap-3 rounded-[28px] border border-line bg-surface p-4 shadow-(--shadow-soft) sm:flex-row sm:items-center sm:gap-4" aria-labelledby="tcalls-switch">
               <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-tint text-accent" aria-hidden="true">
                 <CalendarClock className="size-5" />
               </span>
@@ -249,7 +247,7 @@ export function TeacherCallsPage() {
             <div className="grid items-start gap-8 xl:min-h-0 xl:flex-1 xl:grid-cols-[minmax(340px,440px)_minmax(0,1fr)] xl:grid-rows-1 xl:items-stretch">
               {/* On a wide screen the form fills the height left on the screen and scrolls on its own. Its rows must not shrink, or the button squashes. */}
               <section
-                className="flex flex-col gap-5 rounded-2xl border border-line bg-surface p-5 shadow-(--shadow-soft) sm:p-6 xl:min-h-0 xl:overflow-y-auto [&>*]:shrink-0"
+                className="flex flex-col gap-5 rounded-[28px] border border-line bg-surface p-5 shadow-(--shadow-soft) sm:p-6 xl:min-h-0 xl:overflow-y-auto [&>*]:shrink-0"
                 aria-labelledby="tcalls-add"
               >
                 <h2 id="tcalls-add" className="text-xl font-bold tracking-tight">

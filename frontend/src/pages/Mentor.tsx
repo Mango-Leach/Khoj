@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { PageBanner } from "../components/PageBanner";
 import { Check, Clock, GraduationCap, Hourglass, Languages, Loader2, MapPin, ShieldCheck, UserCheck, Users } from "lucide-react";
 import { Button, Notice, cx } from "../components/ui";
 import {
@@ -50,7 +51,7 @@ function Header({ mentor }: { mentor: Pick<Mentor, "name" | "roles"> }) {
   const { t } = useLang();
   return (
     <div className="flex items-center gap-3.5">
-      <span className="grid size-14 shrink-0 place-items-center rounded-full bg-deep text-2xl font-bold text-white" aria-hidden="true">
+      <span className="grid size-14 shrink-0 place-items-center rounded-full bg-accent text-2xl font-bold text-white" aria-hidden="true">
         {mentor.name.trim().charAt(0).toUpperCase()}
       </span>
       <div className="flex min-w-0 flex-col gap-0.5">
@@ -66,7 +67,7 @@ function CandidateCard({ c, busy, onAsk, disabled }: { c: Candidate; busy: boole
   const districtName = useDistrictName();
   const langs = c.languages.map((l) => LANGS.find((x) => x.code === l)?.label ?? l).join(", ");
   return (
-    <li className="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-5 shadow-(--shadow-soft)">
+    <li className="flex flex-col gap-4 rounded-[28px] border border-line bg-surface p-5 shadow-(--shadow-soft)">
       <Header mentor={c} />
       <Tier tier={c.tier} />
       <ul className="flex flex-col gap-1.5">
@@ -103,7 +104,7 @@ function CandidateCard({ c, busy, onAsk, disabled }: { c: Candidate; busy: boole
 function LearnBanner({ careerId }: { careerId: string }) {
   const { t } = useLang();
   return (
-    <section className="flex flex-col gap-3 rounded-2xl bg-tint px-5 py-4 sm:flex-row sm:items-center sm:gap-4" aria-labelledby="optional-title">
+    <section className="flex flex-col gap-3 rounded-[28px] bg-tint px-6 py-5 text-deep sm:flex-row sm:items-center sm:gap-4" aria-labelledby="optional-title">
       <GraduationCap className="size-7 shrink-0 text-accent" aria-hidden="true" />
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         <h2 id="optional-title" className="text-lg font-bold text-deep">
@@ -123,10 +124,7 @@ function LearnBanner({ careerId }: { careerId: string }) {
 function Shell({ title, lead, fit = false, children }: { title: string; lead?: string; fit?: boolean; children: ReactNode }) {
   return (
     <div className={cx("flex flex-col gap-8 pt-2", fit && "lg:-mb-10 lg:h-[calc(100dvh-92px)] lg:gap-5")}>
-      <div className="flex flex-col gap-2">
-        <h1 className="text-[30px] leading-[1.1] font-bold tracking-tight md:text-[38px]">{title}</h1>
-        {lead && <p className="max-w-3xl text-lg text-muted">{lead}</p>}
-      </div>
+      <PageBanner title={title} lead={lead ? lead : undefined} />
       {children}
     </div>
   );
@@ -207,7 +205,7 @@ export function MentorPage() {
     return (
       <Shell title={t("mentor.active.title", { name: mentor.name })} lead={t("mentor.active.help", { career })}>
         <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <section className="flex flex-col gap-5 rounded-2xl border border-line bg-surface p-7 shadow-(--shadow-soft)">
+          <section className="flex flex-col gap-5 rounded-[28px] border border-line bg-surface p-7 shadow-(--shadow-soft)">
             <Header mentor={mentor} />
             <Tier tier={mentor.tier} />
             <ul className="flex flex-col gap-2">
@@ -234,7 +232,7 @@ export function MentorPage() {
         {error && <Notice>{t(error)}</Notice>}
         <LearnBanner careerId={journey.career.career_id} />
         <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <section className="flex flex-col gap-5 rounded-2xl border border-line bg-surface p-7 shadow-(--shadow-soft)">
+          <section className="flex flex-col gap-5 rounded-[28px] border border-line bg-surface p-7 shadow-(--shadow-soft)">
             <Header mentor={mentor} />
             <Tier tier={mentor.tier} />
             <ul className="flex flex-col gap-2">
@@ -274,7 +272,7 @@ export function MentorPage() {
       <LearnBanner careerId={journey.career.career_id} />
       <Scroller>
       {candidates.length === 0 ? (
-        <section className="flex max-w-3xl gap-4 rounded-2xl border border-line bg-surface p-7 shadow-(--shadow-soft)">
+        <section className="flex max-w-3xl gap-4 rounded-[28px] border border-line bg-surface p-7 shadow-(--shadow-soft)">
           <Users className="mt-1 size-7 shrink-0 text-accent" aria-hidden="true" />
           <div className="flex flex-col gap-2">
             <h2 className="text-xl font-bold">{t("mentor.empty.title")}</h2>

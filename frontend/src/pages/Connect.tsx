@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { PageBanner } from "../components/PageBanner";
 import { Check, Handshake, Loader2, Lock, MapPin, MessageCircle, PhoneCall, ShieldAlert, ShieldCheck, Sparkles, UserRound } from "lucide-react";
 import { Button, Choice, Notice, Pill, TextField, cx } from "../components/ui";
 import {
@@ -31,7 +32,7 @@ const REASONS: ReportReason[] = ["pressure", "unsafe", "spam", "other"];
 
 function Avatar({ name }: { name: string }) {
   return (
-    <span className="grid size-12 shrink-0 place-items-center rounded-full bg-deep text-xl font-bold text-white" aria-hidden="true">
+    <span className="grid size-12 shrink-0 place-items-center rounded-full bg-accent text-xl font-bold text-white" aria-hidden="true">
       {name.trim().charAt(0).toUpperCase()}
     </span>
   );
@@ -135,7 +136,7 @@ function SafetyMenu({ cardId, onDone }: { cardId: string; onDone: () => void }) 
 function SuggestionCard({ card, canAsk, busy, onAsk, onSafety }: { card: PeerCard; canAsk: boolean; busy: boolean; onAsk: () => void; onSafety: () => void }) {
   const { t } = useLang();
   return (
-    <li className="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-5 shadow-(--shadow-soft)">
+    <li className="flex flex-col gap-4 rounded-[28px] border border-line bg-surface p-5 shadow-(--shadow-soft)">
       <Person card={card} />
       <div className="mt-auto flex flex-col gap-3">
         <Button className="h-12 text-base" loading={busy} disabled={!canAsk} onClick={onAsk}>
@@ -151,17 +152,17 @@ function SuggestionCard({ card, canAsk, busy, onAsk, onSafety }: { card: PeerCar
 function Reach({ conn }: { conn: PeerConnection }) {
   const { t } = useLang();
   if (!conn.reach || !conn.reach_kind) return <p className="text-[15px] text-muted">{t("connect.reach.off")}</p>;
-  const btn = "inline-flex h-11 items-center justify-center gap-2 rounded-xl px-5 text-[15px] font-semibold transition-colors";
+  const btn = "inline-flex h-11 items-center justify-center gap-2 rounded-full px-5 text-[15px] font-semibold transition-colors";
   if (conn.reach_kind === "link")
     return (
-      <a href={conn.reach} target="_blank" rel="noopener noreferrer" className={cx(btn, "bg-accent text-white hover:bg-deep")}>
+      <a href={conn.reach} target="_blank" rel="noopener noreferrer" className={cx(btn, "bg-night text-white hover:bg-black")}>
         <MessageCircle className="size-5" aria-hidden="true" />
         {t("connect.reach.link")}
       </a>
     );
   return (
     <div className="flex flex-wrap gap-2.5">
-      <a href={contactHref("phone", conn.reach)} className={cx(btn, "bg-accent text-white hover:bg-deep")}>
+      <a href={contactHref("phone", conn.reach)} className={cx(btn, "bg-night text-white hover:bg-black")}>
         <PhoneCall className="size-5" aria-hidden="true" />
         {t("connect.reach.phone", { number: spacedPhone(conn.reach) })}
       </a>
@@ -206,7 +207,7 @@ function MyCardPanel({ data, onSaved }: { data: Ready; onSaved: (d: ConnectOverv
 
   const on = data.me.visible;
   return (
-    <section className="flex flex-col gap-5 rounded-2xl border border-line bg-surface p-5 shadow-(--shadow-soft) lg:sticky lg:top-4 xl:static xl:h-full xl:min-h-0 xl:overflow-y-auto [&>*]:shrink-0" aria-labelledby="connect-me">
+    <section className="flex flex-col gap-5 rounded-[28px] border border-line bg-surface p-5 shadow-(--shadow-soft) lg:sticky lg:top-4 xl:static xl:h-full xl:min-h-0 xl:overflow-y-auto [&>*]:shrink-0" aria-labelledby="connect-me">
       <div className="flex items-start justify-between gap-3">
         <h2 id="connect-me" className="text-xl font-bold tracking-tight">
           {t("connect.me.title")}
@@ -322,10 +323,7 @@ export function ConnectPage() {
   return (
     // From 1280 px up the page is exactly one screen tall (the shell adds 76 px of header and 56 px of bottom padding); only the people column and the card panel scroll.
     <div className="flex flex-col gap-8 pt-2 xl:-mb-10 xl:h-[calc(100dvh-92px)] xl:gap-4">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-[30px] leading-[1.1] font-bold tracking-tight md:text-[38px]">{t("connect.title")}</h1>
-        <p className="max-w-3xl text-lg text-muted">{t("connect.lead")}</p>
-      </div>
+      <PageBanner title={t("connect.title")} lead={t("connect.lead")} />
 
       {state === "loading" && (
         <p className="flex items-center gap-3 text-lg text-muted" role="status">
@@ -335,7 +333,7 @@ export function ConnectPage() {
       )}
       {state === "error" && <Notice>{t("err.network")}</Notice>}
       {state === "nopath" && (
-        <section className="flex max-w-2xl flex-col items-start gap-4 rounded-2xl border border-line bg-surface p-7 shadow-(--shadow-soft)">
+        <section className="flex max-w-2xl flex-col items-start gap-4 rounded-[28px] border border-line bg-surface p-7 shadow-(--shadow-soft)">
           <Handshake className="size-8 text-accent" aria-hidden="true" />
           <h2 className="text-2xl font-bold tracking-tight">{t("connect.nopath.title")}</h2>
           <p className="text-lg text-muted">{t("connect.nopath.help")}</p>
@@ -368,7 +366,7 @@ export function ConnectPage() {
                 </h2>
                 <ul className={CARD_GRID}>
                   {ready.incoming.map((r) => (
-                    <li key={r.id} className="flex flex-col gap-4 rounded-2xl border border-accent/40 bg-tint p-5">
+                    <li key={r.id} className="flex flex-col gap-4 rounded-[28px] border border-accent/40 bg-tint p-5">
                       <Person card={r.card} />
                       <div className="mt-auto flex flex-col gap-2.5">
                         <Button className="h-12 text-base" loading={busy === `a-${r.id}`} disabled={!ready.me.visible} onClick={() => void act(`a-${r.id}`, () => answerConnect(r.id, "accept"))}>
@@ -395,7 +393,7 @@ export function ConnectPage() {
               ) : (
                 <ul className="grid gap-5 xl:grid-cols-2">
                   {ready.connections.map((c) => (
-                    <li key={c.id} className="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-5 shadow-(--shadow-soft)">
+                    <li key={c.id} className="flex flex-col gap-4 rounded-[28px] border border-line bg-surface p-5 shadow-(--shadow-soft)">
                       <Person card={c.card} />
                       <Reach conn={c} />
                       <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
@@ -421,7 +419,7 @@ export function ConnectPage() {
               {!ready.me.visible ? (
                 <Notice>{t("connect.needcard")}</Notice>
               ) : ready.suggestions.length === 0 ? (
-                <section className="flex max-w-2xl gap-4 rounded-2xl border border-line bg-surface p-6 shadow-(--shadow-soft)">
+                <section className="flex max-w-2xl gap-4 rounded-[28px] border border-line bg-surface p-6 shadow-(--shadow-soft)">
                   <Handshake className="mt-0.5 size-7 shrink-0 text-accent" aria-hidden="true" />
                   <div className="flex flex-col gap-1">
                     <h3 className="text-xl font-bold">{t("connect.suggest.empty.title")}</h3>

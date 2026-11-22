@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { fetchSpeech, getVoiceStatus, isApiFailure, transcribeAudio, type VoiceStatus } from "./api";
+import { fetchPublicSpeech, fetchSpeech, getPublicVoiceStatus, getVoiceStatus, isApiFailure, transcribeAudio, type VoiceStatus } from "./api";
 import type { Lang, MessageKey } from "./i18n";
 import { MAX_CLIP_MS, Recorder, recordingSupported } from "./recorder";
 
@@ -52,8 +52,8 @@ export function resetVoiceStatus(): void {
   publish(null);
 }
 
-/** null while unknown. */
-export function useVoiceStatus(): VoiceStatus | null {
+/** null while unknown. A visitor (not signed in) has no use for the signed-in status, so it is not asked for. */
+export function useVoiceStatus(skip = false): VoiceStatus | null {
   const value = useSyncExternalStore(
     (cb) => {
       listeners.add(cb);
@@ -62,7 +62,9 @@ export function useVoiceStatus(): VoiceStatus | null {
     () => status,
     () => null,
   );
-  useEffect(refreshStatus, []);
+  useEffect(() => {
+    if (!skip) refreshStatus();
+  }, [skip]);
   return value;
 }
 
@@ -349,10 +351,25 @@ export interface Speaker {
   stop: () => void;
 }
 
-/** A Listen button's state: server voice first, then the browser's voice. */
-export function useSpeaker(lang: Lang): Speaker {
-  const voice = useVoiceStatus();
-  const serverTts = voice?.tts === true;
+/**
+ * A Listen button's state: server voice first, then the browser's voice.
+ * `visitor` is for the public page, where nobody is signed in: it asks the public voice
+ * endpoints, which give the same voice but only for new lines within a small allowance.
+ */
+export function useSpeaker(lang: Lang, visitor = false): Speaker {
+  const voice = useVoiceStatus(visitor);
+  const [visitorTts, setVisitorTts] = useState<boolean | null>(null);
+  useEffect(() => {
+    if (!visitor) return;
+    let live = true;
+    getPublicVoiceStatus()
+      .then((s) => live && setVisitorTts(s.tts))
+      .catch(() => live && setVisitorTts(false));
+    return () => {
+      live = false;
+    };
+  }, [visitor]);
+  const serverTts = visitor ? visitorTts === true : voice?.tts === true;
   const available = serverTts || synthesisSupported();
   const [speaking, setSpeaking] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -386,7 +403,7 @@ export function useSpeaker(lang: Lang): Speaker {
         try {
           let blob = audioCache.get(key);
           if (!blob) {
-            blob = await fetchSpeech(text, lang);
+            blob = await (visitor ? fetchPublicSpeech(text, lang) : fetchSpeech(text, lang));
             audioCache.set(key, blob);
           }
           if (ticket.current !== mine) return;
@@ -409,12 +426,15 @@ export function useSpeaker(lang: Lang): Speaker {
           if (ticket.current !== mine) return;
           setLoading(false);
           setSpeaking(false);
-          if (isApiFailure(err) && (err.code === "speech_unavailable" || err.code === "speech_busy")) markDown("tts", 5 * 60_000);
+          if (isApiFailure(err) && (err.code === "speech_unavailable" || err.code === "speech_busy" || err.code === "too_many_requests")) {
+            if (visitor) setVisitorTts(false);
+            else markDown("tts", 5 * 60_000);
+          }
           if (synthesisSupported()) playBrowser(text); // the server could not speak; the browser can
         }
       })();
     },
-    [lang, loading, playBrowser, serverTts, speaking, stop],
+    [lang, loading, playBrowser, serverTts, speaking, stop, visitor],
   );
 
   useEffect(() => stop, [stop]);

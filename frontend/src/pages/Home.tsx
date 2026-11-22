@@ -1,4 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
+import { PageBanner } from "../components/PageBanner";
 import { CheckCircle2, ClipboardCheck, Hourglass, Mic } from "lucide-react";
 import { JourneyCard } from "../components/JourneyCard";
 import { Link } from "../components/Link";
@@ -13,14 +14,8 @@ import { useJourney } from "../lib/usePaths";
 
 function Page({ title, lead, aside, children }: { title: string; lead: string; aside?: ReactNode; children: ReactNode }) {
   return (
-    <div className="flex flex-col gap-8 pt-2">
-      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-8">
-        <div className="flex min-w-0 flex-col gap-2">
-          <h1 className="text-[30px] leading-[1.1] md:text-[38px] font-bold tracking-tight">{title}</h1>
-          <p className="text-lg text-muted">{lead}</p>
-        </div>
-        {aside}
-      </div>
+    <div className="flex flex-col gap-7 pt-2">
+      <PageBanner size="lg" title={title} lead={lead} aside={aside} />
       <div className="grid items-start gap-7 xl:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">{children}</div>
     </div>
   );
@@ -32,8 +27,8 @@ function Details({ title, rows, compact = false }: { title: string; rows: { labe
     <section
       className={
         compact
-          ? "w-full rounded-2xl border border-line bg-surface px-5 py-3 shadow-(--shadow-soft) md:w-[320px] md:shrink-0"
-          : "rounded-2xl border border-line bg-surface p-6 shadow-(--shadow-soft)"
+          ? "w-full rounded-[28px] border border-line bg-surface px-5 py-3 text-ink shadow-(--shadow-soft) md:w-[320px] md:shrink-0"
+          : "rounded-[28px] border border-line bg-surface p-6 shadow-(--shadow-soft)"
       }
       aria-label={title}
     >
@@ -60,7 +55,7 @@ function NextStep({ icon, tone = "tint", title, help, cta, to, children }: {
   children?: ReactNode;
 }) {
   return (
-    <section className="flex gap-6 rounded-2xl border border-line bg-surface p-8 shadow-(--shadow-lift)" aria-labelledby="next-title">
+    <section className="flex gap-6 rounded-[28px] border border-line bg-surface p-8 shadow-(--shadow-lift)" aria-labelledby="next-title">
       <span
         className={`grid size-16 shrink-0 place-items-center rounded-2xl ${tone === "ok" ? "bg-ok-bg text-ok" : "bg-tint text-accent"}`}
         aria-hidden="true"
@@ -143,9 +138,15 @@ function IntakeCard() {
   return <NextStep icon={mic} title={t("home.next.student")} help={t("home.next.student.help")} cta={t("home.next.cta")} to="/skills" />;
 }
 
+/** "+919876543210" or "9876543210" shown as "+91 98765 43210". Anything else is shown as stored. */
+function showPhone(raw: string): string {
+  const m = /^(\+91)?(\d{5})(\d{5})$/.exec(raw);
+  return m ? `+91 ${m[2]} ${m[3]}` : raw;
+}
+
 export function StudentHome() {
   const { t } = useLang();
-  const { profile } = useSession();
+  const { profile, user } = useSession();
   const districtName = useDistrictName();
   const { journey, loaded } = useJourney();
   if (profile?.kind !== "student") return null;
@@ -153,6 +154,7 @@ export function StudentHome() {
   const rows = [
     { label: t("home.details.class"), value: t(`grade.${p.grade}` as MessageKey) },
     { label: t("home.details.place"), value: `${p.block}, ${districtName(p.district)}` },
+    ...(user?.phone ? [{ label: t("home.details.phone"), value: showPhone(user.phone) }] : []),
   ];
   // With a path chosen the home page is one big card, so the details shrink and sit beside the greeting.
   return (
@@ -169,7 +171,7 @@ export function StudentHome() {
 
 export function TeacherHome() {
   const { t, lang } = useLang();
-  const { profile } = useSession();
+  const { profile, user } = useSession();
   const districtName = useDistrictName();
   const [waiting, setWaiting] = useState(0);
   const [toReview, setToReview] = useState(0);
@@ -246,6 +248,7 @@ export function TeacherHome() {
           { label: t("home.teacher.hours"), value: String(p.weekly_hours) },
           { label: t("home.teacher.places"), value: t("home.teacher.placesValue", { free: p.capacity.free, limit: p.capacity.limit }) },
           { label: t("home.details.place"), value: `${p.block}, ${districtName(p.district)}` },
+          ...(user?.phone ? [{ label: t("home.details.phone"), value: showPhone(user.phone) }] : []),
         ]}
       />
     </Page>
@@ -259,7 +262,7 @@ export function NotReady({ home }: { home: string }) {
     <div className="flex max-w-xl flex-col items-start gap-4 pt-10">
       <h1 className="text-[34px] leading-tight font-bold tracking-tight">{t("notReady.title")}</h1>
       <p className="text-lg text-muted">{t("notReady.help")}</p>
-      <Link to={home} className="inline-flex h-14 items-center rounded-xl bg-accent px-6 text-lg font-semibold text-white hover:bg-accent-hover">
+      <Link to={home} className="inline-flex h-14 items-center rounded-full bg-night px-7 text-lg font-semibold text-white hover:bg-black">
         {t("notReady.home")}
       </Link>
     </div>

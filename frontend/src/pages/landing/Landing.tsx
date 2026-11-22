@@ -1,22 +1,19 @@
 import { Hero } from "./Hero";
 import { Nav } from "./Nav";
-import { Careers, Faq, FinalCta, Footer, Journey, Problem, Rules, Trust, Voice, Who } from "./Sections";
+import { Careers, FinalCta, Footer, Journey, Trust, Voice, Who } from "./Sections";
 
 /** The public front door. Signed-out visitors land here; signed-in users never see it. */
 export function LandingPage() {
   return (
-    <div className="bg-white">
+    <div className="bg-bg">
       <Nav />
       <main id="main">
         <Hero />
-        <Problem />
         <Journey />
         <Careers />
         <Voice />
         <Who />
         <Trust />
-        <Rules />
-        <Faq />
         <FinalCta />
       </main>
       <Footer />

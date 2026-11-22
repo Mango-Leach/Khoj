@@ -1,4 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
+import { PageBanner } from "../components/PageBanner";
 import { ArrowLeft, BookOpen, Check, Clock, ExternalLink, FileText, ListChecks, Loader2, Route, ShieldAlert, ShieldCheck, Wallet, type LucideIcon } from "lucide-react";
 import { ListenButton } from "../components/ListenButton";
 import { Link } from "../components/Link";
@@ -12,10 +13,7 @@ import { useJourney, usePaths } from "../lib/usePaths";
 
 function Heading({ title, lead }: { title: string; lead?: string }) {
   return (
-    <div className="flex flex-col gap-2">
-      <h1 className="text-[30px] leading-[1.1] md:text-[38px] font-bold tracking-tight">{title}</h1>
-      {lead && <p className="max-w-3xl text-lg text-muted">{lead}</p>}
-    </div>
+    <PageBanner title={title} lead={lead ? lead : undefined} />
   );
 }
 
@@ -75,7 +73,7 @@ function PathCard({ item, picked, onPick, busy, compact = false }: { item: PathI
           <MachineNote show={lang !== "en" && item.reason_source[lang] === "ai_translated"} />
         </header>
         {!compact && (
-          <div className="rounded-xl bg-tint p-4">
+          <div className="rounded-2xl bg-tint p-4">
             <p className="text-sm font-semibold tracking-wide text-deep uppercase">{t("paths.first")}</p>
             <p className="mt-1 text-base">{first}</p>
           </div>
@@ -85,12 +83,12 @@ function PathCard({ item, picked, onPick, busy, compact = false }: { item: PathI
           {!compact && <ListenButton text={spoken} />}
           <Link
             to={`/paths/${item.career_id}`}
-            className="inline-flex h-12 items-center rounded-xl border-[1.5px] border-line-strong px-5 text-base font-semibold text-ink hover:border-accent hover:text-accent"
+            className="inline-flex h-12 items-center rounded-full border-[1.5px] border-line-strong px-5 text-base font-semibold text-ink hover:border-accent hover:text-accent"
           >
             {t("paths.details")}
           </Link>
           {picked ? (
-            <span className="inline-flex h-12 items-center gap-2 rounded-xl bg-ok-bg px-5 text-base font-semibold text-ok">
+            <span className="inline-flex h-12 items-center gap-2 rounded-full bg-ok-bg px-5 text-base font-semibold text-ok">
               <Check className="size-5" aria-hidden="true" />
               {t("paths.picked.badge")}
             </span>
@@ -432,7 +430,7 @@ export function PathDetailPage({ careerId }: { careerId: string }) {
       <div className="flex flex-wrap items-center gap-3">
         <ListenButton text={spoken} />
         {picked ? (
-          <span className="inline-flex h-12 items-center gap-2 rounded-xl bg-ok-bg px-5 text-base font-semibold text-ok">
+          <span className="inline-flex h-12 items-center gap-2 rounded-full bg-ok-bg px-5 text-base font-semibold text-ok">
             <Check className="size-5" aria-hidden="true" />
             {t("paths.picked.badge")}
           </span>
@@ -444,7 +442,7 @@ export function PathDetailPage({ careerId }: { careerId: string }) {
       </div>
       {pickError && <Notice>{t(pickError)}</Notice>}
       {picked && (
-        <div className="flex flex-wrap items-center gap-4 rounded-2xl bg-tint p-5">
+        <div className="flex flex-wrap items-center gap-4 rounded-[28px] bg-tint p-5 text-deep">
           <p className="min-w-0 flex-1 text-lg font-medium text-deep">{t("paths.picked.next")}</p>
           <Button full={false} className="h-12 px-6 text-base" onClick={() => navigate("/mentor")}>
             {t("paths.picked.cta")}
@@ -455,7 +453,7 @@ export function PathDetailPage({ careerId }: { careerId: string }) {
 
       <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
         <div className="flex flex-col gap-8">
-      <section className="rounded-2xl bg-tint p-6" aria-labelledby="first-income">
+      <section className="rounded-[28px] bg-tint p-6" aria-labelledby="first-income">
         <h2 id="first-income" className="text-sm font-semibold tracking-wide text-deep uppercase">
           {t("paths.first")}
         </h2>
@@ -471,7 +469,7 @@ export function PathDetailPage({ careerId }: { careerId: string }) {
             const title = pickLang(rung.title, lang);
             const detail = pickLang(rung.detail, lang);
             return (
-              <li key={rung.key} className="flex gap-5 rounded-2xl border border-line bg-surface p-5">
+              <li key={rung.key} className="flex gap-5 rounded-[28px] border border-line bg-surface p-5">
                 <span className="grid size-11 shrink-0 place-items-center rounded-full bg-accent text-lg font-bold text-white" aria-hidden="true">
                   {rung.rung}
                 </span>

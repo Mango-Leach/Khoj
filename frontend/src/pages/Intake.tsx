@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Keyboard, Loader2, Mic, Square } from "lucide-react";
 import { ListenButton } from "../components/ListenButton";
+import { GRID_STYLE } from "../components/PageBanner";
 import { Button, Notice, cx } from "../components/ui";
 import {
   completeIntake,
@@ -28,16 +29,16 @@ function Progress({ n, total }: { n: number; total: number }) {
   const { t } = useLang();
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-base font-semibold text-muted">{t("intake.step", { n, total })}</p>
+      <p className="text-base font-semibold text-white/80">{t("intake.step", { n, total })}</p>
       <div
-        className="h-2 overflow-hidden rounded-full bg-tint-strong"
+        className="h-2 overflow-hidden rounded-full bg-white/25"
         role="progressbar"
         aria-valuemin={1}
         aria-valuemax={total}
         aria-valuenow={n}
         aria-label={t("intake.step", { n, total })}
       >
-        <div className="h-full rounded-full bg-accent transition-[width] duration-300" style={{ width: `${(n / total) * 100}%` }} />
+        <div className="h-full rounded-full bg-lime transition-[width] duration-300" style={{ width: `${(n / total) * 100}%` }} />
       </div>
     </div>
   );
@@ -80,7 +81,7 @@ function OpenAnswer({ question, onConfirm, busy }: { question: IntakeQuestion; o
     const edited = draft.text.trim() !== draft.heard.trim();
     const final: Draft = { ...draft, text: draft.text.trim(), source: (draft.source === "browser_asr" || draft.source === "gnani") && edited ? "typed" : draft.source };
     return (
-      <section className="flex flex-col gap-5 rounded-2xl border border-line bg-surface p-8 shadow-(--shadow-lift)" aria-labelledby="confirm-title">
+      <section className="flex flex-col gap-5 rounded-[28px] border border-line bg-surface p-7 shadow-(--shadow-lift)" aria-labelledby="confirm-title">
         <div className="flex items-start justify-between gap-4">
           <div className="flex flex-col gap-1.5">
             <h2 id="confirm-title" className="text-2xl font-bold tracking-tight">
@@ -121,7 +122,7 @@ function OpenAnswer({ question, onConfirm, busy }: { question: IntakeQuestion; o
 
   const { supported, listening, busy: transcribing, heard, level, problem, mode } = listener;
   return (
-    <section className="flex flex-col gap-6 rounded-2xl border border-line bg-surface p-8 shadow-(--shadow-lift)" aria-label={question.text[lang]}>
+    <section className="flex flex-col gap-5 rounded-[28px] border border-line bg-surface p-7 shadow-(--shadow-lift)" aria-label={question.text[lang]}>
       {supported ? (
         <div className="flex flex-col items-center gap-4">
           <div className="relative grid size-28 place-items-center">
@@ -160,7 +161,7 @@ function OpenAnswer({ question, onConfirm, busy }: { question: IntakeQuestion; o
       {problem && <Notice tone={problem === "nothing" ? "info" : "error"}>{t(PROBLEM_TEXT[problem])}</Notice>}
 
       {!listening && !transcribing && (
-        <div className={cx("flex flex-col gap-3", supported && "border-t border-line pt-6")}>
+        <div className={cx("flex flex-col gap-3", supported && "border-t border-line pt-5")}>
           <label htmlFor="typed-answer" className="flex items-center gap-2 text-base font-semibold">
             <Keyboard className="size-5 text-accent" aria-hidden="true" />
             {t("intake.type.label")}
@@ -305,44 +306,51 @@ export function IntakePage() {
   const n = session.answers.length + 1;
 
   return (
-    <div className="flex max-w-2xl flex-col gap-7 pt-2">
-      <Progress n={n} total={session.total_questions} />
-      <div className="flex items-start justify-between gap-5">
-        <h1 className="text-[34px] leading-[1.2] font-bold tracking-tight" lang={lang}>
-          {question.text[lang]}
-        </h1>
-        <ListenButton text={question.text[lang]} />
-      </div>
+    <div className="grid gap-6 pt-2 xl:-mb-10 xl:h-[calc(100dvh-92px)] xl:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] xl:pt-0 xl:pb-6">
+      <section
+        className="flex flex-col justify-between gap-8 rounded-[28px] bg-accent p-7 text-white md:p-9"
+        style={GRID_STYLE}
+        aria-label={question.text[lang]}
+      >
+        <Progress n={n} total={session.total_questions} />
+        <div className="flex flex-col gap-5">
+          <h1 className="text-[30px] leading-[1.2] font-bold tracking-tight text-balance md:text-[38px]" lang={lang}>
+            {question.text[lang]}
+          </h1>
+          {question.example && (
+            <p className="text-lg leading-relaxed text-white/80" lang={lang}>
+              {question.example[lang]}
+            </p>
+          )}
+          <div>
+            <ListenButton text={question.text[lang]} />
+          </div>
+        </div>
+        <div className="flex flex-col gap-1">
+          <Button variant="ghost" full={false} className="-ml-4 self-start text-white hover:bg-white/10 hover:text-white" onClick={() => navigate("/home")}>
+            {t("intake.leave")}
+          </Button>
+          <p className="text-[15px] text-white/70">{t("intake.saved")}</p>
+        </div>
+      </section>
 
-      {question.example && (
-        <p className="-mt-3 text-lg text-muted" lang={lang}>
-          {question.example[lang]}
-        </p>
-      )}
-
-      {error && <Notice>{error}</Notice>}
-
-      {question.kind === "choice" ? (
-        <ChoiceAnswer
-          key={question.id}
-          question={question}
-          busy={busy}
-          onPick={(choiceId) => void send({ question_id: question.id, choice_id: choiceId, source: "tap", language: lang })}
-        />
-      ) : (
-        <OpenAnswer
-          key={question.id}
-          question={question}
-          busy={busy}
-          onConfirm={(d) => void send({ question_id: question.id, transcript: d.text, source: d.source, language: d.lang })}
-        />
-      )}
-
-      <div className="flex flex-col gap-2 pt-2">
-        <Button variant="ghost" full={false} className="-ml-4 self-start" onClick={() => navigate("/home")}>
-          {t("intake.leave")}
-        </Button>
-        <p className="text-[15px] text-muted">{t("intake.saved")}</p>
+      <div className="flex min-h-0 flex-col justify-center gap-4 xl:overflow-y-auto xl:p-2">
+        {error && <Notice>{error}</Notice>}
+        {question.kind === "choice" ? (
+          <ChoiceAnswer
+            key={question.id}
+            question={question}
+            busy={busy}
+            onPick={(choiceId) => void send({ question_id: question.id, choice_id: choiceId, source: "tap", language: lang })}
+          />
+        ) : (
+          <OpenAnswer
+            key={question.id}
+            question={question}
+            busy={busy}
+            onConfirm={(d) => void send({ question_id: question.id, transcript: d.text, source: d.source, language: d.lang })}
+          />
+        )}
       </div>
     </div>
   );

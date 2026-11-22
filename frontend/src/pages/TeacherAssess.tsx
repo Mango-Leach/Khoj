@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState, type FormEvent, type ReactNode } from "react";
+import { PageBanner } from "../components/PageBanner";
 import { ArrowLeft, BadgeCheck, Camera, CheckCircle2, CircleDashed, FileCheck2, Hourglass, Loader2, TriangleAlert, UserCheck, X, XCircle } from "lucide-react";
 import { Button, Notice, Pill, TextField, cx } from "../components/ui";
 import {
@@ -29,7 +30,7 @@ const SCORES = [1, 2, 3, 4] as const;
 function StepTile({ icon: Icon, label, state, tone }: { icon: typeof BadgeCheck; label: string; state: string; tone: "ok" | "warn" | "idle" }) {
   const tones = { ok: "bg-ok-bg text-ok", warn: "bg-warn-bg text-warn", idle: "bg-bg text-muted" };
   return (
-    <li className="flex items-center gap-4 rounded-2xl border border-line bg-surface p-5 shadow-(--shadow-soft)">
+    <li className="flex items-center gap-4 rounded-[28px] border border-line bg-surface p-5 shadow-(--shadow-soft)">
       <span className={cx("grid size-12 shrink-0 place-items-center rounded-xl", tones[tone])} aria-hidden="true">
         <Icon className="size-6" />
       </span>
@@ -43,7 +44,7 @@ function StepTile({ icon: Icon, label, state, tone }: { icon: typeof BadgeCheck;
 
 function Card({ id, title, help, children }: { id: string; title: string; help: string; children: ReactNode }) {
   return (
-    <section className="flex flex-col gap-5 rounded-2xl border border-line bg-surface p-6 shadow-(--shadow-soft) md:p-7" aria-labelledby={id}>
+    <section className="flex flex-col gap-5 rounded-[28px] border border-line bg-surface p-6 shadow-(--shadow-soft) md:p-7" aria-labelledby={id}>
       <div className="flex flex-col gap-1.5">
         <h2 id={id} className="text-2xl font-bold tracking-tight">
           {title}
@@ -442,7 +443,7 @@ function TestRunner({ areaId, onClose, onChanged }: { areaId: string; onClose: (
       <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
         <ol className="grid gap-5 xl:grid-cols-2">
           {area.items.map((item, i) => (
-            <li key={item.id} className="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-6 shadow-(--shadow-soft)">
+            <li key={item.id} className="flex flex-col gap-4 rounded-[28px] border border-line bg-surface p-6 shadow-(--shadow-soft)">
               <p className="text-sm font-semibold tracking-wide text-deep uppercase">{t("assess.test.item", { n: i + 1, total: area.items.length })}</p>
               <p className="text-lg">{item.work}</p>
               <div role="radiogroup" aria-label={t("assess.test.item", { n: i + 1, total: area.items.length })} className="mt-auto grid grid-cols-4 gap-2">
@@ -466,7 +467,7 @@ function TestRunner({ areaId, onClose, onChanged }: { areaId: string; onClose: (
           ))}
         </ol>
 
-        <aside className="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-6 shadow-(--shadow-soft) lg:sticky lg:top-4">
+        <aside className="flex flex-col gap-4 rounded-[28px] border border-line bg-surface p-6 shadow-(--shadow-soft) lg:sticky lg:top-4">
           <h3 className="text-lg font-bold">{t("assess.test.scale")}</h3>
           <dl className="flex flex-col gap-2.5">
             {SCORES.map((s) => (
@@ -534,10 +535,7 @@ export function TeacherAssessPage() {
     // From 1024 px up the page fits the window and only the two columns scroll. The shell adds 76 px of header and
     // 56 px of bottom padding, so the height and the negative margin below make the total exactly one screen.
     <div className="flex flex-col gap-8 pt-2 lg:-mb-10 lg:h-[calc(100dvh-92px)] lg:gap-5">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-[30px] leading-[1.1] font-bold tracking-tight md:text-[38px]">{t("assess.title")}</h1>
-        <p className="max-w-3xl text-lg text-muted">{t("assess.lead")}</p>
-      </div>
+      <PageBanner title={t("assess.title")} lead={t("assess.lead")} />
 
       <ul className="grid gap-4 md:grid-cols-3">
         <StepTile icon={FileCheck2} label={t("assess.step.proof")} state={t(`assess.evidence.${evidence}` as MessageKey)} tone={evidence === "verified" ? "ok" : evidence === "pending" ? "warn" : "idle"} />

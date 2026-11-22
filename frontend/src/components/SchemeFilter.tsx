@@ -102,7 +102,7 @@ function IncomeInput({ value, onChange, label }: { value: number | undefined; on
   const lakh = value !== undefined ? Number((value / 100000).toFixed(2)) : null;
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex h-12 items-center overflow-hidden rounded-xl border-[1.5px] border-line-strong bg-surface focus-within:border-accent focus-within:ring-4 focus-within:ring-tint-strong">
+      <div className="flex h-12 items-center overflow-hidden rounded-2xl border-[1.5px] border-line-strong bg-surface focus-within:border-accent focus-within:ring-4 focus-within:ring-tint-strong">
         <span className="grid h-full w-12 place-items-center border-r border-line bg-bg text-lg font-semibold text-muted" aria-hidden="true">
           ₹
         </span>
@@ -216,7 +216,7 @@ export function SchemeFilter({
 
   return (
     <section
-      className="flex flex-col rounded-2xl border border-line bg-surface shadow-(--shadow-soft) lg:sticky lg:top-4 lg:max-h-[calc(100dvh-2rem)] lg:overflow-y-auto"
+      className="flex flex-col rounded-[28px] border border-line bg-surface shadow-(--shadow-soft) lg:sticky lg:top-4 lg:max-h-[calc(100dvh-2rem)] lg:overflow-y-auto"
       aria-labelledby="schemes-questions"
     >
       <button

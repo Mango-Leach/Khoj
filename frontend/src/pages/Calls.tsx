@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { PageBanner } from "../components/PageBanner";
 import { CalendarClock, CheckCircle2, Languages, Loader2, MapPin, PhoneCall, ShieldCheck, Star, Video } from "lucide-react";
 import { Button, Choice, Notice, Pill, cx } from "../components/ui";
 import {
@@ -27,7 +28,7 @@ function HostHeader({ host }: { host: CallHost }) {
   const { t } = useLang();
   return (
     <div className="flex items-center gap-3.5">
-      <span className="grid size-12 shrink-0 place-items-center rounded-full bg-deep text-xl font-bold text-white" aria-hidden="true">
+      <span className="grid size-12 shrink-0 place-items-center rounded-full bg-accent text-xl font-bold text-white" aria-hidden="true">
         {host.name.trim().charAt(0).toUpperCase()}
       </span>
       <div className="flex min-w-0 flex-col gap-0.5">
@@ -176,7 +177,7 @@ function MyCallCard({ call, needsGuardian, busy, onGiveBack }: { call: MyCall; n
         <a
           href={contactHref(call.contact_kind, call.contact)}
           {...(phone ? {} : { target: "_blank", rel: "noopener noreferrer" })}
-          className="inline-flex h-12 items-center justify-center gap-2.5 rounded-xl bg-accent px-6 text-base font-semibold text-white transition-colors hover:bg-deep"
+          className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-night px-6 text-base font-semibold text-white transition-colors hover:bg-black"
         >
           {phone ? <PhoneCall className="size-5" aria-hidden="true" /> : <Video className="size-5" aria-hidden="true" />}
           {phone ? t("calls.phone", { number: spacedPhone(call.contact) }) : t("calls.join")}
@@ -210,7 +211,7 @@ function AskCard({ call, onSent }: { call: MyCall; onSent: () => void }) {
   };
 
   return (
-    <section className="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-5 shadow-(--shadow-soft) sm:p-6" aria-labelledby={`ask-${call.id}`}>
+    <section className="flex flex-col gap-4 rounded-[28px] border border-line bg-surface p-5 shadow-(--shadow-soft) sm:p-6" aria-labelledby={`ask-${call.id}`}>
       <div className="flex flex-col gap-1">
         <h2 id={`ask-${call.id}`} className="text-xl font-bold">
           {t("calls.ask.title")}
@@ -279,7 +280,7 @@ function PastRow({ call }: { call: MyCall }) {
 function NoPath() {
   const { t } = useLang();
   return (
-    <section className="flex max-w-2xl flex-col items-start gap-4 rounded-2xl border border-line bg-surface p-7 shadow-(--shadow-soft)">
+    <section className="flex max-w-2xl flex-col items-start gap-4 rounded-[28px] border border-line bg-surface p-7 shadow-(--shadow-soft)">
       <PhoneCall className="size-8 text-accent" aria-hidden="true" />
       <h2 className="text-2xl font-bold tracking-tight">{t("calls.nopath.title")}</h2>
       <p className="text-lg text-muted">{t("calls.nopath.help")}</p>
@@ -353,10 +354,7 @@ export function CallsPage() {
 
   return (
     <div className="flex flex-col gap-8 pt-2">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-[30px] leading-[1.1] font-bold tracking-tight md:text-[38px]">{title}</h1>
-        {data && <p className="max-w-3xl text-lg text-muted">{t("calls.lead", { career: pickText(data.career_name, lang) })}</p>}
-      </div>
+      <PageBanner title={title} lead={data ? t("calls.lead", { career: pickText(data.career_name, lang) }) : undefined} />
 
       {state === "loading" && (
         <p className="flex items-center gap-3 text-lg text-muted" role="status">
@@ -385,7 +383,7 @@ export function CallsPage() {
               </div>
 
               {days.length === 0 && !data.can_book ? null : days.length === 0 ? (
-                <section className="flex max-w-2xl gap-4 rounded-2xl border border-line bg-surface p-6 shadow-(--shadow-soft)">
+                <section className="flex max-w-2xl gap-4 rounded-[28px] border border-line bg-surface p-6 shadow-(--shadow-soft)">
                   <CalendarClock className="mt-0.5 size-7 shrink-0 text-accent" aria-hidden="true" />
                   <div className="flex flex-col gap-1">
                     <h3 className="text-xl font-bold">{t("calls.slots.empty.title")}</h3>
@@ -432,7 +430,7 @@ export function CallsPage() {
               )}
             </div>
 
-            <aside className="flex flex-col gap-5 rounded-2xl border border-line bg-surface p-5 shadow-(--shadow-soft) lg:sticky lg:top-4" aria-labelledby="calls-how">
+            <aside className="flex flex-col gap-5 rounded-[28px] border border-line bg-surface p-5 shadow-(--shadow-soft) lg:sticky lg:top-4" aria-labelledby="calls-how">
               <h2 id="calls-how" className="text-xl font-bold tracking-tight">
                 {t("calls.how.title")}
               </h2>

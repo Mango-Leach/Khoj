@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { PageBanner } from "../components/PageBanner";
 import { HandHelping, Loader2, Users } from "lucide-react";
 import { LearnerCardView } from "../components/LearnerCard";
 import { pick } from "../components/Eligibility";
@@ -39,7 +40,7 @@ function ApplyHelp({ items, onHelped }: { items: TeacherApplication[]; onHelped:
       {error && <Notice>{t(error)}</Notice>}
       <ul className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
         {items.map((a) => (
-          <li key={a.id} className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-5 shadow-(--shadow-soft)">
+          <li key={a.id} className="flex flex-col gap-3 rounded-[28px] border border-line bg-surface p-5 shadow-(--shadow-soft)">
             <p className="text-lg font-bold">{a.student.name}</p>
             <p className="text-base">{a.title ? pick(a.title, lang).text : a.opportunity_id}</p>
             <p className="text-sm font-semibold text-muted">{t(`stu.apply.status.${a.status}` as MessageKey)}</p>
@@ -76,10 +77,7 @@ export function TeacherStudentsPage() {
 
   return (
     <div className="flex flex-col gap-8 pt-2">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-[30px] leading-[1.1] font-bold tracking-tight md:text-[38px]">{t("stu.title")}</h1>
-        <p className="max-w-3xl text-lg text-muted">{t("stu.lead")}</p>
-      </div>
+      <PageBanner title={t("stu.title")} lead={t("stu.lead")} />
       {failed && <Notice>{t("err.network")}</Notice>}
       <ApplyHelp items={applications} onHelped={(id) => setApplications((list) => list.map((a) => (a.id === id ? { ...a, status: "mentor_assisted" } : a)))} />
       {!students && !failed && (
@@ -89,7 +87,7 @@ export function TeacherStudentsPage() {
         </div>
       )}
       {students && students.length === 0 && (
-        <section className="flex max-w-3xl gap-4 rounded-2xl border border-line bg-surface p-7 shadow-(--shadow-soft)">
+        <section className="flex max-w-3xl gap-4 rounded-[28px] border border-line bg-surface p-7 shadow-(--shadow-soft)">
           <Users className="mt-1 size-7 shrink-0 text-accent" aria-hidden="true" />
           <p className="text-lg text-muted">{t("stu.empty")}</p>
         </section>
@@ -97,7 +95,7 @@ export function TeacherStudentsPage() {
       {students && students.length > 0 && (
         <ul className="grid gap-5 md:grid-cols-2 2xl:grid-cols-3">
           {students.map((s) => (
-            <li key={s.journey_id} className="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-6 shadow-(--shadow-soft)">
+            <li key={s.journey_id} className="flex flex-col gap-4 rounded-[28px] border border-line bg-surface p-6 shadow-(--shadow-soft)">
               <LearnerCardView card={s.student} />
               {s.since && <p className="mt-auto text-[15px] text-muted">{t("stu.since", { date: new Date(s.since).toLocaleDateString(lang === "en" ? "en-IN" : lang, { day: "numeric", month: "short", year: "numeric" }) })}</p>}
             </li>
