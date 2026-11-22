@@ -83,8 +83,8 @@ async def delete_photo(submission_id: str, photo_id: str, user: dict[str, Any] =
 
 
 @router.post("/submissions/{submission_id}/send")
-async def send_work(submission_id: str, user: dict[str, Any] = student, db: AsyncIOMotorDatabase = Depends(get_db)) -> dict[str, Any]:
-    return await submissions.send(db, user, submission_id)
+async def send_work(submission_id: str, user: dict[str, Any] = student, db: AsyncIOMotorDatabase = Depends(get_db), llm: LLMService = Depends(get_llm)) -> dict[str, Any]:
+    return await submissions.send(db, llm, user, submission_id)
 
 
 @router.post("/submissions/{submission_id}/ack")

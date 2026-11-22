@@ -2,7 +2,9 @@
 
 Lifecycle: `draft` (saved practice; needs no mentor) -> `submitted` (sent to the mentor, waits in the queue, oldest
 first) -> `approved` or `returned`. A returned piece may be redone as a new attempt; after the second return the
-mentor is told to call the learner. A learner can prepare and save work before any mentor exists; sending it needs one.
+mentor is told to call the learner. A learner can prepare and save work before any mentor exists. With no mentor, sending it gets an AI review at once
+(`ai_passed` or `ai_returned`, always labelled as AI): practice feedback only. Only a mentor's `approved` finishes a
+milestone, unlocks opportunities or counts toward finishing the path. With a mentor, work goes to the mentor only.
 
 The review is made of people's decisions and plain rules, never of the AI:
 - every criterion needs its own explicit score from 1 to 4 (there is no approve-all);
@@ -15,6 +17,7 @@ from __future__ import annotations
 import hashlib
 import logging
 import uuid
+from datetime import timedelta
 from typing import Any
 
 from bson import Binary
@@ -40,6 +43,9 @@ AUDIT_ONE_IN = 10
 QUEUE_LIMIT = 50
 DRAFT_VERSION = "review-draft-v1"
 CLOSED_JOURNEYS = ("abandoned", "enrolled")
+AI_STATUSES = ("ai_passed", "ai_returned")
+AI_REVIEWS_PER_DAY = 30  # per learner, to protect the free model quota; resubmitting is otherwise unlimited
+HIGH_RISK_NOTE = "Practical electrical or machine work has to be checked by a mentor in person. These are tips on your written answer only."
 
 
 def is_audit_sample(submission_id: str) -> bool:
@@ -77,6 +83,7 @@ def _review_view(review: dict[str, Any] | None) -> dict[str, Any] | None:
         "feedback": review["feedback"],
         "call_needed": review["call_needed"],
         "reviewed_at": timeutil.ensure_aware(review["at"]),
+        "by_ai": review.get("by") == "ai",
     }
 
 
@@ -131,7 +138,12 @@ async def assignment_detail(db: AsyncIOMotorDatabase, user: dict[str, Any], assi
     doc, journey, who = await assignments.get_assignment(db, user, assignment_id)
     subs = [s async for s in db["submissions"].find({"assignment_id": assignment_id, "student_id": journey["student_id"]}).sort("attempt", 1)]
     latest = subs[-1] if subs else None
-    can_start = who == "student" and journey["state"] not in CLOSED_JOURNEYS and (latest is None or latest["status"] in ("returned", "draft"))
+    mentor = assignments.has_mentor(journey)
+    can_start = (
+        who == "student"
+        and journey["state"] not in CLOSED_JOURNEYS
+        and (latest is None or latest["status"] in ("returned", "draft", "ai_returned") or (latest["status"] == "ai_passed" and mentor))
+    )
     return {
         "assignment": assignments.assignment_view(doc),
         "side": who,
@@ -141,6 +153,7 @@ async def assignment_detail(db: AsyncIOMotorDatabase, user: dict[str, Any], assi
         "submissions": [submission_view(s, who) for s in subs],
         "can_work": bool(can_start),
         "approved": any(s["status"] == "approved" for s in subs),
+        "ai_passed": any(s["status"] == "ai_passed" for s in subs),
     }
 
 
@@ -161,6 +174,8 @@ async def start_or_save(db: AsyncIOMotorDatabase, user: dict[str, Any], assignme
         raise ApiError(409, "already_sent", "Your work is with your mentor.", "Wait for the review.")
     if latest is not None and latest["status"] == "approved":
         raise ApiError(409, "already_approved", "This assignment is already approved.", "")
+    if latest is not None and latest["status"] == "ai_passed" and not assignments.has_mentor(journey):
+        raise ApiError(409, "ai_passed", "The AI passed this practice.", "Connect with a mentor if you want it checked by a person.")
     now = timeutil.utcnow()
     new_id = uuid.uuid4().hex
     new = {
@@ -242,16 +257,16 @@ async def delete_photo(db: AsyncIOMotorDatabase, user: dict[str, Any], submissio
     await db["submission_photos"].delete_one({"_id": photo_id, "submission_id": sub["_id"]})
 
 
-async def send(db: AsyncIOMotorDatabase, user: dict[str, Any], submission_id: str) -> dict[str, Any]:
+async def send(db: AsyncIOMotorDatabase, llm: LLMService, user: dict[str, Any], submission_id: str) -> dict[str, Any]:
     sub, assignment, journey = await _own_student_submission(db, user, submission_id)
     if sub["status"] == "submitted":
         return submission_view(sub, "student")  # sent twice is sent once
     if sub["status"] != "draft":
         raise ApiError(409, "not_a_draft", "This work was already sent.", "")
-    if not assignments.has_mentor(journey):
-        raise ApiError(409, "mentor_required", "Your mentor reviews your work.", "Ask a mentor first. Your work stays saved.")
     if not sub["text"].strip() and not sub["photos"]:
         raise ApiError(422, "empty_work", "Add some work first.", "Write a short answer or add a photo.")
+    if not assignments.has_mentor(journey):
+        return await _ai_review(db, llm, user, sub, assignment, journey)
     now = timeutil.utcnow()
     sent = await db["submissions"].find_one_and_update(
         {"_id": sub["_id"], "status": "draft"}, {"$set": {"status": "submitted", "sent_at": now, "updated_at": now}}, return_document=ReturnDocument.AFTER
@@ -389,6 +404,72 @@ async def _note_milestone(db: AsyncIOMotorDatabase, journey: dict[str, Any], mil
         already = await db["events"].count_documents({"type": "milestone_done", "ref": f"{journey['_id']}:{milestone}"})
         if not already:
             await events.record(db, "milestone_done", actor, ref=f"{journey['_id']}:{milestone}", skill_tags=tags)
+
+
+# ---------------------------------------------------------------------------
+# AI review for a learner with no mentor (practice feedback; a person approves real progress)
+# ---------------------------------------------------------------------------
+
+
+def ai_outcome(scores: dict[str, int | None], high_risk: bool) -> str:
+    """`pass` only when every criterion was judged and is at the pass score; never for high-risk practical work.
+    `feedback` = tips only (high risk); `return` = something to fix or not judgeable from the written answer."""
+    if high_risk:
+        return "feedback"
+    judged = bool(scores) and all(v is not None for v in scores.values())
+    return "pass" if judged and all(v >= PASS_SCORE for v in scores.values() if v is not None) else "return"
+
+
+async def _ai_review(
+    db: AsyncIOMotorDatabase, llm: LLMService, user: dict[str, Any], sub: dict[str, Any], assignment: dict[str, Any], journey: dict[str, Any]
+) -> dict[str, Any]:
+    now = timeutil.utcnow()
+    today = await db["submissions"].count_documents({"student_id": user["_id"], "review.by": "ai", "review.at": {"$gte": now - timedelta(days=1)}})
+    if today >= AI_REVIEWS_PER_DAY:
+        raise ApiError(429, "ai_limit", "You have used the AI review many times today.", "Try again tomorrow, or connect with a mentor.")
+    career = catalog.career(journey["career_id"]) or {}
+    high_risk = (career.get("safety") or {}).get("class") == "high"
+    wanted = {c["id"] for c in assignment["criteria"]}
+
+    if sub["text"].strip():
+        req = LLMRequest(task=Task.DRAFTING, system=SCORE_SYSTEM, prompt=_score_prompt(assignment, sub), schema=ScoreDraft.model_json_schema(), temperature=0.2, prompt_version=DRAFT_VERSION)
+        try:
+            result = await llm.generate(req, _checked_score_model(wanted))
+        except LLMUnavailable:
+            # Nothing is approved and nothing is lost: the work stays a saved draft.
+            raise ApiError(503, "ai_unavailable", "The AI could not review your work right now.", "Your work is saved. Try again in a little while, or connect with a mentor.") from None
+        scores, feedback, source, model = dict(result.value.scores), result.value.feedback.strip(), result.source, result.model
+    else:
+        # Photos only: the AI reads words and cannot see photos, so it does not guess.
+        scores, feedback, source, model = {c: None for c in wanted}, "The AI cannot see photos. Add a few words about your work, or connect with a mentor who can look at your photos.", "none", None
+
+    outcome = ai_outcome(scores, high_risk)
+    if high_risk:
+        feedback = f"{feedback} {HIGH_RISK_NOTE}".strip()
+    status = "ai_passed" if outcome == "pass" else "ai_returned"
+    review_doc = {
+        "by": "ai",
+        "source": source,
+        "model": model,
+        "decision": outcome,
+        "scores": scores,
+        "feedback": feedback,
+        "call_needed": False,
+        "at": now,
+        "seconds_open": None,
+        "ai_agreement": None,
+    }
+    updated = await db["submissions"].find_one_and_update(
+        {"_id": sub["_id"], "status": "draft"},
+        {"$set": {"status": status, "sent_at": now, "updated_at": now, "review": review_doc}},
+        return_document=ReturnDocument.AFTER,
+    )
+    if updated is None:
+        raise ApiError(409, "not_a_draft", "This work was already sent.", "")
+    if journey["state"] == "stalled":
+        await journeys.move(db, journey["_id"], "in_progress", expect="stalled")
+    await events.record(db, f"submission_{status}", user["_id"], ref=sub["_id"], skill_tags=[r["skill"] for r in career.get("required_skills", [])])
+    return submission_view(updated, "student")
 
 
 # ---------------------------------------------------------------------------

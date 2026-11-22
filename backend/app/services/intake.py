@@ -374,6 +374,11 @@ async def complete(
     result = await llm.generate(req, LLMExtraction, fallback=lambda: keyword_extraction(answers))
     skills, other, interests, goal = normalise_extraction(result.value)
     skills, dropped = supported_skills(skills, answers)
+    # A model that finds no vocabulary skill (it may list only free text such as "drawing portraits") must not leave
+    # out a skill the learner's own words plainly name. The keyword rule fills in then; it only ever adds skills
+    # backed by their words, so a learner is not sent to "not sure" because one model read the answer badly.
+    if not skills:
+        skills = keyword_extraction(answers).skills[:3]
     if dropped:
         log.info("dropped skills with no support in the learner's words", extra={"count": len(dropped), "source": result.source})
     try:

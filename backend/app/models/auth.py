@@ -54,6 +54,7 @@ class UserOut(BaseModel):
     language: Lang
     profile: Literal["student", "teacher"] | None
     preferences: Preferences
+    phone: str | None = None  # the signed-in person's own number, for their own screen only
 
 
 class TokenOut(BaseModel):

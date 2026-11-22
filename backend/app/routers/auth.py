@@ -31,7 +31,7 @@ async def otp_verify(
 ) -> dict[str, Any]:
     user = await auth_service.verify_otp(db, settings, body.phone, body.otp)
     tokens = await auth_service.issue_tokens(db, settings, user)
-    return {**tokens, "user": await auth_service.user_view(db, user)}
+    return {**tokens, "user": await auth_service.user_view(db, user, settings)}
 
 
 @router.post("/refresh", response_model=TokenOut)
@@ -41,7 +41,7 @@ async def refresh(
     settings: Settings = Depends(get_settings),
 ) -> dict[str, Any]:
     user, tokens = await auth_service.rotate_refresh(db, settings, body.refresh_token)
-    return {**tokens, "user": await auth_service.user_view(db, user)}
+    return {**tokens, "user": await auth_service.user_view(db, user, settings)}
 
 
 @router.post("/logout", status_code=204)

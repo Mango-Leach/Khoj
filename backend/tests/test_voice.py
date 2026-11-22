@@ -164,3 +164,58 @@ async def test_health_reports_key_counts_but_never_a_key(client):
     r = await client.get(f"{API}/health")
     speech = r.json()["speech"]
     assert speech["provider"] == "gnani" and {"keys_configured", "stt_keys_usable", "tts_keys_usable"} <= set(speech)
+
+
+# ---- the public page uses the same voice, without signing in ------------------------------------
+
+
+async def test_a_visitor_can_hear_the_same_voice_without_signing_in(client, fake):
+    assert (await client.get(f"{API}/voice/public/status")).json() == {"tts": True}
+    body = {"text": "अपना हुनर बोलिए, पहली कमाई की राह पाइए।", "language": "hi"}
+    first = await client.post(f"{API}/voice/public/tts", json=body)
+    assert first.status_code == 200 and first.headers["content-type"] == "audio/mpeg" and first.headers["x-khoj-cache"] == "miss"
+    second = await client.post(f"{API}/voice/public/tts", json=body)
+    assert second.headers["x-khoj-cache"] == "hit" and second.content == first.content
+    assert len(fake.spoken) == 1
+
+
+async def test_a_visitor_shares_the_cache_with_signed_in_users(client, clock, fake):
+    t = await signed_in(client, clock)
+    body = {"text": "Speak your skill. Find your first income.", "language": "en"}
+    await client.post(f"{API}/voice/tts", json=body, headers=bearer(t))
+    r = await client.post(f"{API}/voice/public/tts", json=body)
+    assert r.headers["x-khoj-cache"] == "hit" and len(fake.spoken) == 1
+
+
+async def test_the_public_status_says_when_the_server_voice_is_off(client, fake):
+    fake.tts_usable = 0
+    assert (await client.get(f"{API}/voice/public/status")).json() == {"tts": False}
+
+
+async def test_a_visitor_cannot_burn_the_credits(client, fake, monkeypatch):
+    monkeypatch.setitem(voice.LIMITS, "public_tts", 2)
+    voice._public_fresh.clear()
+    for n in range(2):
+        assert (await client.post(f"{API}/voice/public/tts", json={"text": f"line {n}", "language": "en"})).status_code == 200
+    r = await client.post(f"{API}/voice/public/tts", json={"text": "line 3", "language": "en"})
+    assert r.status_code == 429 and r.json()["code"] == "too_many_requests"
+    cached = await client.post(f"{API}/voice/public/tts", json={"text": "line 0", "language": "en"})
+    assert cached.status_code == 200 and cached.headers["x-khoj-cache"] == "hit"  # a repeat line is still free
+
+
+async def test_all_visitors_together_have_an_hourly_ceiling(client, fake, monkeypatch):
+    monkeypatch.setattr(voice, "PUBLIC_TTS_PER_HOUR", 2)
+    voice._public_fresh.clear()
+    monkeypatch.setitem(voice.LIMITS, "public_tts", 100)
+    for n in range(2):
+        assert (await client.post(f"{API}/voice/public/tts", json={"text": f"hour {n}", "language": "en"})).status_code == 200
+    assert (await client.post(f"{API}/voice/public/tts", json={"text": "hour 3", "language": "en"})).status_code == 429
+
+
+async def test_the_public_voice_validates_input_and_maps_failures(client, fake):
+    assert (await client.post(f"{API}/voice/public/tts", json={"text": "x" * 600, "language": "en"})).status_code == 422
+    assert (await client.post(f"{API}/voice/public/tts", json={"text": "hi", "language": "xx"})).status_code == 422
+    fake.fail = gn.GnaniError(gn.EXHAUSTED)
+    r = await client.post(f"{API}/voice/public/tts", json={"text": "no credit", "language": "en"})
+    assert r.status_code == 503 and r.json()["code"] == "speech_unavailable"
+

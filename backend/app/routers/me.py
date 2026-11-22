@@ -5,6 +5,7 @@ from typing import Any
 from fastapi import APIRouter, Depends
 from motor.motor_asyncio import AsyncIOMotorDatabase
 
+from app.config import Settings, get_settings
 from app.deps import current_user, get_db
 from app.models.auth import PreferencesPatch, UserOut
 from app.services import auth as auth_service
@@ -13,8 +14,12 @@ router = APIRouter(prefix="/me", tags=["me"])
 
 
 @router.get("", response_model=UserOut)
-async def me(user: dict[str, Any] = Depends(current_user), db: AsyncIOMotorDatabase = Depends(get_db)) -> dict[str, Any]:
-    return await auth_service.user_view(db, user)
+async def me(
+    user: dict[str, Any] = Depends(current_user),
+    db: AsyncIOMotorDatabase = Depends(get_db),
+    settings: Settings = Depends(get_settings),
+) -> dict[str, Any]:
+    return await auth_service.user_view(db, user, settings)
 
 
 @router.patch("/preferences", response_model=UserOut)

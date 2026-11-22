@@ -214,6 +214,14 @@ async def test_me_with_a_session(client, clock):
     assert r.status_code == 200 and r.json()["id"] == tokens["user"]["id"]
 
 
+async def test_me_returns_the_signed_in_persons_own_number_and_nobody_elses(client, clock):
+    mine = await sign_in(client, clock, PHONE)
+    other = await sign_in(client, clock, OTHER_PHONE)
+    assert mine["user"]["phone"] == "+91" + PHONE
+    assert (await client.get(f"{API}/me", headers=bearer(mine))).json()["phone"] == "+91" + PHONE
+    assert (await client.get(f"{API}/me", headers=bearer(other))).json()["phone"] == "+91" + OTHER_PHONE
+
+
 async def test_a_tampered_token_is_rejected(client, clock):
     tokens = await sign_in(client, clock)
     r = await client.get(f"{API}/me", headers={"Authorization": f"Bearer {tokens['access_token'][:-4]}abcd"})

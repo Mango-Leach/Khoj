@@ -386,15 +386,127 @@ async def test_a_milestone_holds_at_most_six_assignments(client, clock, db, mode
 # ---------------------------------------------------------------------------
 
 
-async def test_a_learner_can_practise_and_save_without_a_mentor_but_cannot_send(client, clock, db):
+AIP = [f"90000002{n:02d}" for n in range(0, 20)]
+
+
+def ai_scores(c1=3, c2=3, c3=3):
+    return {"scores": {"c1": c1, "c2": c2, "c3": c3}, "feedback": "Good start. Add one more detail."}
+
+
+async def solo_work(client, clock, db, phone, text="I watched a tailor for an hour.", career_id="tailoring_enterprise"):
+    s, jid = await make_student(client, clock, db, phone, career_id)
+    aid = await template_id(client, s, jid, "explore")
+    return s, jid, aid, await work(client, s, aid, text)
+
+
+async def test_a_learner_without_a_mentor_gets_an_ai_review_labelled_as_ai(client, clock, db, model):
+    s, jid, aid, sub = await solo_work(client, clock, db, AIP[0])
+    up = await client.post(f"{API}/submissions/{sub['id']}/photos", headers=bearer(s), files={"file": ("a.jpg", photo(1), "image/jpeg")})
+    assert up.status_code == 201
+    model.holder["handler"] = lambda req: ai_scores()
+    r = await send(client, s, sub["id"])
+    assert r.status_code == 200, r.text
+    out = r.json()
+    assert out["status"] == "ai_passed" and out["review"]["by_ai"] is True and out["review"]["decision"] == "pass"
+    stored = await db["submissions"].find_one({"_id": sub["id"]})
+    assert stored["review"]["by"] == "ai" and stored["review"]["model"] == "fake-text"
+    detail = (await client.get(f"{API}/assignments/{aid}", headers=bearer(s))).json()
+    assert detail["has_mentor"] is False and detail["ai_passed"] is True and detail["approved"] is False
+    assert detail["can_work"] is False  # the AI pass is final practice until a mentor exists
+    again = await client.post(f"{API}/assignments/{aid}/submissions", headers=bearer(s), json={"text": "more"})
+    assert again.status_code == 409 and again.json()["code"] == "ai_passed"
+    # practice only: nothing here counts as a mentor's approval
+    first = (await milestones(client, s, jid))["milestones"][0]
+    assert first["done"] == 0 and first["state"] == "active"
+    assert await db["notifications"].count_documents({"type": "work_sent"}) == 0
+
+
+async def test_an_ai_return_lets_the_learner_fix_and_send_again(client, clock, db, model):
+    s, jid, aid, sub = await solo_work(client, clock, db, AIP[1])
+    model.holder["handler"] = lambda req: ai_scores(1, 2, 3)
+    assert (await send(client, s, sub["id"])).json()["status"] == "ai_returned"
+    second = await work(client, s, aid, "Now with more detail about what the tailor did.")
+    assert second["attempt"] == 2 and second["status"] == "draft"
+    model.holder["handler"] = lambda req: ai_scores()
+    assert (await send(client, s, second["id"])).json()["status"] == "ai_passed"
+
+
+async def test_an_ai_pass_needs_every_criterion_judged(client, clock, db, model):
+    s, jid, aid, sub = await solo_work(client, clock, db, AIP[2])
+    model.holder["handler"] = lambda req: {"scores": {"c1": 4, "c2": None, "c3": 4}, "feedback": "Nice. Photos would show the rest."}
+    out = (await send(client, s, sub["id"])).json()
+    assert out["status"] == "ai_returned" and out["review"]["decision"] == "return"
+
+
+async def test_when_the_model_is_down_nothing_is_approved_and_the_work_stays_a_draft(client, clock, db, model):
+    s, jid, aid, sub = await solo_work(client, clock, db, AIP[3])
+    model.holder["handler"] = lambda req: ProviderError("down")
+    r = await send(client, s, sub["id"])
+    assert r.status_code == 503 and r.json()["code"] == "ai_unavailable"
+    assert (await db["submissions"].find_one({"_id": sub["id"]}))["status"] == "draft"
+
+
+async def test_photos_alone_are_never_judged_by_the_ai(client, clock, db, model):
+    s, jid, aid, sub = await solo_work(client, clock, db, AIP[4], text="")
+    up = await client.post(f"{API}/submissions/{sub['id']}/photos", headers=bearer(s), files={"file": ("a.jpg", photo(2), "image/jpeg")})
+    assert up.status_code == 201
+    calls = len(model.seen)
+    out = (await send(client, s, sub["id"])).json()
+    assert out["status"] == "ai_returned" and "cannot see photos" in out["review"]["feedback"] and len(model.seen) == calls
+
+
+async def test_the_ai_never_passes_high_risk_practical_work(client, clock, db, model):
+    s, jid, aid, sub = await solo_work(client, clock, db, AIP[5], career_id="electrician_wiring")
+    model.holder["handler"] = lambda req: ai_scores(4, 4, 4)
+    out = (await send(client, s, sub["id"])).json()
+    assert out["status"] == "ai_returned" and out["review"]["decision"] == "feedback"
+    assert "in person" in out["review"]["feedback"]
+
+
+async def test_the_ai_review_has_a_daily_limit(client, clock, db, model, monkeypatch):
+    from app.services import submissions as subs
+
+    monkeypatch.setattr(subs, "AI_REVIEWS_PER_DAY", 1)
+    s, jid, aid, sub = await solo_work(client, clock, db, AIP[6])
+    model.holder["handler"] = lambda req: ai_scores(1, 1, 1)
+    assert (await send(client, s, sub["id"])).status_code == 200
+    second = await work(client, s, aid, "Another try with more words.")
+    r = await send(client, s, second["id"])
+    assert r.status_code == 429 and r.json()["code"] == "ai_limit"
+
+
+async def test_with_a_mentor_the_work_goes_to_the_mentor_only_and_the_ai_is_not_called(client, clock, db, model):
+    t, s, jid = await pair(client, clock, db, AIP[7:9])
+    aid = await template_id(client, s, jid)
+    sub = await work(client, s, aid)
+    calls = len(model.seen)
+    assert (await send(client, s, sub["id"])).json()["status"] == "submitted"
+    assert len(model.seen) == calls and (await db["submissions"].find_one({"_id": sub["id"]}))["review"] is None
+
+
+async def test_after_an_ai_pass_a_new_mentor_can_be_sent_the_work_again(client, clock, db, model):
+    t, tid = await make_teacher(client, clock, db, AIP[9])
+    s, jid = await make_student(client, clock, db, AIP[10])
+    aid = await template_id(client, s, jid, "explore")
+    sub = await work(client, s, aid, "I watched a tailor for an hour.")
+    model.holder["handler"] = lambda req: ai_scores()
+    assert (await send(client, s, sub["id"])).json()["status"] == "ai_passed"
+    r = await client.post(f"{API}/journeys/{jid}/mentor-request", headers=bearer(s), json={"teacher_id": tid})
+    assert (await client.post(f"{API}/requests/{r.json()['id']}/accept", headers=bearer(t))).status_code == 200
+    detail = (await client.get(f"{API}/assignments/{aid}", headers=bearer(s))).json()
+    assert detail["has_mentor"] is True and detail["can_work"] is True
+    again = await work(client, s, aid, "Now for my mentor.")
+    assert again["attempt"] == 2
+    assert (await send(client, s, again["id"])).json()["status"] == "submitted"
+
+
+async def test_a_learner_can_practise_and_save_without_a_mentor(client, clock, db):
     s, jid = await make_student(client, clock, db, PHONES[24])
     aid = await template_id(client, s, jid, "explore")
     sub = await work(client, s, aid, "I watched a tailor for an hour.")
     assert sub["status"] == "draft" and sub["attempt"] == 1
     up = await client.post(f"{API}/submissions/{sub['id']}/photos", headers=bearer(s), files={"file": ("a.jpg", photo(1), "image/jpeg")})
     assert up.status_code == 201
-    r = await send(client, s, sub["id"])
-    assert r.status_code == 409 and r.json()["code"] == "mentor_required"
     detail = (await client.get(f"{API}/assignments/{aid}", headers=bearer(s))).json()
     assert detail["has_mentor"] is False and detail["submissions"][0]["status"] == "draft" and len(detail["submissions"][0]["photos"]) == 1
     assert (await milestones(client, s, jid))["milestones"][0]["state"] == "active"

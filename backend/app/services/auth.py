@@ -205,7 +205,7 @@ async def revoke_refresh(db: AsyncIOMotorDatabase, plain: str) -> None:
 # ---------------------------------------------------------------------------
 
 
-async def user_view(db: AsyncIOMotorDatabase, user: dict[str, Any]) -> dict[str, Any]:
+async def user_view(db: AsyncIOMotorDatabase, user: dict[str, Any], settings: Settings | None = None) -> dict[str, Any]:
     roles = user.get("roles", [])
     profile = None
     if "student" in roles and await db["student_profiles"].find_one({"user_id": user["_id"]}, {"_id": 1}):
@@ -218,4 +218,5 @@ async def user_view(db: AsyncIOMotorDatabase, user: dict[str, Any]) -> dict[str,
         "language": user.get("language", "en"),
         "profile": profile,
         "preferences": user.get("preferences") or Preferences().model_dump(),
+        "phone": security.decrypt_phone(settings, user["phone_enc"]) if settings and user.get("phone_enc") else None,
     }

@@ -9,7 +9,7 @@ from __future__ import annotations
 import hashlib
 import time
 from collections import defaultdict, deque
-from typing import Any, Literal
+from typing import Any, Callable, Literal
 
 from fastapi import APIRouter, Depends, File, Form, UploadFile
 from fastapi.responses import Response
@@ -17,7 +17,7 @@ from motor.motor_asyncio import AsyncIOMotorDatabase
 from pydantic import BaseModel, Field
 
 from app.config import Settings, get_settings
-from app.deps import current_user, get_db, get_gnani
+from app.deps import client_ip, current_user, get_db, get_gnani
 from app.errors import ApiError
 from app.services import gnani as gn
 from app import timeutil
@@ -30,7 +30,10 @@ MAX_AUDIO_BYTES = 2_500_000  # a 30 s clip is under 1 MB as 16 kHz mono WAV
 MIN_AUDIO_BYTES = 1_000
 MAX_TTS_CHARS = 500
 WINDOW_S = 600
-LIMITS = {"asr": 40, "tts": 120}  # calls per user per 10 minutes: protects the credits, not a quota
+LIMITS = {"asr": 40, "tts": 120, "public_tts": 6}  # calls per user (or visitor address) per 10 minutes: protects the credits, not a quota
+PUBLIC_TTS_PER_HOUR = 40  # new voices for visitors who are not signed in, across everyone, per hour
+
+_public_fresh: deque[float] = deque()
 
 _recent: dict[tuple[str, str], deque[float]] = defaultdict(deque)
 
@@ -52,6 +55,16 @@ def _speech_error(exc: gn.GnaniError) -> ApiError:
         return ApiError(503, "speech_busy", "The voice service is busy.", "Try again in a moment, or type.")
     # not configured, out of credit on every key, or Gnani down: the app falls back to browser speech or typing
     return ApiError(503, "speech_unavailable", "Voice is not available right now.", "Type your answer instead.")
+
+
+def _limit_public_voices() -> None:
+    """A hard ceiling on how many new voices anonymous visitors can have made in an hour."""
+    now = time.monotonic()
+    while _public_fresh and now - _public_fresh[0] > 3600:
+        _public_fresh.popleft()
+    if len(_public_fresh) >= PUBLIC_TTS_PER_HOUR:
+        raise ApiError(429, "too_many_requests", "Too many voice requests.", "Please try again later.")
+    _public_fresh.append(now)
 
 
 @router.get("/status")
@@ -88,15 +101,14 @@ class SpeakIn(BaseModel):
     language: Lang = "en"
 
 
-@router.post("/tts")
-async def speak(
+async def _speak_cached(
     body: SpeakIn,
-    user: dict[str, Any] = Depends(current_user),
-    client: gn.GnaniClient = Depends(get_gnani),
-    db: AsyncIOMotorDatabase = Depends(get_db),
-    settings: Settings = Depends(get_settings),
+    client: gn.GnaniClient,
+    db: AsyncIOMotorDatabase,
+    settings: Settings,
+    before_new_voice: Callable[[], None],
 ) -> Response:
-    """Spoken audio for a line of text. Repeated lines (the questions, the buttons) come from a cache and cost nothing."""
+    """Spoken audio for a line of text. A repeated line comes from the cache and costs nothing; only a new one calls Gnani."""
     text = scrub_text(body.text, limit=MAX_TTS_CHARS)  # a typed answer can hold a phone number; never speak it out to a third party
     if len(text) < 1:
         raise ApiError(422, "empty_answer", "There is nothing to read.", "")
@@ -104,7 +116,7 @@ async def speak(
     cached = await db["tts_cache"].find_one({"_id": key})
     if cached is not None:
         return Response(content=bytes(cached["audio"]), media_type=cached["content_type"], headers={"X-Khoj-Cache": "hit"})
-    _limit(user["_id"], "tts")
+    before_new_voice()
     try:
         audio, content_type = await client.synthesize(text, body.language)
     except gn.GnaniError as exc:
@@ -115,3 +127,42 @@ async def speak(
         upsert=True,
     )
     return Response(content=audio, media_type=content_type, headers={"X-Khoj-Cache": "miss"})
+
+
+@router.post("/tts")
+async def speak(
+    body: SpeakIn,
+    user: dict[str, Any] = Depends(current_user),
+    client: gn.GnaniClient = Depends(get_gnani),
+    db: AsyncIOMotorDatabase = Depends(get_db),
+    settings: Settings = Depends(get_settings),
+) -> Response:
+    """Spoken audio for a line of text, for a signed-in user."""
+    return await _speak_cached(body, client, db, settings, lambda: _limit(user["_id"], "tts"))
+
+
+@router.get("/public/status")
+async def public_status(client: gn.GnaniClient = Depends(get_gnani)) -> dict[str, bool]:
+    """Whether the public page can use the server voice. Nothing about keys or credit is shown."""
+    return {"tts": client.pool.status()["tts_keys_usable"] > 0}
+
+
+@router.post("/public/tts")
+async def public_speak(
+    body: SpeakIn,
+    ip: str = Depends(client_ip),
+    client: gn.GnaniClient = Depends(get_gnani),
+    db: AsyncIOMotorDatabase = Depends(get_db),
+    settings: Settings = Depends(get_settings),
+) -> Response:
+    """The same voice for visitors who have not signed in, so the landing page sounds like the app.
+
+    Lines already spoken come from the cache and are free. A new line is limited per address and
+    across all visitors, and is never longer than a signed-in line, so this cannot burn the credits.
+    """
+
+    def guard() -> None:
+        _limit(ip, "public_tts")
+        _limit_public_voices()
+
+    return await _speak_cached(body, client, db, settings, guard)

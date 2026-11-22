@@ -336,6 +336,17 @@ async def test_invalid_output_from_the_primary_fails_over_to_the_other_provider(
     assert view["extraction_source"] == "gemini" and "sewing" in view["extracted"]["skills"]
 
 
+async def test_a_model_that_finds_no_skill_does_not_hide_one_the_learner_named(client, clock, llm):
+    llm.providers["ollama"].handler = lambda req: json.dumps({"skills": [], "other_skills": ["drawing portraits"], "interests": [], "goal": None})
+    t = await student(client, clock)
+    sid = (await start(client, t))["id"]
+    await fill(client, t, sid)
+    view = (await client.post(f"{API}/intake/sessions/{sid}/complete", headers=bearer(t))).json()
+    assert view["extraction_source"] == "ollama"
+    assert "sewing" in view["extracted"]["skills"]  # named in the learner's own words, so the rule adds it
+    assert "drawing portraits" in view["extracted"]["other_skills"]
+
+
 async def test_extraction_falls_back_to_keywords_when_no_provider_answers(client, clock, llm):
     def boom(req):
         raise ProviderError("down")
