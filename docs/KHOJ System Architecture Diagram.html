@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KHOJ System Architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f4f1ec;color:#1b1f3b;font-family:'IBM Plex Sans',system-ui,sans-serif}
+.wrap{max-width:1840px;margin:0 auto;padding:22px 18px 40px}
+h1{font-family:'Space Grotesk',sans-serif;font-size:26px;margin:0 0 2px;letter-spacing:-.01em}
+p{margin:0 0 14px;color:#5d6178;font-size:14px}
+.scroll{overflow-x:auto;background:#fffdf9;border:1px solid #ddd6ca;border-radius:16px;box-shadow:0 2px 14px rgba(40,30,10,.06)}
+svg{display:block;min-width:1300px;width:100%;height:auto}
+svg text{font-family:'IBM Plex Sans',system-ui,sans-serif}
+svg .h{font-family:'Space Grotesk',sans-serif}
+svg .m{font-family:'JetBrains Mono',ui-monospace,monospace}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>KHOJ: Technical System Architecture</h1>
+<p>Reads left to right: people and client, gateway, backend modules, then AI, data and outbound channels on the right; external sources feed in from below. Chips are tools (initial badges, not official logos).</p>
+<div class="scroll"><svg id="d" viewBox="0 0 1800 900" role="img" aria-label="KHOJ system architecture: actors, PWA client, gateway, FastAPI modules, AI layer, MongoDB, external sources and outbound channels"></svg></div>
+</div>
+<script>
+const NS='http://www.w3.org/2000/svg',svg=document.getElementById('d');
+const INK='#1b1f3b',MUT='#5d6178';
+function el(n,a,t){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t!=null)e.textContent=t;svg.appendChild(e);return e}
+const defs=document.createElementNS(NS,'defs');svg.appendChild(defs);
+const mk=document.createElementNS(NS,'marker');
+[['id','ar'],['viewBox','0 0 10 10'],['refX','9'],['refY','5'],['markerWidth','7'],['markerHeight','7'],['orient','auto']].forEach(([k,v])=>mk.setAttribute(k,v));
+const mp=document.createElementNS(NS,'path');mp.setAttribute('d','M0 0L10 5L0 10z');mp.setAttribute('fill','#2f3656');mk.appendChild(mp);defs.appendChild(mk);
+const C={A:'#4b5568',B:'#2457d6',C:'#0b7a8c',D:'#6d3fd1',E1:'#c0264b',E2:'#0e7a63',F1:'#b4560a',F2:'#0b7a8c'};
+function container(x,y,w,h,num,label,color){
+  el('rect',{x,y,width:w,height:h,rx:16,fill:color+'12',stroke:color,'stroke-width':1.4});
+  el('circle',{cx:x+22,cy:y+21,r:11,fill:color});
+  el('text',{x:x+22,y:y+25.5,'text-anchor':'middle','font-size':12,'font-weight':700,fill:'#fff',class:'h'},num);
+  el('text',{x:x+42,y:y+26,'font-size':15,'font-weight':700,fill:color,class:'h'},label);
+}
+function chips(x,y,list,color){
+  let cx=x;
+  list.forEach(t=>{
+    const w=t.length*6.1+28;
+    el('rect',{x:cx,y,width:w,height:18,rx:9,fill:'#fff',stroke:'#cfc8bb'});
+    el('circle',{cx:cx+10,cy:y+9,r:6.5,fill:color});
+    el('text',{x:cx+10,y:y+12,'text-anchor':'middle','font-size':8.5,'font-weight':700,fill:'#fff',class:'m'},t.replace('$','')[0].toUpperCase());
+    el('text',{x:cx+21,y:y+12.5,'font-size':10,'font-weight':500,fill:INK,class:'m'},t);
+    cx+=w+5;
+  });
+}
+function box(x,y,w,h,title,lines,tools,color){
+  el('rect',{x,y,width:w,height:h,rx:10,fill:'#fff',stroke:'#dcd5c8'});
+  el('rect',{x,y:y+10,width:4,height:h-20,rx:2,fill:color});
+  el('text',{x:x+16,y:y+22,'font-size':13.5,'font-weight':700,fill:INK,class:'h'},title);
+  lines.forEach((l,i)=>el('text',{x:x+16,y:y+40+i*14.5,'font-size':11.5,fill:MUT},l));
+  if(tools&&tools.length)chips(x+14,y+h-27,tools,color);
+}
+function grid(x0,y0,cols,w,gx,gy,h,items,color){
+  items.forEach((it,i)=>box(x0+(i%cols)*(w+gx),y0+Math.floor(i/cols)*(h+gy),w,h,it[0],it[1],it[2],color));
+}
+function arrow(x1,y1,x2,y2){el('path',{d:`M${x1} ${y1}L${x2} ${y2}`,stroke:'#2f3656','stroke-width':1.8,fill:'none','marker-end':'url(#ar)'})}
+function vlabel(x,y,t,rot){el('text',{transform:`rotate(${rot||-90} ${x} ${y})`,x,y,'text-anchor':'middle','font-size':11,'font-weight':500,fill:INK},t)}
+function pill(cx,cy,t){const w=t.length*6+20;el('rect',{x:cx-w/2,y:cy-10,width:w,height:20,rx:10,fill:'#fff',stroke:'#cfc8bb'});el('text',{x:cx,y:cy+4,'text-anchor':'middle','font-size':11,fill:INK},t)}
+
+/* 1 Actors  x20..540 y20 */
+container(20,20,520,174,'1','Actors',C.A);
+grid(36,54,2,244,12,12,56,[
+ ['Student',['Class 9 to graduation']],
+ ['Teacher / mentor',['Assessed, matched, paid']],
+ ['Expert / admin',['Packs, safety holds, fraud']],
+ ['NGO / org / business',['Read-only dashboard']]
+],C.A);
+
+/* 2 Client x20 y220 w240 */
+container(20,220,240,454,'2','Client: React PWA',C.B);
+grid(36,254,1,208,0,12,92,[
+ ['Role-based screens',['Student, teacher, org portals','Big icons, native fonts'],['React','Vite']],
+ ['Voice capture',['Record audio, send to backend','Browser speech as fallback'],['MediaRecorder']],
+ ['Offline and sync',['Cached shell; event log in','browser replays when online'],['Workbox','Dexie']],
+ ['Evidence capture',['Guided shots, challenge slate,','compress, resumable upload'],['getUserMedia']]
+],C.B);
+
+/* 3 Gateway x300 y220 w240 */
+container(300,220,240,454,'3','Edge and API gateway',C.C);
+grid(316,254,1,208,0,12,92,[
+ ['Proxy and TLS',['HTTPS needed for mic, camera','and service worker'],['Caddy','Nginx']],
+ ['Auth',['Mobile OTP, short JWT,','role check on every route'],['PyJWT']],
+ ['Limits, validation',['Per-user AI limits, upload','caps, schema checks'],['Pydantic']],
+ ['Hosting',['Container host (demo),','managed VM (pilot)'],['Docker','Render']]
+],C.C);
+
+/* 4 Backend x580 y20 w560 h654 */
+container(580,20,560,654,'4','Backend: FastAPI modular monolith',C.D);
+grid(596,54,2,258,12,10,88,[
+ ['Identity and profile',['Roles, shared-phone PIN, consent,','Khoj Passport QR (offline verify)']],
+ ['Voice orchestrator',['Audio to ASR, translate, reason,','translate back, TTS, confirm-back']],
+ ['Career engine',['5 to 10 ranked paths, non-STEM','included, career graph walk']],
+ ['Knowledge hub',['Retrieval with citations; learning','hub, then job hub per stage']],
+ ['Rules engine',['Scheme-as-code: eligible, not','eligible, or check with the office']],
+ ['Teacher matching',['Skill .35, lang .20, avail .15,','trust .20, proximity .10']],
+ ['Practical-work review',['Quality + integrity gates, course','pack, two-pass model, router']],
+ ['Teacher review',['Decision, safety hold, blind','audits, labels for calibration']],
+ ['Payout ledger',['Milestone entries; held on','fraud or safety flags']],
+ ['Opportunity connector',['Source registry: api, open data,','curated, first party, link-out']],
+ ['Notifications',['Event rules, user language,','retries, quiet hours']],
+ ['Analytics and admin',['Daily rollups, k-anonymity,','packs, approvals, fraud queue']]
+],C.D);
+chips(596,640,['FastAPI','Uvicorn','Motor','APScheduler'],C.D);
+
+/* 5 AI x1180 y20 w600 h262 */
+container(1180,20,600,262,'5','AI and language layer',C.E1);
+grid(1196,54,3,186,12,12,100,[
+ ['Bhashini',['ASR, translation, TTS via','pipeline API; English pivot'],['ASR','NMT','TTS']],
+ ['Reasoning LLM',['Career reasoning, grounded','answers, JSON-only output'],['Hosted LLM']],
+ ['Multimodal vision',['Reads work photos vs course','pack; two separate passes'],['Vision LLM']],
+ ['Embeddings',['384-d multilingual vectors','for hub and mentor match'],['e5-small']],
+ ['Image gates',['Blur, exposure, resolution,','pHash reuse, EXIF time'],['OpenCV','imagehash']],
+ ['Fallbacks',['Browser speech, typed input','when an API is slow/limited'],['Web Speech']]
+],C.E1);
+
+/* 6 Data x1180 y302 w600 h312 */
+container(1180,302,600,312,'6','Data layer: MongoDB only',C.E2);
+box(1196,336,568,150,'MongoDB Atlas (about 30 collections)',[
+ 'users, profiles, career_nodes, career_edges, opportunities, rules, kb_chunks,',
+ 'mentors, assignments, submissions, evidence, analyses, review_decisions,',
+ 'course_packs, payouts, notifications, events, metrics_daily, audits'],
+ ['$vectorSearch','Atlas Search','$graphLookup','$merge'],C.E2);
+box(1196,498,278,100,'Photo and audio storage',['GridFS in demo, S3-compatible','in pilot; free tier is 512 MB'],[],C.E2);
+box(1486,498,278,100,'Index budget (free tier)',['3 search or vector indexes total:','kb_vec, mentor_vec, opp_text'],[],C.E2);
+
+/* 7 External x20 y714 w1120 h156 */
+container(20,714,1120,156,'7','External sources (through the source registry)',C.F1);
+grid(36,748,4,262,12,0,100,[
+ ['Jobs and apprenticeships',['NCS, NATS 2.0, NAPS, Skill India','Digital Hub, DDU-GKY, RSETI,','PM Vishwakarma']],
+ ['Scholarships and schemes',['National Scholarship Portal,','myScheme, Buddy4Study']],
+ ['Learning (MOOCs)',['SWAYAM, NPTEL, DIKSHA, NIOS']],
+ ['Last-mile help',['CSC network for in-person','help with forms and visits']]
+],C.F1);
+
+/* 8 Outbound x1180 y634 w600 h236 */
+container(1180,634,600,236,'8','Outbound: notifications and dashboard',C.F2);
+box(1196,668,568,88,'Notifications (user language, with voice playback)',['Reminders, feedback, safety stops, payout updates'],['SMS','WhatsApp','Web Push'],C.F2);
+box(1196,766,568,88,'Org dashboard (NGOs, local businesses)',['Village, skill, stage, outcome from daily rollups'],['Recharts','CSV'],C.F2);
+
+/* arrows */
+arrow(145,194,145,220);pill(145,207,'HTTPS, JSON, photos, audio');
+arrow(280,194,280,220);
+arrow(260,300,300,300);vlabel(280,430,'REST + JWT');
+arrow(540,100,580,100);vlabel(560,230,'internal calls');
+arrow(1140,100,1180,100);vlabel(1160,210,'ASR, LLM, embeddings, image checks');
+arrow(1140,380,1180,380);vlabel(1160,490,'queries, writes, vectors');
+el('path',{d:'M1140 640H1160V752H1180',stroke:'#2f3656','stroke-width':1.8,fill:'none','marker-end':'url(#ar)'});
+arrow(860,714,860,674);pill(860,694,'scheduled fetch, curated import');
+</script>
+</body>
+</html>
